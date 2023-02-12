@@ -22,12 +22,12 @@ class _RegisterPageState extends State<RegisterPage> {
     final FirebaseAuth _auth = FirebaseAuth.instance;
     var currentuser = _auth.currentUser;
 
-    final _CollectionReference =
-        await FirebaseFirestore.instance.collection("User_data").doc();
+    final _CollectionReference = await FirebaseFirestore.instance
+        .collection("User_data")
+        .doc(_emailcontroller.text);
     return _CollectionReference.set({
       "Name": _NameController.text,
       "email": _emailcontroller.text,
-      "password": _passwordcontroller.text
     }).catchError((onError) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text("ERROR ${onError.toString()}"),

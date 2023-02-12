@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tourism/auth/forgot.dart';
 import 'package:tourism/auth/register_page.dart';
 import 'package:tourism/auth/firebase_helper/firebase_service.dart';
 import 'package:tourism/main.dart';
@@ -161,10 +162,27 @@ class _LoginPageState extends State<LoginPage> {
                   height: 50,
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(left: 10 / 2),
+                      padding: EdgeInsets.only(left: 5),
+                      child: Container(
+                          alignment: Alignment.bottomLeft,
+                          child: TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => GetEmail()));
+                              },
+                              child: Text(
+                                " Forgot Password ?",
+                                style: TextStyle(
+                                    fontSize: 13, color: Colors.white),
+                              ))),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(right: 5),
                       child: Container(
                           alignment: Alignment.bottomRight,
                           child: TextButton(

@@ -36,7 +36,9 @@ class _PlaceListState extends State<PlaceList> {
           "entry": qn.docs[i]["entry"],
           "phno": qn.docs[i]["phno"],
           "rating": qn.docs[i]["rating"],
-          "time": qn.docs[i]["time"]
+          "time": qn.docs[i]["time"],
+          "lat": qn.docs[i]["lat"],
+          "long": qn.docs[i]["long"]
         });
       }
     });
@@ -53,53 +55,111 @@ class _PlaceListState extends State<PlaceList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SingleChildScrollView(
-      scrollDirection: Axis.vertical,
-      child: Column(children: [
-        Container(
-          child: Image.network(widget.img),
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          leading: IconButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              icon: Icon(Icons.arrow_back_ios_new)),
         ),
-        ListView.builder(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            scrollDirection: Axis.vertical,
-            itemExtent: 100.0,
-            itemCount: places.length,
-            itemBuilder: (context, i) {
-              return ListTile(
-                onTap: () async {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => PlaceDetails(
-                                address: places[i]["address"],
-                                des: places[i]["des"],
-                                entry: places[i]["entry"],
-                                img: places[i]["img"],
-                                name: places[i]["name"],
-                                phno: places[i]["phno"],
-                                rating: places[i]["rating"],
-                                time: places[i]["time"],
-                              )));
-                },
-                title: Text(
-                  places[i]["name"],
-                ),
-                trailing: Container(
-                  child: Text(places[i]["rating"]),
-                ),
-                leading: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Image.network(
-                    places[i]["img"],
-                    width: 100,
-                    height: 100,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              );
-            }),
-      ]),
-    ));
+        body: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(children: [
+            Stack(children: [
+              Image.network(
+                widget.img,
+                height: 250,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
+              Align(
+                  alignment: Alignment.center,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 100,
+                      ),
+                      Text(
+                        widget.name + "...",
+                        style: TextStyle(
+                            fontFamily: "Splash",
+                            fontSize: 60,
+                            color: Colors.white),
+                      ),
+                    ],
+                  )),
+            ]),
+            // Text(
+            //   widget.name + " Welcome's you ! ",
+            //   style: TextStyle(fontSize: 35, fontFamily: "Pacifico"),
+            // ),
+            ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                scrollDirection: Axis.vertical,
+                itemExtent: 100,
+                itemCount: places.length,
+                itemBuilder: (context, i) {
+                  return ListTile(
+                    onTap: () async {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PlaceDetails(
+                                    lat: places[i]["lat"],
+                                    long: places[i]["long"],
+                                    address: places[i]["address"],
+                                    des: places[i]["des"],
+                                    entry: places[i]["entry"],
+                                    img: places[i]["img"],
+                                    name: places[i]["name"],
+                                    phno: places[i]["phno"],
+                                    rating: places[i]["rating"],
+                                    time: places[i]["time"],
+                                  )));
+                    },
+                    title: Text(
+                      places[i]["name"],
+                    ),
+                    trailing: Container(
+                      child: Wrap(
+                        spacing: 2, // space between two icons
+                        children: [
+                          Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                            size: 18,
+                          ), // icon-1
+                          Text(
+                            places[i]["rating"],
+                            style: TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.bold),
+                          ) // icon-2
+                        ],
+                      ),
+                    ),
+                    leading: SizedBox(
+                      height: 250,
+                      width: 130,
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(
+                            maxHeight: 250,
+                            maxWidth: 200,
+                            minHeight: 100,
+                            minWidth: 100),
+                        child: Image.network(
+                          places[i]["img"],
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  );
+                }),
+          ]),
+        ));
   }
 }

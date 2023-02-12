@@ -3,34 +3,34 @@ import 'package:share_plus/share_plus.dart';
 import 'package:tourism/map/place_direction.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class PlaceDetails extends StatefulWidget {
+class HotelFullDetails extends StatefulWidget {
   var img;
   var name;
+  var place;
+  var phno;
+  var cost;
   var rating;
-  var entry;
-  var des;
   var address;
-  var time;
+  var details;
   var lat;
   var long;
-  var phno;
-  PlaceDetails(
-      {this.address,
-      this.des,
-      this.entry,
-      this.img,
-      this.name,
-      this.phno,
-      this.rating,
-      this.lat,
-      this.long,
-      this.time});
-
+  HotelFullDetails({
+    this.address,
+    this.cost,
+    this.lat,
+    this.long,
+    this.details,
+    this.img,
+    this.name,
+    this.phno,
+    this.place,
+    this.rating,
+  });
   @override
-  State<PlaceDetails> createState() => _PlaceDetailsState();
+  State<HotelFullDetails> createState() => _HotelFullDetailsState();
 }
 
-class _PlaceDetailsState extends State<PlaceDetails> {
+class _HotelFullDetailsState extends State<HotelFullDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,6 +72,16 @@ class _PlaceDetailsState extends State<PlaceDetails> {
               ),
             ),
             Padding(
+              padding: const EdgeInsets.only(left: 10.0),
+              child: Text(
+                widget.place,
+                style: TextStyle(
+                    color: Colors.grey,
+                    fontFamily: "JosefinSans",
+                    fontSize: 16),
+              ),
+            ),
+            Padding(
               padding: const EdgeInsets.only(left: 10),
               child: Row(
                 children: [
@@ -93,7 +103,7 @@ class _PlaceDetailsState extends State<PlaceDetails> {
                     style: TextStyle(
                         color: Colors.green, fontFamily: "Josefinsans"),
                   ),
-                  Text(widget.time),
+                  Text("Always Available"),
                 ],
               ),
             ),
@@ -235,12 +245,12 @@ class _PlaceDetailsState extends State<PlaceDetails> {
               padding: const EdgeInsets.only(left: 10, right: 10),
               child: Row(
                 children: [
-                  Text("Entry: ",
+                  Text("Cost: ",
                       style: TextStyle(
                           fontSize: 16,
                           fontFamily: "JosefinSans",
                           color: Color.fromARGB(255, 250, 134, 126))),
-                  Text("Rs: " + widget.entry,
+                  Text("Rs: " + widget.cost,
                       style: TextStyle(
                         fontSize: 15,
                       )),
@@ -260,7 +270,7 @@ class _PlaceDetailsState extends State<PlaceDetails> {
                           fontSize: 16,
                           fontFamily: "JosefinSans",
                           color: Color.fromARGB(255, 250, 134, 126))),
-                  Text("  " + widget.des,
+                  Text("  " + widget.details,
                       style: TextStyle(
                         fontSize: 15,
                       )),
