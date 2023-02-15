@@ -137,6 +137,7 @@ class _PlaceDetailsState extends State<PlaceDetails> {
                     )),
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.transparent,
                       elevation: 0,
                       shape: RoundedRectangleBorder(
                         side: BorderSide(color: Colors.black),
@@ -157,12 +158,13 @@ class _PlaceDetailsState extends State<PlaceDetails> {
                         ),
                         Text(
                           "Call",
-                          // style: TextStyle(color: Colors.green),
+                          style: TextStyle(color: Colors.black),
                         )
                       ],
                     )),
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.transparent,
                       elevation: 0,
                       shape: RoundedRectangleBorder(
                         side: BorderSide(color: Colors.black),
@@ -183,7 +185,7 @@ class _PlaceDetailsState extends State<PlaceDetails> {
                         ),
                         Text(
                           "Share",
-                          // style: TextStyle(color: Colors.blue),
+                          style: TextStyle(color: Colors.black),
                         )
                       ],
                     ))

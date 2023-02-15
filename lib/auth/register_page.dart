@@ -45,7 +45,7 @@ class _RegisterPageState extends State<RegisterPage> {
     return Container(
         decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage('images/welcome5.jpg'), fit: BoxFit.cover)),
+                image: AssetImage('images/welcome2.jpeg'), fit: BoxFit.cover)),
         child: Scaffold(
           appBar: AppBar(
               elevation: 0,

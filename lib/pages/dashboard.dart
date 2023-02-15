@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:tourism/dash_board_four_pages/hotel.dart';
 import 'package:tourism/details/hotel_full.dart';
 import 'package:tourism/details/place_list.dart';
 import 'package:tourism/helper/icons.dart';
@@ -233,7 +234,12 @@ class _DashBoardState extends State<DashBoard> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    DashBoardIcon(icon: Icons.house_outlined),
+                    GestureDetector(
+                        onTap: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Hotel()));
+                        },
+                        child: DashBoardIcon(icon: Icons.house_outlined)),
                     DashBoardIcon(icon: Icons.restaurant_menu_outlined),
                     DashBoardIcon(icon: Icons.directions_bike_outlined),
                     DashBoardIcon(

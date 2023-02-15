@@ -27,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
         body: Stack(children: [
       Image.asset(
-        'images/welcome5.jpg',
+        'images/welcome2.jpeg',
         width: double.infinity,
         height: double.infinity,
         fit: BoxFit.cover,
@@ -178,7 +178,7 @@ class _LoginPageState extends State<LoginPage> {
                               child: Text(
                                 " Forgot Password ?",
                                 style: TextStyle(
-                                    fontSize: 13, color: Colors.white),
+                                    fontSize: 13, color: Colors.black),
                               ))),
                     ),
                     Padding(
@@ -195,7 +195,7 @@ class _LoginPageState extends State<LoginPage> {
                               child: Text(
                                 "Don't have an Account?   ",
                                 style: TextStyle(
-                                    fontSize: 13, color: Colors.white),
+                                    fontSize: 13, color: Colors.black),
                               ))),
                     ),
                   ],

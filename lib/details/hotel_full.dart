@@ -56,6 +56,7 @@ class _HotelFullDetailsState extends State<HotelFullDetails> {
             Image.network(
               widget.img,
               fit: BoxFit.cover,
+              width: double.infinity,
               height: 300,
             ),
             SizedBox(
@@ -147,6 +148,7 @@ class _HotelFullDetailsState extends State<HotelFullDetails> {
                     )),
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.transparent,
                       elevation: 0,
                       shape: RoundedRectangleBorder(
                         side: BorderSide(color: Colors.black),
@@ -167,12 +169,13 @@ class _HotelFullDetailsState extends State<HotelFullDetails> {
                         ),
                         Text(
                           "Call",
-                          // style: TextStyle(color: Colors.green),
+                          style: TextStyle(color: Colors.black),
                         )
                       ],
                     )),
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.transparent,
                       elevation: 0,
                       shape: RoundedRectangleBorder(
                         side: BorderSide(color: Colors.black),
@@ -193,7 +196,7 @@ class _HotelFullDetailsState extends State<HotelFullDetails> {
                         ),
                         Text(
                           "Share",
-                          // style: TextStyle(color: Colors.blue),
+                          style: TextStyle(color: Colors.black),
                         )
                       ],
                     ))
