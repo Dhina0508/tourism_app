@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tourism/auth/login_page.dart';
 import 'package:tourism/pages/Myprofile.dart';
 import 'package:tourism/pages/dashboard.dart';
+import 'package:tourism/pages/fav.dart';
 import 'package:tourism/pages/feed.dart';
 import 'firebase_options.dart';
 
@@ -31,7 +32,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int _currentindex = 0;
-  final Screens = [DashBoard(), Feed(), MyProfile()];
+  final Screens = [DashBoard(), Fav(), Feed(), MyProfile()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,11 +44,15 @@ class _HomeState extends State<Home> {
         selectedFontSize: 15,
         unselectedFontSize: 12,
         unselectedItemColor: Colors.grey,
-        selectedItemColor: Colors.black,
+        selectedItemColor: Color.fromARGB(255, 249, 109, 99),
         showUnselectedLabels: true,
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
             label: '',
           ),
           BottomNavigationBarItem(

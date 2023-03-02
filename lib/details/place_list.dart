@@ -54,112 +54,138 @@ class _PlaceListState extends State<PlaceList> {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
     return Scaffold(
-        extendBodyBehindAppBar: true,
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-          leading: IconButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              icon: Icon(Icons.arrow_back_ios_new)),
+        extendBodyBehindAppBar: false,
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(220),
+          child: AppBar(
+            flexibleSpace: ClipRRect(
+              borderRadius: BorderRadius.only(
+                  bottomRight: Radius.circular(50),
+                  bottomLeft: Radius.circular(50)),
+              child: Container(
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: NetworkImage(
+                          widget.img,
+                        ),
+                        fit: BoxFit.cover)),
+              ),
+            ),
+            automaticallyImplyLeading: false,
+            elevation: 0,
+            centerTitle: true,
+            title: Text(
+              widget.name,
+              style: TextStyle(
+                  fontSize: 30, fontFamily: "Cinzel", color: Colors.white),
+            ),
+            backgroundColor: Colors.transparent,
+            leading: IconButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                icon: Icon(Icons.arrow_back_ios_new)),
+          ),
         ),
         body: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Column(children: [
-            Stack(children: [
-              Image.network(
-                widget.img,
-                height: 250,
-                width: double.infinity,
-                fit: BoxFit.cover,
-              ),
-              Align(
-                  alignment: Alignment.center,
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 100,
-                      ),
-                      Text(
-                        widget.name + "...",
-                        style: TextStyle(
-                            fontFamily: "Splash",
-                            fontSize: 60,
-                            color: Colors.white),
-                      ),
-                    ],
-                  )),
-            ]),
-            // Text(
-            //   widget.name + " Welcome's you ! ",
-            //   style: TextStyle(fontSize: 35, fontFamily: "Pacifico"),
-            // ),
-            ListView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                scrollDirection: Axis.vertical,
-                itemExtent: 100,
-                itemCount: places.length,
-                itemBuilder: (context, i) {
-                  return ListTile(
-                    onTap: () async {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => PlaceDetails(
-                                    lat: places[i]["lat"],
-                                    long: places[i]["long"],
-                                    address: places[i]["address"],
-                                    des: places[i]["des"],
-                                    entry: places[i]["entry"],
-                                    img: places[i]["img"],
-                                    name: places[i]["name"],
-                                    phno: places[i]["phno"],
-                                    rating: places[i]["rating"],
-                                    time: places[i]["time"],
-                                  )));
-                    },
-                    title: Text(
-                      places[i]["name"],
-                    ),
-                    trailing: Container(
-                      child: Wrap(
-                        spacing: 2, // space between two icons
+            scrollDirection: Axis.vertical,
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 30,
+                ),
+                places.length > 1
+                    ? ListView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        scrollDirection: Axis.vertical,
+                        itemExtent: 100,
+                        itemCount: places.length,
+                        itemBuilder: (context, i) {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: GestureDetector(
+                              onTap: () async {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => PlaceDetails(
+                                              lat: places[i]["lat"],
+                                              long: places[i]["long"],
+                                              address: places[i]["address"],
+                                              des: places[i]["des"],
+                                              entry: places[i]["entry"],
+                                              img: places[i]["img"],
+                                              name: places[i]["name"],
+                                              phno: places[i]["phno"],
+                                              rating: places[i]["rating"],
+                                              time: places[i]["time"],
+                                            )));
+                              },
+                              child: Card(
+                                elevation: 10,
+                                child: Container(
+                                  child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Expanded(
+                                            child: Container(
+                                          decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: NetworkImage(
+                                                    places[i]["img"],
+                                                  ),
+                                                  fit: BoxFit.cover)),
+                                        )),
+                                        Expanded(
+                                            child: Container(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  Text(
+                                                    places[i]["name"],
+                                                  ),
+                                                  Wrap(spacing: 2, children: [
+                                                    Icon(
+                                                      Icons.star,
+                                                      color: Colors.amber,
+                                                      size: 18,
+                                                    ),
+                                                    Text(places[i]["rating"])
+                                                  ]),
+                                                ]),
+                                          ),
+                                        )),
+                                      ]),
+                                ),
+                              ),
+                            ),
+                          );
+                        })
+                    : Column(
                         children: [
-                          Icon(
-                            Icons.star,
-                            color: Colors.amber,
-                            size: 18,
-                          ), // icon-1
-                          Text(
-                            places[i]["rating"],
-                            style: TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.bold),
-                          ) // icon-2
+                          SizedBox(
+                            height: 250,
+                          ),
+                          Center(
+                            child: Text(
+                              "Not yet uploaded",
+                              style: TextStyle(
+                                  fontSize: 15, fontFamily: 'Josefinsans'),
+                            ),
+                          ),
                         ],
                       ),
-                    ),
-                    leading: SizedBox(
-                      height: 250,
-                      width: 130,
-                      child: ConstrainedBox(
-                        constraints: BoxConstraints(
-                            maxHeight: 250,
-                            maxWidth: 200,
-                            minHeight: 100,
-                            minWidth: 100),
-                        child: Image.network(
-                          places[i]["img"],
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  );
-                }),
-          ]),
-        ));
+              ],
+            )));
   }
 }

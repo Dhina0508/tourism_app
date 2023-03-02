@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tourism/pages/fav.dart';
 
 import '../auth/firebase_helper/firebase_service.dart';
 
@@ -57,9 +58,9 @@ class _MyProfileState extends State<MyProfile> {
                     child: Stack(children: [
                   Center(
                     child: Image.asset(
-                      "images/man.png",
+                      "images/welcome.jpg",
                       fit: BoxFit.cover,
-                      color: Colors.white70.withOpacity(0.05),
+                      color: Colors.white70.withOpacity(0.06),
                       colorBlendMode: BlendMode.modulate,
                     ),
                   ),
@@ -67,7 +68,7 @@ class _MyProfileState extends State<MyProfile> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SizedBox(
-                        height: 50,
+                        height: 30,
                       ),
                       Row(
                         children: [
@@ -113,16 +114,12 @@ class _MyProfileState extends State<MyProfile> {
                             height: 100,
                             width: 250,
                             child: Center(
-                              child: Card(
-                                elevation: 5,
-                                shadowColor: Color.fromARGB(255, 247, 112, 102),
-                                child: Text(
-                                  "${data["email"]}",
-                                  style: TextStyle(
-                                    fontFamily: "JosefinSans",
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20,
-                                  ),
+                              child: Text(
+                                "${data["email"]}",
+                                style: TextStyle(
+                                  fontFamily: "JosefinSans",
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
                                 ),
                               ),
                             ),
@@ -139,7 +136,10 @@ class _MyProfileState extends State<MyProfile> {
                         height: 20,
                       ),
                       ListTile(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Fav()));
+                        },
                         title: Text("Favourite"),
                         leading: Icon(Icons.favorite),
                       ),

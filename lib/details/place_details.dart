@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:tourism/map/place_direction.dart';
@@ -30,7 +32,35 @@ class PlaceDetails extends StatefulWidget {
   State<PlaceDetails> createState() => _PlaceDetailsState();
 }
 
+bool tap = true;
+var change = "";
+
 class _PlaceDetailsState extends State<PlaceDetails> {
+  Future addtofav() async {
+    final FirebaseAuth _auth = FirebaseAuth.instance;
+    var currentUser = _auth.currentUser;
+    CollectionReference _collectionref =
+        FirebaseFirestore.instance.collection("fav_places");
+    return _collectionref
+        .doc(currentUser!.email)
+        .collection("places")
+        .doc()
+        .set({
+      'name': widget.name,
+      'rating': widget.rating,
+      'img': widget.img,
+    }).then((value) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(
+          "Added to Fav!!",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.green,
+      ));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +75,43 @@ class _PlaceDetailsState extends State<PlaceDetails> {
             },
             icon: Icon(Icons.arrow_back_ios_new)),
         actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.favorite_border))
+          StreamBuilder(
+            stream: FirebaseFirestore.instance
+                .collection("fav_places")
+                .doc(FirebaseAuth.instance.currentUser!.email)
+                .collection("places")
+                .where("name", isEqualTo: widget.name)
+                .snapshots(),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.data == null) {
+                return Text("");
+              }
+              return IconButton(
+                onPressed: () => snapshot.data.docs.length == 0
+                    ? addtofav()
+                    : SnackBar(
+                        content: Text(
+                          "Already Added ",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        behavior: SnackBarBehavior.floating,
+                        backgroundColor: Colors.green,
+                      ),
+                icon: snapshot.data.docs.length == 0
+                    ? Icon(
+                        Icons.favorite_outline,
+                        color: Colors.white,
+                      )
+                    : Icon(
+                        Icons.favorite,
+                        color: Colors.red,
+                      ),
+              );
+            },
+          ),
+          SizedBox(
+            width: 10,
+          )
         ],
       ),
       body: SingleChildScrollView(
@@ -295,5 +361,11 @@ class _PlaceDetailsState extends State<PlaceDetails> {
         ),
       ),
     );
+  }
+
+  void fav_icon() {
+    setState(() {
+      tap = !tap;
+    });
   }
 }
