@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:tourism/map/place_direction.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class PlaceDetails extends StatefulWidget {
@@ -36,6 +35,17 @@ bool tap = true;
 var change = "";
 
 class _PlaceDetailsState extends State<PlaceDetails> {
+  static Future<void> openMAp(double lat, double long) async {
+    String googlemapUrl =
+        "https://www.google.com/maps/search/?api=1&query=$lat,$long";
+
+    if (await canLaunch(googlemapUrl)) {
+      await launch(googlemapUrl);
+    } else {
+      throw "Could not Open the Map";
+    }
+  }
+
   Future addtofav() async {
     final FirebaseAuth _auth = FirebaseAuth.instance;
     var currentUser = _auth.currentUser;
@@ -177,14 +187,16 @@ class _PlaceDetailsState extends State<PlaceDetails> {
                       ),
                     ),
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => PlaceDirection(
-                                    latitude: widget.lat,
-                                    longitude: widget.long,
-                                    name: widget.name,
-                                  )));
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (context) => PlaceDirection(
+                      //               latitude: widget.lat,
+                      //               longitude: widget.long,
+                      //               name: widget.name,
+                      //             )));
+                      openMAp(
+                          double.parse(widget.long), double.parse(widget.lat));
                     },
                     child: Row(
                       children: [

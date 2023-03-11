@@ -68,7 +68,7 @@ class _MyProfileState extends State<MyProfile> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SizedBox(
-                        height: 30,
+                        height: 50,
                       ),
                       Row(
                         children: [
@@ -93,11 +93,16 @@ class _MyProfileState extends State<MyProfile> {
                           Spacer(),
                           Text(
                             "${data["Name"]}",
-                            style:
-                                TextStyle(fontSize: 20, fontFamily: "Cinzel"),
+                            style: TextStyle(
+                                fontSize: 25,
+                                color: Color.fromARGB(255, 245, 113, 104),
+                                fontFamily: "Cinzel"),
                           ),
                           Spacer()
                         ],
+                      ),
+                      SizedBox(
+                        height: 50,
                       ),
                       Row(
                         children: [
@@ -111,7 +116,7 @@ class _MyProfileState extends State<MyProfile> {
                             ),
                           ),
                           SizedBox(
-                            height: 100,
+                            height: 40,
                             width: 250,
                             child: Center(
                               child: Text(
@@ -141,7 +146,10 @@ class _MyProfileState extends State<MyProfile> {
                               MaterialPageRoute(builder: (context) => Fav()));
                         },
                         title: Text("Favourite"),
-                        leading: Icon(Icons.favorite),
+                        leading: Icon(
+                          Icons.favorite,
+                          color: Color.fromARGB(255, 246, 120, 111),
+                        ),
                       ),
                       SizedBox(
                         height: 20,
@@ -149,7 +157,8 @@ class _MyProfileState extends State<MyProfile> {
                       ListTile(
                         onTap: () {},
                         title: Text("Visited Places"),
-                        leading: Icon(Icons.location_city_rounded),
+                        leading: Icon(Icons.location_city_rounded,
+                            color: Color.fromARGB(255, 246, 120, 111)),
                       ),
                       SizedBox(
                         height: 20,
@@ -157,7 +166,8 @@ class _MyProfileState extends State<MyProfile> {
                       ListTile(
                         onTap: () {},
                         title: Text("Settings"),
-                        leading: Icon(Icons.settings),
+                        leading: Icon(Icons.settings,
+                            color: Color.fromARGB(255, 246, 120, 111)),
                       ),
                       SizedBox(
                         height: 20,
@@ -169,8 +179,9 @@ class _MyProfileState extends State<MyProfile> {
                               await SharedPreferences.getInstance();
                           pref.remove("email");
                         },
-                        title: Text("Sign Out"),
-                        leading: Icon(Icons.logout),
+                        title: Text("Log Out"),
+                        leading: Icon(Icons.logout,
+                            color: Color.fromARGB(255, 246, 120, 111)),
                       ),
                     ],
                   ),

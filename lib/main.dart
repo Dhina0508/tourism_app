@@ -6,7 +6,7 @@ import 'package:tourism/auth/login_page.dart';
 import 'package:tourism/pages/Myprofile.dart';
 import 'package:tourism/pages/dashboard.dart';
 import 'package:tourism/pages/fav.dart';
-import 'package:tourism/pages/feed.dart';
+import 'package:tourism/pages/serach.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -32,7 +32,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int _currentindex = 0;
-  final Screens = [DashBoard(), Fav(), Feed(), MyProfile()];
+  final Screens = [DashBoard(), Fav(), Search(), MyProfile()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(

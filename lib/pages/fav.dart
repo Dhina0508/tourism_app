@@ -49,94 +49,104 @@ class _FavState extends State<Fav> {
                   itemBuilder: (_, index) {
                     DocumentSnapshot _documentSnapshot =
                         snapshot.data!.docs[index];
-                    return Card(
-                      elevation: 3,
-                      color: Colors.white,
-                      // margin:
-                      //     EdgeInsets.only(left: 10, right: 10, bottom: 10),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
-                      child: SingleChildScrollView(
-                        child: Container(
-                            child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                              Expanded(
-                                  child: Container(
-                                decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: NetworkImage(
-                                          _documentSnapshot['img'],
-                                        ),
-                                        fit: BoxFit.cover)),
-                              )),
-                              Expanded(
-                                  child: Container(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Text(
-                                          _documentSnapshot['name'],
-                                        ),
-                                        Wrap(spacing: 2, children: [
-                                          Icon(
-                                            Icons.star,
-                                            color: Colors.amber,
-                                            size: 18,
-                                          ),
-                                          Text(_documentSnapshot['rating'])
-                                        ]),
-                                      ]),
-                                ),
-                              )),
-                              Container(
-                                width: 100,
-                                color: Colors.white,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      child: Card(
+                        elevation: 3,
+                        color: Colors.white,
+                        // margin:
+                        //     EdgeInsets.only(left: 10, right: 10, bottom: 10),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        child: SingleChildScrollView(
+                          child: Container(
+                              child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    IconButton(
-                                        onPressed: () {
-                                          FirebaseFirestore.instance
-                                              .collection("fav_places")
-                                              .doc(FirebaseAuth
-                                                  .instance.currentUser!.email)
-                                              .collection("places")
-                                              .doc(_documentSnapshot.id)
-                                              .delete();
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(SnackBar(
-                                            content: Container(
-                                              padding: EdgeInsets.all(16),
-                                              decoration: BoxDecoration(
-                                                  color: Colors.red,
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(20))),
-                                              child: Text(
-                                                "Item removed from cart!!",
-                                                style: TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                            ),
-                                            behavior: SnackBarBehavior.fixed,
-                                            backgroundColor: Colors.transparent,
-                                            elevation: 0,
-                                          ));
-                                        },
-                                        icon:
-                                            Icon(Icons.remove_circle_outlined))
-                                  ],
+                                Container(
+                                  width: 150,
+                                  height: 100,
+                                  child: Image.network(
+                                    _documentSnapshot['img'],
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
-                              ),
-                            ])),
+                                Expanded(
+                                    child: Container(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            _documentSnapshot['name'],
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: 20.0),
+                                            child: Row(
+                                              children: [
+                                                Icon(
+                                                  Icons.star,
+                                                  color: Colors.amber,
+                                                  size: 18,
+                                                ),
+                                                Text(" " +
+                                                    _documentSnapshot[
+                                                        'rating']),
+                                              ],
+                                            ),
+                                          )
+                                        ]),
+                                  ),
+                                )),
+                                Container(
+                                  width: 100,
+                                  color: Colors.white,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      IconButton(
+                                          onPressed: () {
+                                            FirebaseFirestore.instance
+                                                .collection("fav_places")
+                                                .doc(FirebaseAuth.instance
+                                                    .currentUser!.email)
+                                                .collection("places")
+                                                .doc(_documentSnapshot.id)
+                                                .delete();
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(SnackBar(
+                                              content: Container(
+                                                padding: EdgeInsets.all(16),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.red,
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                20))),
+                                                child: Text(
+                                                  "Item removed from cart!!",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                              ),
+                                              behavior: SnackBarBehavior.fixed,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              elevation: 0,
+                                            ));
+                                          },
+                                          icon: Icon(
+                                              Icons.remove_circle_outlined))
+                                    ],
+                                  ),
+                                ),
+                              ])),
+                        ),
                       ),
                     );
                   },

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:tourism/map/place_direction.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HotelFullDetails extends StatefulWidget {
@@ -31,6 +30,17 @@ class HotelFullDetails extends StatefulWidget {
 }
 
 class _HotelFullDetailsState extends State<HotelFullDetails> {
+  static Future<void> openMAp(double lat, double long) async {
+    String googlemapUrl =
+        "https://www.google.com/maps/search/?api=1&query=$lat,$long";
+
+    if (await canLaunch(googlemapUrl)) {
+      await launch(googlemapUrl);
+    } else {
+      throw "Could not Open the Map";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -122,14 +132,8 @@ class _HotelFullDetailsState extends State<HotelFullDetails> {
                       ),
                     ),
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => PlaceDirection(
-                                    latitude: widget.lat,
-                                    longitude: widget.long,
-                                    name: widget.name,
-                                  )));
+                      openMAp(
+                          double.parse(widget.lat), double.parse(widget.long));
                     },
                     child: Row(
                       children: [

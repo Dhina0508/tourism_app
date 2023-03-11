@@ -41,6 +41,7 @@ dependencies:
   cloud_firestore: ^4.3.2
   shared_preferences: ^2.0.17
   firebase_database: ^10.0.10
+  carousel_slider: ^4.1.1
   dots_indicator: ^2.1.0
   google_maps_flutter: ^2.2.3
   geolocator: ^9.0.1
