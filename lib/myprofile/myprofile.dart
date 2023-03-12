@@ -68,7 +68,7 @@ class _MyProfileState extends State<MyProfile> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SizedBox(
-                        height: 50,
+                        height: 30,
                       ),
                       Row(
                         children: [
@@ -102,7 +102,7 @@ class _MyProfileState extends State<MyProfile> {
                         ],
                       ),
                       SizedBox(
-                        height: 50,
+                        height: 20,
                       ),
                       Row(
                         children: [
@@ -173,6 +173,15 @@ class _MyProfileState extends State<MyProfile> {
                         height: 20,
                       ),
                       ListTile(
+                        onTap: () {},
+                        title: Text("About"),
+                        leading: Icon(Icons.account_box_outlined,
+                            color: Color.fromARGB(255, 246, 120, 111)),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      ListTile(
                         onTap: () async {
                           service.signOut(context);
                           SharedPreferences pref =
@@ -188,8 +197,9 @@ class _MyProfileState extends State<MyProfile> {
                 ]));
               }
               return Center(
-                child: Text("Loading..."),
-              );
+                  child: CircularProgressIndicator(
+                color: Color.fromARGB(255, 243, 107, 97),
+              ));
             }));
   }
 }

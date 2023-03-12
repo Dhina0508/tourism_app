@@ -196,7 +196,7 @@ class _PlaceDetailsState extends State<PlaceDetails> {
                       //               name: widget.name,
                       //             )));
                       openMAp(
-                          double.parse(widget.long), double.parse(widget.lat));
+                          double.parse(widget.lat), double.parse(widget.long));
                     },
                     child: Row(
                       children: [

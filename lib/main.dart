@@ -3,11 +3,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tourism/auth/login_page.dart';
-import 'package:tourism/pages/Myprofile.dart';
 import 'package:tourism/pages/dashboard.dart';
 import 'package:tourism/pages/fav.dart';
-import 'package:tourism/pages/serach.dart';
+import 'package:tourism/pages/search.dart';
 import 'firebase_options.dart';
+import 'myprofile/Myprofile.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

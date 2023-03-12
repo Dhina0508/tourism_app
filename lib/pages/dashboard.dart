@@ -10,10 +10,10 @@ import 'package:tourism/details/hotel_full.dart';
 import 'package:tourism/details/place_list.dart';
 import 'package:tourism/helper/icons.dart';
 import 'package:tourism/map/current_loc.dart';
-import 'package:tourism/pages/Myprofile.dart';
-import 'package:tourism/pages/serach.dart';
+import 'package:tourism/pages/search.dart';
 
 import '../dash_board_four_pages/photography.dart';
+import '../myprofile/Myprofile.dart';
 
 class DashBoard extends StatefulWidget {
   DashBoard({Key? key}) : super(key: key);
@@ -113,7 +113,8 @@ class _DashBoardState extends State<DashBoard> {
                             items: _SlidingImages.map((item) => Container(
                                   width: double.infinity,
                                   decoration: BoxDecoration(
-                                      color: Colors.red.withOpacity(0.15),
+                                      color: Color.fromARGB(255, 249, 152, 145)
+                                          .withOpacity(0.15),
                                       image: DecorationImage(
                                         colorFilter: ColorFilter.mode(
                                             Colors.white.withOpacity(0.25),
@@ -432,103 +433,114 @@ class _DashBoardState extends State<DashBoard> {
                             itemExtent: 100.0,
                             itemCount: 3,
                             itemBuilder: (context, i) {
-                              return Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 10, right: 10, top: 15),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                HotelFullDetails(
-                                                  address: hotel[i]["address"],
-                                                  cost: hotel[i]["cost"],
-                                                  details: hotel[i]["details"],
-                                                  img: hotel[i]["img"],
-                                                  name: hotel[i]["name"],
-                                                  phno: hotel[i]["phno"],
-                                                  place: hotel[i]["place"],
-                                                  rating: hotel[i]["rating"],
-                                                  lat: hotel[i]["lat"],
-                                                  long: hotel[i]["long"],
-                                                )));
-                                  },
-                                  child: Container(
-                                    height: 200,
-                                    decoration: BoxDecoration(
-                                        // border: Border.all(
-                                        //   color: Colors.red,
-                                        //   width: 1,
-                                        // ),
-                                        borderRadius:
-                                            BorderRadius.circular(20)),
-                                    child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          Expanded(
-                                              child: Container(
-                                            decoration: BoxDecoration(
-                                                image: DecorationImage(
-                                                    image: NetworkImage(
-                                                      hotel[i]["img"],
-                                                    ),
-                                                    fit: BoxFit.cover)),
-                                          )),
-                                          Expanded(
-                                              child: Container(
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceEvenly,
-                                                  children: [
-                                                    Text(
-                                                      hotel[i]["name"],
-                                                    ),
-                                                    Divider(
-                                                        color: Color.fromARGB(
-                                                            255, 247, 127, 118),
-                                                        endIndent: 10,
-                                                        indent: 10,
-                                                        thickness: 1),
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceAround,
-                                                      children: [
-                                                        Text(
-                                                          hotel[i]["place"],
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.grey),
-                                                        ),
-                                                        Wrap(
-                                                            spacing: 2,
-                                                            children: [
-                                                              Icon(
-                                                                Icons.star,
+                              try {
+                                return Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 10, right: 10, top: 15),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  HotelFullDetails(
+                                                    address: hotel[i]
+                                                        ["address"],
+                                                    cost: hotel[i]["cost"],
+                                                    details: hotel[i]
+                                                        ["details"],
+                                                    img: hotel[i]["img"],
+                                                    name: hotel[i]["name"],
+                                                    phno: hotel[i]["phno"],
+                                                    place: hotel[i]["place"],
+                                                    rating: hotel[i]["rating"],
+                                                    lat: hotel[i]["lat"],
+                                                    long: hotel[i]["long"],
+                                                  )));
+                                    },
+                                    child: Container(
+                                      height: 200,
+                                      decoration: BoxDecoration(
+                                          // border: Border.all(
+                                          //   color: Colors.red,
+                                          //   width: 1,
+                                          // ),
+                                          borderRadius:
+                                              BorderRadius.circular(20)),
+                                      child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Expanded(
+                                                child: Container(
+                                              decoration: BoxDecoration(
+                                                  image: DecorationImage(
+                                                      image: NetworkImage(
+                                                        hotel[i]["img"],
+                                                      ),
+                                                      fit: BoxFit.cover)),
+                                            )),
+                                            Expanded(
+                                                child: Container(
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceEvenly,
+                                                    children: [
+                                                      Text(
+                                                        hotel[i]["name"],
+                                                      ),
+                                                      Divider(
+                                                          color: Color.fromARGB(
+                                                              255,
+                                                              247,
+                                                              127,
+                                                              118),
+                                                          endIndent: 10,
+                                                          indent: 10,
+                                                          thickness: 1),
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceAround,
+                                                        children: [
+                                                          Text(
+                                                            hotel[i]["place"],
+                                                            style: TextStyle(
                                                                 color: Colors
-                                                                    .amber,
-                                                                size: 18,
-                                                              ),
-                                                              Text(hotel[i]
-                                                                  ["rating"])
-                                                            ]),
-                                                      ],
-                                                    ),
-                                                  ]),
-                                            ),
-                                          )),
-                                        ]),
+                                                                    .grey),
+                                                          ),
+                                                          Wrap(
+                                                              spacing: 2,
+                                                              children: [
+                                                                Icon(
+                                                                  Icons.star,
+                                                                  color: Colors
+                                                                      .amber,
+                                                                  size: 18,
+                                                                ),
+                                                                Text(hotel[i]
+                                                                    ["rating"])
+                                                              ]),
+                                                        ],
+                                                      ),
+                                                    ]),
+                                              ),
+                                            )),
+                                          ]),
+                                    ),
                                   ),
-                                ),
-                              );
+                                );
+                              } catch (e) {
+                                print(e);
+                              }
+                              return Container();
                             }),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
@@ -552,17 +564,17 @@ class _DashBoardState extends State<DashBoard> {
                             )
                           ],
                         ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 15.0),
-                          child: Text(
-                            "THINGS TO DO",
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          ),
-                        ),
+                        // SizedBox(
+                        //   height: 20,
+                        // ),
+                        // Padding(
+                        //   padding: const EdgeInsets.only(left: 15.0),
+                        //   child: Text(
+                        //     "THINGS TO DO",
+                        //     style: TextStyle(
+                        //         fontSize: 20, fontWeight: FontWeight.bold),
+                        //   ),
+                        // ),
                         SizedBox(
                           height: 20,
                         ),
@@ -601,7 +613,10 @@ class _DashBoardState extends State<DashBoard> {
                   ),
                 );
               }
-              return Center(child: Text("Loading..."));
+              return Center(
+                  child: CircularProgressIndicator(
+                color: Color.fromARGB(255, 237, 91, 80),
+              ));
             }));
   }
 }

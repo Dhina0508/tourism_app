@@ -13,7 +13,6 @@ class _PhotoGraphyState extends State<PhotoGraphy> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        extendBodyBehindAppBar: true,
         appBar: AppBar(
           leading: IconButton(
               onPressed: () {
@@ -53,27 +52,27 @@ class _PhotoGraphyState extends State<PhotoGraphy> {
               fit: BoxFit.cover,
             ),
             Image.asset(
-              "images/fav.png",
+              "images/1678558969219.jpg",
               fit: BoxFit.cover,
             ),
             Image.asset(
-              "images/welcome.jpg",
+              "images/1678558969231.jpg",
               fit: BoxFit.cover,
             ),
             Image.asset(
-              "images/welcome2.jpeg",
+              "images/1678558969245.jpg",
               fit: BoxFit.cover,
             ),
             Image.asset(
-              "images/welcome5.jpg",
+              "images/1678558969258.jpg",
               fit: BoxFit.cover,
             ),
             Image.asset(
-              "images/fav.png",
+              "images/1678558969272.jpg",
               fit: BoxFit.cover,
             ),
-            Image.asset(
-              "images/welcome.jpg",
+            Image.network(
+              "https://static.toiimg.com/thumb/msid-92089121,width-748,height-499,resizemode=4,imgsize-139308/Most-beautiful-places-to-visit-in-India-for-first-timers.jpg",
               fit: BoxFit.cover,
             ),
             Image.asset(
