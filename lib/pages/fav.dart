@@ -128,7 +128,7 @@ class _FavState extends State<Fav> {
                                                             Radius.circular(
                                                                 20))),
                                                 child: Text(
-                                                  "Item removed from cart!!",
+                                                  "Placed removed from Fav",
                                                   style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold),

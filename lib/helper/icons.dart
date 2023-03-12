@@ -11,15 +11,15 @@ class DashBoardIcon extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15), color: Colors.grey.shade200),
-      height: 70,
-      width: 65,
+      height: 65,
+      width: 60,
       child: Center(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Icon(
             icon,
-            size: 35,
+            size: 30,
             color: Color.fromARGB(255, 248, 119, 110),
           ),
           Text(

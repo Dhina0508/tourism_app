@@ -90,9 +90,13 @@ class _CardItemState extends State<CardItem> {
         elevation: 3,
         child: ListTile(
           title: Text(widget.name!),
-          leading: Image.network(
-            widget.img!,
-            fit: BoxFit.cover,
+          leading: Container(
+            child: Image.network(
+              widget.img!,
+              height: 100,
+              fit: BoxFit.cover,
+              width: 100,
+            ),
           ),
           onTap: () {},
         ),

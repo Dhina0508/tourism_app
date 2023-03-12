@@ -26,8 +26,10 @@ class _DashBoardState extends State<DashBoard> {
   List home = [];
   List hotel = [];
   Future<List<QueryDocumentSnapshot<Object?>>> getdata() async {
-    QuerySnapshot qn =
-        await FirebaseFirestore.instance.collection("tourism").get();
+    QuerySnapshot qn = await FirebaseFirestore.instance
+        .collection("tourism")
+        .orderBy("name", descending: false)
+        .get();
     setState(() {
       for (int i = 0; i < qn.docs.length; i++) {
         home.add({
@@ -407,6 +409,10 @@ class _DashBoardState extends State<DashBoard> {
                               DashBoardIcon(
                                 text: "Train",
                                 icon: Icons.train_outlined,
+                              ),
+                              DashBoardIcon(
+                                text: "Medical",
+                                icon: Icons.local_hospital,
                               ),
                             ],
                           ),
