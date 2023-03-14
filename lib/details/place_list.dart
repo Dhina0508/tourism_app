@@ -1,7 +1,7 @@
-import 'dart:ui';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:tourism/details/hospital_list.dart';
+import 'package:tourism/details/pharmacy_list.dart';
 import 'package:tourism/details/place_details.dart';
 
 class PlaceList extends StatefulWidget {
@@ -24,22 +24,26 @@ class _PlaceListState extends State<PlaceList> {
         .collection("tourism")
         .doc(id.trim())
         .collection(collection)
+        .orderBy("name", descending: false)
+        .where("about", isEqualTo: null)
         .get();
 
     setState(() {
       for (int i = 0; i < qn.docs.length; i++) {
-        places.add({
-          "name": qn.docs[i]["name"],
-          "img": qn.docs[i]["img"],
-          "address": qn.docs[i]["address"],
-          "des": qn.docs[i]["des"],
-          "entry": qn.docs[i]["entry"],
-          "phno": qn.docs[i]["phno"],
-          "rating": qn.docs[i]["rating"],
-          "time": qn.docs[i]["time"],
-          "lat": qn.docs[i]["lat"],
-          "long": qn.docs[i]["long"]
-        });
+        if (qn.docs[i]["about"] == "") {
+          places.add({
+            "name": qn.docs[i]["name"],
+            "img": qn.docs[i]["img"],
+            "address": qn.docs[i]["address"],
+            "des": qn.docs[i]["des"],
+            "entry": qn.docs[i]["entry"],
+            "phno": qn.docs[i]["phno"],
+            "rating": qn.docs[i]["rating"],
+            "time": qn.docs[i]["time"],
+            "lat": qn.docs[i]["lat"],
+            "long": qn.docs[i]["long"]
+          });
+        }
       }
     });
     return qn.docs;
@@ -49,6 +53,7 @@ class _PlaceListState extends State<PlaceList> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
     getdata();
   }
 
@@ -95,6 +100,69 @@ class _PlaceListState extends State<PlaceList> {
               children: [
                 SizedBox(
                   height: 30,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HospitalList(
+                                      value: widget.value,
+                                      name: widget.name,
+                                    )));
+                      },
+                      child: Container(
+                        height: 35,
+                        width: 110,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Color.fromARGB(255, 250, 122, 113),
+                            width: 2,
+                          ),
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: Center(
+                            child: Text(
+                          "Hospital",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontFamily: "JosefinSans"),
+                        )),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Pharmacy_list(
+                                      value: widget.value,
+                                      name: widget.name,
+                                    )));
+                      },
+                      child: Container(
+                        height: 35,
+                        width: 110,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          border: Border.all(
+                            color: Color.fromARGB(255, 250, 122, 113),
+                            width: 2,
+                          ),
+                        ),
+                        child: Center(
+                            child: Text(
+                          "Pharmacy",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontFamily: "JosefinSans"),
+                        )),
+                      ),
+                    ),
+                  ],
                 ),
                 places.length > 1
                     ? ListView.builder(

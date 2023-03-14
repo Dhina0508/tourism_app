@@ -181,7 +181,7 @@ class _LoginPageState extends State<LoginPage> {
                                   child: Text(
                                     " Forgot Password ?",
                                     style: TextStyle(
-                                        fontSize: 13, color: Colors.black),
+                                        fontSize: 13, color: Colors.white),
                                   ))),
                         ),
                         Padding(
@@ -199,7 +199,7 @@ class _LoginPageState extends State<LoginPage> {
                                   child: Text(
                                     "Don't have an Account?   ",
                                     style: TextStyle(
-                                        fontSize: 13, color: Colors.black),
+                                        fontSize: 13, color: Colors.white),
                                   ))),
                         ),
                       ],

@@ -25,10 +25,12 @@ class DashBoard extends StatefulWidget {
 class _DashBoardState extends State<DashBoard> {
   List home = [];
   List hotel = [];
-  Future<List<QueryDocumentSnapshot<Object?>>> getdata() async {
+  //Future<List<QueryDocumentSnapshot<Object?>>>
+  getdata() async {
     QuerySnapshot qn = await FirebaseFirestore.instance
         .collection("tourism")
         .orderBy("name", descending: false)
+        .where("about", isEqualTo: null)
         .get();
     setState(() {
       for (int i = 0; i < qn.docs.length; i++) {
@@ -42,7 +44,7 @@ class _DashBoardState extends State<DashBoard> {
     return qn.docs;
   }
 
-  Future<List<QueryDocumentSnapshot<Object?>>> gethoteldata() async {
+  gethoteldata() async {
     QuerySnapshot qn =
         await FirebaseFirestore.instance.collection("hotel").get();
     setState(() {
@@ -410,10 +412,6 @@ class _DashBoardState extends State<DashBoard> {
                                 text: "Train",
                                 icon: Icons.train_outlined,
                               ),
-                              DashBoardIcon(
-                                text: "Medical",
-                                icon: Icons.local_hospital,
-                              ),
                             ],
                           ),
                         ),
@@ -605,7 +603,7 @@ class _DashBoardState extends State<DashBoard> {
                             child: Container(
                               width: double.infinity,
                               child: Image.asset(
-                                "images/nature.jpg",
+                                "images/img.jpg",
                                 fit: BoxFit.cover,
                               ),
                             ),

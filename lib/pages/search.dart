@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tourism/details/place_list.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Search extends StatefulWidget {
@@ -10,6 +11,14 @@ class Search extends StatefulWidget {
 }
 
 class _SearchState extends State<Search> {
+  String? name;
+  String? img;
+
+  _SearchState({
+    this.name,
+    this.img,
+  });
+
   String? _InputText;
 
   @override
@@ -52,53 +61,39 @@ class _SearchState extends State<Search> {
                             itemBuilder: (context, index) {
                               String name = snapshot.data?.docs[index]['name'];
                               String img = snapshot.data?.docs[index]['img'];
+                              String x = snapshot.data?.docs[index]["id"];
 
-                              return CardItem(
-                                img: img,
-                                name: name,
-                                // rating: rate,
+                              return Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Card(
+                                  elevation: 3,
+                                  child: ListTile(
+                                    title: Text(name),
+                                    leading: Container(
+                                      child: Image.network(
+                                        img,
+                                        height: 100,
+                                        fit: BoxFit.cover,
+                                        width: 100,
+                                      ),
+                                    ),
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => PlaceList(
+                                                    value: x,
+                                                    name: name,
+                                                    img: img,
+                                                  )));
+                                    },
+                                  ),
+                                ),
                               );
                             });
                       }))
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class CardItem extends StatefulWidget {
-  String? name;
-  String? img;
-
-  CardItem({
-    this.name,
-    this.img,
-  });
-
-  @override
-  State<CardItem> createState() => _CardItemState();
-}
-
-class _CardItemState extends State<CardItem> {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(5.0),
-      child: Card(
-        elevation: 3,
-        child: ListTile(
-          title: Text(widget.name!),
-          leading: Container(
-            child: Image.network(
-              widget.img!,
-              height: 100,
-              fit: BoxFit.cover,
-              width: 100,
-            ),
-          ),
-          onTap: () {},
         ),
       ),
     );

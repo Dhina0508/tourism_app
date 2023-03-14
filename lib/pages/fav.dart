@@ -79,13 +79,15 @@ class _FavState extends State<Fav> {
                                     child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
                                         children: [
                                           Text(
                                             _documentSnapshot['name'],
                                           ),
                                           Padding(
                                             padding: const EdgeInsets.only(
-                                                top: 20.0),
+                                                top: 10.0),
                                             child: Row(
                                               children: [
                                                 Icon(
@@ -155,7 +157,10 @@ class _FavState extends State<Fav> {
             } catch (e) {
               print(e);
             }
-            return Container();
+            return Center(
+                child: CircularProgressIndicator(
+              color: Color.fromARGB(255, 250, 101, 91),
+            ));
           }),
     );
   }
