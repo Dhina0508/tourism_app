@@ -25,8 +25,15 @@ class _SearchState extends State<Search> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 250, 110, 110),
-        title: Text('Search Places'),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: Text(
+          'Search Places',
+          style: TextStyle(
+              fontFamily: "Josefinsans",
+              color: Colors.black,
+              fontWeight: FontWeight.bold),
+        ),
         centerTitle: true,
       ),
       body: SafeArea(

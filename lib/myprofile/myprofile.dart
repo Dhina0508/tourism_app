@@ -35,10 +35,10 @@ class _MyProfileState extends State<MyProfile> {
           title: Text(
             "Profile",
             style: TextStyle(
-              fontSize: 19,
-              color: Colors.black,
-              fontFamily: "josefinSans",
-            ),
+                fontSize: 21,
+                color: Colors.black,
+                fontFamily: "josefinSans",
+                fontWeight: FontWeight.bold),
           ),
           centerTitle: true,
         ),

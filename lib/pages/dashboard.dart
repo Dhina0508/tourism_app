@@ -5,6 +5,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:tourism/dash_board_four_pages/Photos_upload_page.dart';
 import 'package:tourism/dash_board_four_pages/hotel.dart';
 import 'package:tourism/details/hotel_full.dart';
 import 'package:tourism/details/place_list.dart';
@@ -12,7 +13,6 @@ import 'package:tourism/helper/icons.dart';
 import 'package:tourism/map/current_loc.dart';
 import 'package:tourism/pages/search.dart';
 
-import '../dash_board_four_pages/photography.dart';
 import '../myprofile/Myprofile.dart';
 
 class DashBoard extends StatefulWidget {
@@ -29,7 +29,6 @@ class _DashBoardState extends State<DashBoard> {
   getdata() async {
     QuerySnapshot qn = await FirebaseFirestore.instance
         .collection("tourism")
-        .orderBy("name", descending: false)
         .where("about", isEqualTo: null)
         .get();
     setState(() {
@@ -598,7 +597,7 @@ class _DashBoardState extends State<DashBoard> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => PhotoGraphy()));
+                                      builder: (context) => Photography()));
                             },
                             child: Container(
                               width: double.infinity,

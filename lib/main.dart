@@ -18,10 +18,12 @@ void main() async {
   SharedPreferences pref = await SharedPreferences.getInstance();
   var email = pref.getString('email');
   runApp(GetMaterialApp(
-    theme: ThemeData(primaryColor: Color.fromARGB(255, 243, 110, 101)),
-    debugShowCheckedModeBanner: false,
-    home: email == null ? LoginPage() : Home(),
-  ));
+      theme: ThemeData(primaryColor: Color.fromARGB(255, 243, 110, 101)),
+      debugShowCheckedModeBanner: false,
+      home: email == null ? LoginPage() : Home(),
+      routes: {
+        'Dashboard': (context) => DashBoard(),
+      }));
 }
 
 class Home extends StatefulWidget {
