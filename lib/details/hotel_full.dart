@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:tourism/details/hotel_booking.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HotelFullDetails extends StatefulWidget {
@@ -247,7 +249,23 @@ class _HotelFullDetailsState extends State<HotelFullDetails> {
                       ),
                     ),
                     onPressed: () {
-                      Share.share(widget.name);
+                      Share.share("Image Url: " +
+                          widget.img +
+                          "  " +
+                          "Name of the place: " +
+                          widget.name +
+                          "  " +
+                          "Address: " +
+                          widget.address +
+                          "  " +
+                          "Cost per Day: " +
+                          widget.cost +
+                          "  " +
+                          "Phone Number:  " +
+                          widget.phno +
+                          "  " +
+                          "District: " +
+                          widget.place);
                     },
                     child: Row(
                       children: [
@@ -363,6 +381,21 @@ class _HotelFullDetailsState extends State<HotelFullDetails> {
                 ],
               ),
             ),
+            SizedBox(
+              height: 20,
+            ),
+            Align(
+                alignment: Alignment.center,
+                child: TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => HotelBooking(
+                                    hotel_name: widget.name,
+                                  )));
+                    },
+                    child: Text("Book Now"))),
             SizedBox(
               height: 20,
             ),

@@ -7,14 +7,16 @@ import 'package:tourism/main.dart';
 class Service {
   final auth = FirebaseAuth.instance;
 
-  void createUser(context, email, password) async {
+  void createUser(name, context, email, password) async {
     try {
       await auth
           .createUserWithEmailAndPassword(email: email, password: password)
-          .then((value) => {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Home()))
-              });
+          .then((value) async {
+        final user = FirebaseAuth.instance.currentUser;
+        await user?.updateDisplayName(name.text);
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Home()));
+      });
     } catch (e) {
       errorBox(context, e);
     }

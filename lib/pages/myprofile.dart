@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tourism/myprofile/about.dart';
 import 'package:tourism/pages/fav.dart';
 
 import '../auth/firebase_helper/firebase_service.dart';
@@ -173,7 +174,10 @@ class _MyProfileState extends State<MyProfile> {
                         height: 20,
                       ),
                       ListTile(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => About()));
+                        },
                         title: Text("About"),
                         leading: Icon(Icons.account_box_outlined,
                             color: Color.fromARGB(255, 246, 120, 111)),

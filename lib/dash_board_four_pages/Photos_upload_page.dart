@@ -139,7 +139,7 @@ class _PhotographyState extends State<Photography> {
       appBar: AppBar(
         leading: IconButton(
             onPressed: () {
-              Navigator.of(context).popAndPushNamed("Dashboard");
+              Navigator.of(context).popAndPushNamed("home");
             },
             icon: Icon(Icons.arrow_back_ios_new, color: Colors.black)),
         elevation: 0,

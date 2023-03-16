@@ -243,7 +243,15 @@ class _PlaceDetailsState extends State<PlaceDetails> {
                       ),
                     ),
                     onPressed: () {
-                      Share.share(widget.name);
+                      Share.share("Image Url: " +
+                          widget.img +
+                          "  " +
+                          "Name of the place: " +
+                          widget.name +
+                          "  " +
+                          "Address: " +
+                          widget.address +
+                          "  ");
                     },
                     child: Row(
                       children: [

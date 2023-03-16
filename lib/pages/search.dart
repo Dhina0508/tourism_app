@@ -54,7 +54,8 @@ class _SearchState extends State<Search> {
                   child: StreamBuilder(
                       stream: FirebaseFirestore.instance
                           .collection('tourism')
-                          .where('name', isEqualTo: _InputText)
+                          .where('name',
+                              isEqualTo: _InputText?.toLowerCase().capitalize)
                           .snapshots(),
                       builder: (BuildContext context,
                           AsyncSnapshot<QuerySnapshot> snapshot) {
