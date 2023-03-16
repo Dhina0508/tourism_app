@@ -19,6 +19,7 @@ class _RegisterPageState extends State<RegisterPage> {
   TextEditingController _passwordcontroller = TextEditingController();
   TextEditingController _confirmpasswordcontroller = TextEditingController();
   TextEditingController _NameController = TextEditingController();
+  TextEditingController _hotelnameController = TextEditingController();
 
   senddata() async {
     final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -30,7 +31,9 @@ class _RegisterPageState extends State<RegisterPage> {
     return _CollectionReference.set({
       "Name": _NameController.text,
       "email": _emailcontroller.text,
-      "about": user_type
+      "about": user_type,
+      "Business_name":
+          user_type == "vendor" ? _hotelnameController.text : "customer"
     }).catchError((onError) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text("ERROR ${onError.toString()}"),
@@ -42,6 +45,7 @@ class _RegisterPageState extends State<RegisterPage> {
     });
   }
 
+  bool dropdown = true;
   bool _isHidden = true;
   var visible = "";
   String user_type = "user";
@@ -70,7 +74,6 @@ class _RegisterPageState extends State<RegisterPage> {
           body: Stack(children: [
             Container(
               alignment: Alignment.topCenter,
-              padding: EdgeInsets.only(top: 15),
               child: Column(
                 children: [
                   Text(
@@ -81,7 +84,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 12,
                   ),
                   Text(
                     'Register Here',
@@ -96,7 +99,7 @@ class _RegisterPageState extends State<RegisterPage> {
             SingleChildScrollView(
               child: Container(
                 padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.2,
+                    top: MediaQuery.of(context).size.height * 0.15,
                     right: 35,
                     left: 35),
                 child: Column(
@@ -111,7 +114,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               borderRadius: BorderRadius.circular(15))),
                     ),
                     SizedBox(
-                      height: 30,
+                      height: 20,
                     ),
                     TextField(
                       controller: _emailcontroller,
@@ -123,7 +126,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               borderRadius: BorderRadius.circular(15))),
                     ),
                     SizedBox(
-                      height: 30,
+                      height: 20,
                     ),
                     TextField(
                       obscureText: _isHidden,
@@ -155,7 +158,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               borderRadius: BorderRadius.circular(15))),
                     ),
                     SizedBox(
-                      height: 30,
+                      height: 20,
                     ),
                     TextField(
                       obscureText: _isHidden,
@@ -187,7 +190,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               borderRadius: BorderRadius.circular(15))),
                     ),
                     SizedBox(
-                      height: 25,
+                      height: 20,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -217,6 +220,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 value: "vendor",
                                 groupValue: user_type,
                                 onChanged: (value) {
+                                  _dropdown();
                                   setState(() {
                                     user_type = value.toString();
                                   });
@@ -233,7 +237,21 @@ class _RegisterPageState extends State<RegisterPage> {
                       ],
                     ),
                     SizedBox(
-                      height: 30,
+                      height: 5,
+                    ),
+                    dropdown == false
+                        ? TextField(
+                            controller: _hotelnameController,
+                            decoration: InputDecoration(
+                                fillColor: Colors.grey.shade100,
+                                filled: true,
+                                hintText: 'Enter Hotel Name',
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(15))),
+                          )
+                        : Container(),
+                    SizedBox(
+                      height: 25,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -303,6 +321,12 @@ class _RegisterPageState extends State<RegisterPage> {
   void _togglePasswordView() {
     setState(() {
       _isHidden = !_isHidden;
+    });
+  }
+
+  void _dropdown() {
+    setState(() {
+      dropdown = !dropdown;
     });
   }
 }

@@ -28,7 +28,7 @@ class _HotelBookingState extends State<HotelBooking> {
       "time": time.text,
       "date": _datecontroller.text,
       "no_of_room": value,
-      "hotel_name": widget.hotel_name,
+      "hotel_email": widget.hotel_name,
       "email": FirebaseAuth.instance.currentUser!.email
     }).then((value) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(

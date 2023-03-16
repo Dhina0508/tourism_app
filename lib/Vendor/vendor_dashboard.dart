@@ -11,7 +11,9 @@ class _VendorState extends State<Vendor> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.amber,
+      body: Center(
+        child: Text("VENDOR"),
+      ),
     );
   }
 }
