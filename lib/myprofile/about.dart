@@ -35,6 +35,7 @@ class About extends StatelessWidget {
                 style: TextStyle(
                     fontFamily: "JosefinSans",
                     fontSize: 20,
+                    color: Color.fromARGB(255, 244, 125, 116),
                     fontWeight: FontWeight.bold),
               ),
             ),

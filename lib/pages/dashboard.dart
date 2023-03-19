@@ -46,18 +46,19 @@ class _DashBoardState extends State<DashBoard> {
     QuerySnapshot qn =
         await FirebaseFirestore.instance.collection("hotel").get();
     setState(() {
-      for (int i = 0; i < qn.docs.length; i++) {
+      for (int j = 0; j < qn.docs.length; j++) {
         hotel.add({
-          "name": qn.docs[i]["name"],
-          "img": qn.docs[i]["img"],
-          "place": qn.docs[i]["place"],
-          "rating": qn.docs[i]["rating"],
-          "address": qn.docs[i]["address"],
-          "cost": qn.docs[i]["cost"],
-          "details": qn.docs[i]["details"],
-          "phno": qn.docs[i]["phno"],
-          "lat": qn.docs[i]["lat"],
-          "long": qn.docs[i]["long"]
+          "name": qn.docs[j]["name"],
+          "img": qn.docs[j]["img"],
+          "place": qn.docs[j]["place"],
+          "rating": qn.docs[j]["rating"],
+          "address": qn.docs[j]["address"],
+          "cost": qn.docs[j]["cost"],
+          "details": qn.docs[j]["details"],
+          "phno": qn.docs[j]["phno"],
+          "lat": qn.docs[j]["lat"],
+          "long": qn.docs[j]["long"],
+          "hotel_email": qn.docs[j]["email"]
         });
       }
     });
@@ -187,7 +188,7 @@ class _DashBoardState extends State<DashBoard> {
                               style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 35)),
+                                  fontSize: 30)),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: 10.0),
@@ -195,7 +196,7 @@ class _DashBoardState extends State<DashBoard> {
                             FirebaseAuth.instance.currentUser!.displayName
                                 .toString(),
                             style: TextStyle(
-                                fontSize: 30,
+                                fontSize: 25,
                                 color: Colors.redAccent,
                                 fontFamily: "Cinzel"),
                           ),
@@ -204,7 +205,7 @@ class _DashBoardState extends State<DashBoard> {
                     ),
                     Padding(
                       padding:
-                          const EdgeInsets.only(left: 15, right: 15, top: 15),
+                          const EdgeInsets.only(left: 15, right: 15, top: 30),
                       child: GestureDetector(
                         onTap: () {
                           Navigator.push(
@@ -395,8 +396,7 @@ class _DashBoardState extends State<DashBoard> {
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
                 scrollDirection: Axis.vertical,
-                itemExtent: 100.0,
-                itemCount: 3,
+                itemCount: hotel.length,
                 itemBuilder: (context, i) {
                   try {
                     return Padding(
@@ -418,15 +418,13 @@ class _DashBoardState extends State<DashBoard> {
                                         rating: hotel[i]["rating"],
                                         lat: hotel[i]["lat"],
                                         long: hotel[i]["long"],
+                                        hotel_email: hotel[i]["hotel_email"],
                                       )));
                         },
                         child: Container(
-                          height: 200,
+                          height: 100,
                           decoration: BoxDecoration(
-                              // border: Border.all(
-                              //   color: Colors.red,
-                              //   width: 1,
-                              // ),
+                              color: Color.fromARGB(54, 249, 145, 141),
                               borderRadius: BorderRadius.circular(20)),
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -452,10 +450,12 @@ class _DashBoardState extends State<DashBoard> {
                                         children: [
                                           Text(
                                             hotel[i]["name"],
+                                            style: TextStyle(
+                                                fontFamily: "JosefinSans"),
                                           ),
                                           Divider(
                                               color: Color.fromARGB(
-                                                  255, 247, 127, 118),
+                                                  255, 239, 64, 51),
                                               endIndent: 10,
                                               indent: 10,
                                               thickness: 1),
@@ -466,7 +466,8 @@ class _DashBoardState extends State<DashBoard> {
                                               Text(
                                                 hotel[i]["place"],
                                                 style: TextStyle(
-                                                    color: Colors.grey),
+                                                    color:
+                                                        Colors.grey.shade800),
                                               ),
                                               Wrap(spacing: 2, children: [
                                                 Icon(

@@ -1,20 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tourism/Vendor/customer_full_detials.dart';
-import 'package:tourism/auth/firebase_helper/firebase_service.dart';
-import 'package:tourism/auth/login_page.dart';
-import 'package:tourism/pages/dashboard.dart';
+import 'package:tourism/Vendor/accepted_cus_full.dart';
 
-class Vendor extends StatefulWidget {
-  Vendor({Key? key}) : super(key: key);
+class RejectedList extends StatefulWidget {
+  RejectedList({Key? key}) : super(key: key);
 
   @override
-  State<Vendor> createState() => _VendorState();
+  State<RejectedList> createState() => _RejectedListState();
 }
 
-class _VendorState extends State<Vendor> {
+class _RejectedListState extends State<RejectedList> {
   List req = [];
   List req1 = [];
 
@@ -76,14 +72,10 @@ class _VendorState extends State<Vendor> {
 
   @override
   Widget build(BuildContext context) {
-    Service service = Service();
-
     for (int i = 0; i < req.length; i++)
       for (int j = 0; j < req1.length; j++)
-        if ((req[i]["Business_name"] == req1[j]["hotel_name"]) &&
-            (req[i]["email"] == req1[j]["hotel_email"] &&
-                req1[j]["hotel_email"] ==
-                    FirebaseAuth.instance.currentUser!.email)) {
+        if (req1[j]["hotel_email"] ==
+            FirebaseAuth.instance.currentUser!.email) {
           return Scaffold(
               appBar: AppBar(
                 backgroundColor: Color.fromARGB(255, 241, 122, 113),
@@ -102,7 +94,7 @@ class _VendorState extends State<Vendor> {
               body: ListView.builder(
                   itemCount: req1.length,
                   itemBuilder: (_, i) {
-                    if (req1[i]["user"] == "vendor") {
+                    if (req1[i]["user"] == "") {
                       return Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: GestureDetector(
@@ -110,7 +102,7 @@ class _VendorState extends State<Vendor> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => CustomerFullDetails(
+                                    builder: (context) => CustomerFullDetails2(
                                           date: req1[i]["date"],
                                           email: req1[i]["email"],
                                           id_proof: req1[i]["id_proof"],
@@ -121,6 +113,7 @@ class _VendorState extends State<Vendor> {
                                           outtime: req1[i]["outtime"],
                                           hotel_name: req1[i]["hotel_name"],
                                           id: req1[i]["id"],
+                                          user: req1[i]["user"],
                                         )));
                           },
                           child: Container(

@@ -15,10 +15,12 @@ class HotelFullDetails extends StatefulWidget {
   var rating;
   var address;
   var details;
+  var hotel_email;
   var lat;
   var long;
   HotelFullDetails({
     this.address,
+    this.hotel_email,
     this.cost,
     this.lat,
     this.long,
@@ -188,7 +190,7 @@ class _HotelFullDetailsState extends State<HotelFullDetails> {
               children: [
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color.fromARGB(255, 245, 121, 112),
+                      backgroundColor: Color.fromARGB(255, 245, 115, 106),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0),
                       ),
@@ -386,16 +388,28 @@ class _HotelFullDetailsState extends State<HotelFullDetails> {
             ),
             Align(
                 alignment: Alignment.center,
-                child: TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => HotelBooking(
-                                    hotel_name: widget.name,
-                                  )));
-                    },
-                    child: Text("Book Now"))),
+                child: SizedBox(
+                  height: 50,
+                  width: 250,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0)),
+                          backgroundColor: Color.fromARGB(255, 245, 115, 106)),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HotelBooking(
+                                      hotel_name: widget.name,
+                                      hotel_email: widget.hotel_email,
+                                    )));
+                      },
+                      child: Text(
+                        "Book Now",
+                        style: TextStyle(fontSize: 17),
+                      )),
+                )),
             SizedBox(
               height: 20,
             ),

@@ -5,15 +5,20 @@ import 'package:intl/intl.dart';
 
 class HotelBooking extends StatefulWidget {
   var hotel_name;
+  var hotel_email;
 
-  HotelBooking({this.hotel_name});
+  HotelBooking({this.hotel_name, this.hotel_email});
   @override
   State<HotelBooking> createState() => _HotelBookingState();
 }
 
 class _HotelBookingState extends State<HotelBooking> {
   TextEditingController _datecontroller = TextEditingController();
-  TextEditingController time = TextEditingController();
+  TextEditingController intime = TextEditingController();
+  TextEditingController outtime = TextEditingController();
+
+  TextEditingController phno = TextEditingController();
+  TextEditingController id_proof = TextEditingController();
 
   final rooms = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
   String? value;
@@ -25,13 +30,22 @@ class _HotelBookingState extends State<HotelBooking> {
         FirebaseFirestore.instance.collection("Hotel_booking_Request").doc();
     return _CollectionReference.set({
       "id": _CollectionReference.id,
-      "time": time.text,
+      "intime": intime.text,
+      "outtime": outtime.text,
       "date": _datecontroller.text,
       "no_of_room": value,
-      "hotel_email": widget.hotel_name,
-      "email": FirebaseAuth.instance.currentUser!.email
+      "hotel_name": widget.hotel_name,
+      "hotel_email": widget.hotel_email,
+      "email": FirebaseAuth.instance.currentUser!.email,
+      "name": FirebaseAuth.instance.currentUser!.displayName.toString(),
+      "phno": phno.text,
+      "status": "Pending",
+      "user": "vendor",
+      "c_time": DateTime.now(),
+      "id_proof": id_proof.text
     }).then((value) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        backgroundColor: Colors.green.shade400,
         content: Text("Request has been Sent"),
         behavior: SnackBarBehavior.floating,
       ));
@@ -47,82 +61,227 @@ class _HotelBookingState extends State<HotelBooking> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios_new,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        title: Text(
+          "Booking Details",
+          style: TextStyle(
+              fontFamily: "Cinzel", fontSize: 22, color: Colors.black),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
       body: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-            margin: EdgeInsets.all(3),
-            decoration: BoxDecoration(
+          child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.red, width: 1),
                 borderRadius: BorderRadius.circular(30),
-                border: Border.all(color: Colors.grey, width: 1)),
-            child: DropdownButtonHideUnderline(
-              child: DropdownButton<String>(
-                  dropdownColor: Colors.white,
-                  hint: Text(
-                    'Select Number of Rooms',
-                    style: TextStyle(fontSize: 25, color: Colors.grey),
+                color: Color.fromARGB(24, 252, 135, 38),
+              ),
+              height: 550,
+              width: double.infinity,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 10,
                   ),
-                  value: value,
-                  style: TextStyle(color: Colors.black),
-                  iconSize: 16 * 2,
-                  icon: Icon(
-                    Icons.arrow_drop_down,
-                    color: Colors.black,
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Text(
+                      "Select Number of Rooms: ",
+                      style: TextStyle(fontSize: 20, fontFamily: "JosefinSans"),
+                    ),
                   ),
-                  items: rooms.map(buildroomnumber).toList(),
-                  onChanged: (value) => setState(() {
-                        this.value = value;
-                      })),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 2),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: Colors.black, width: 1)),
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton<String>(
+                          dropdownColor: Colors.white,
+                          hint: Text(
+                            'Select Number of Rooms',
+                            style: TextStyle(fontSize: 15, color: Colors.black),
+                          ),
+                          value: value,
+                          style: TextStyle(color: Colors.black),
+                          iconSize: 16 * 2,
+                          icon: Icon(
+                            Icons.arrow_drop_down,
+                            color: Colors.black,
+                          ),
+                          items: rooms.map(buildroomnumber).toList(),
+                          onChanged: (value) => setState(() {
+                                this.value = value;
+                              })),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(right: 20, top: 20, left: 20),
+                    child: TextField(
+                      controller: _datecontroller,
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(
+                          Icons.calendar_month,
+                          color: Color.fromARGB(255, 248, 111, 111),
+                        ),
+                        labelText: 'Select Date',
+                        labelStyle: TextStyle(color: Colors.black),
+                      ),
+                      onTap: () async {
+                        DateTime? picketdate = await showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime(2020),
+                            lastDate: DateTime(2090));
+                        if (picketdate != null) {
+                          setState(() {
+                            _datecontroller.text =
+                                DateFormat('dd-MM-yyyy').format(picketdate);
+                          });
+                        }
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20, right: 20),
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: "Enter checkIn Time",
+                        prefixIcon: Icon(
+                          Icons.hourglass_bottom,
+                          color: Color.fromARGB(255, 248, 111, 111),
+                        ),
+                        label: Text(
+                          "CheckIn Time",
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ),
+                      controller: intime,
+                      cursorColor: Colors.red,
+                      keyboardType: TextInputType.number,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20.0, right: 20),
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: "Enter CheckOut Time",
+                        prefixIcon: Icon(
+                          Icons.exit_to_app_outlined,
+                          color: Color.fromARGB(255, 248, 111, 111),
+                        ),
+                        label: Text(
+                          "CheckOut Time",
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ),
+                      controller: outtime,
+                      cursorColor: Colors.red,
+                      keyboardType: TextInputType.number,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20.0, right: 20),
+                    child: TextField(
+                      decoration: InputDecoration(
+                          hintText: "Enter your contact number",
+                          label: Text(
+                            "Mobile number",
+                            style: TextStyle(color: Colors.black),
+                          ),
+                          prefixIcon: Icon(
+                            Icons.call,
+                            color: Color.fromARGB(255, 248, 111, 111),
+                          )),
+                      controller: phno,
+                      cursorColor: Colors.red,
+                      keyboardType: TextInputType.number,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20, right: 20),
+                    child: TextField(
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(
+                          Icons.person_outline_sharp,
+                          color: Color.fromARGB(255, 248, 111, 111),
+                        ),
+                        hintText: "Aadhar card or pan card number..",
+                        label: Text(
+                          "Enter Id Proof",
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ),
+                      controller: id_proof,
+                      cursorColor: Colors.red,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                ],
+              ),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(right: 8, top: 20, left: 8),
-            child: TextField(
-              controller: _datecontroller,
-              decoration: InputDecoration(
-                  prefixIcon: Icon(
-                    Icons.calendar_month,
-                    color: Colors.redAccent[200],
-                    size: 40,
-                  ),
-                  labelText: 'Select Date'),
-              onTap: () async {
-                DateTime? picketdate = await showDatePicker(
-                    context: context,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime(2020),
-                    lastDate: DateTime(2090));
-                if (picketdate != null) {
-                  setState(() {
-                    _datecontroller.text =
-                        DateFormat('dd-MM-yyyy').format(picketdate);
-                  });
-                }
-              },
+            SizedBox(
+              height: 20,
             ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          TextField(
-            decoration: InputDecoration(
-                hintText: "Enter Time",
-                label: Text("Enter Time"),
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30))),
-            controller: time,
-            keyboardType: TextInputType.number,
-          ),
-          ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: Color.fromARGB(255, 222, 81, 70)),
-              onPressed: () {
-                sendreq();
-              },
-              child: Text('Book')),
-        ],
+            SizedBox(
+              height: 40,
+              width: 200,
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      backgroundColor: Color.fromARGB(255, 251, 115, 105)),
+                  onPressed: () {
+                    if (intime.text != '' &&
+                        outtime.text != '' &&
+                        _datecontroller != '' &&
+                        phno.text != '' &&
+                        id_proof.text != '' &&
+                        value.toString() != '') {
+                      sendreq();
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text("Details cannot be empty"),
+                        behavior: SnackBarBehavior.floating,
+                        backgroundColor: Colors.red,
+                      ));
+                    }
+                  },
+                  child: Text('Book Now')),
+            ),
+          ],
+        ),
       )),
     );
   }
@@ -131,6 +290,6 @@ class _HotelBookingState extends State<HotelBooking> {
       value: item,
       child: Text(
         item,
-        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
       ));
 }

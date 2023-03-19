@@ -92,25 +92,30 @@ class _PhotographyState extends State<Photography> {
                               crossAxisCount: 3),
                       itemBuilder: (BuildContext context, int index) {
                         return Center(
-                          child: Card(
-                            child: Container(
-                                child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: <Widget>[
-                                  ClipRect(
-                                    child: Align(
-                                        alignment: Alignment.topCenter,
-                                        heightFactor: 0.7,
-                                        child: new CachedNetworkImage(
-                                          placeholder: (context, url) =>
-                                              new CircularProgressIndicator(
-                                                  color: Color.fromARGB(
-                                                      255, 243, 121, 112)),
-                                          imageUrl: tripPhotos[index]["img"],
-                                        )),
+                          child: Container(
+                              child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                ClipRect(
+                                  child: Image.network(
+                                    tripPhotos[index]["img"],
+                                    fit: BoxFit.cover,
+                                    height: 120,
                                   ),
-                                ])),
-                          ),
+                                  // child: Align(
+                                  //     alignment: Alignment.topCenter,
+                                  //     heightFactor: 0.7,
+                                  //     widthFactor: double.infinity,
+                                  //     child: new CachedNetworkImage(
+                                  //       placeholder: (context, url) =>
+                                  //           new CircularProgressIndicator(
+                                  //               color: Color.fromARGB(
+                                  //                   255, 243, 121, 112)),
+                                  //       imageUrl: tripPhotos[index]["img"],
+                                  //       fit: BoxFit.fitHeight,
+                                  //     )),
+                                ),
+                              ])),
                         );
                       });
                 }

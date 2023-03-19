@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tourism/Vendor/home.dart';
 import 'package:tourism/Vendor/vendor_dashboard.dart';
 import 'package:tourism/auth/login_page.dart';
 import 'package:tourism/dash_board_four_pages/hotel.dart';
@@ -23,12 +24,17 @@ void main() async {
   SharedPreferences pref = await SharedPreferences.getInstance();
   var email = pref.getString('email');
   runApp(GetMaterialApp(
-      theme: ThemeData(primaryColor: Color.fromARGB(255, 243, 110, 101)),
+      theme: ThemeData(
+          primarySwatch: Colors.red,
+          primaryColor: Colors.red,
+          dividerColor: Colors.red,
+          colorScheme: ColorScheme.light(primary: Colors.red)),
       debugShowCheckedModeBanner: false,
       home: email == null ? LoginPage() : Home(),
       routes: {
         'Dashboard': (context) => DashBoard(),
-        'home': (context) => Home()
+        'home': (context) => Home(),
+        'login': (context) => LoginPage()
       }));
 }
 
@@ -98,9 +104,15 @@ class _HomeState extends State<Home> {
                   },
                 ),
               );
+            } else {
+              return VendorHome();
             }
           }
-          return Vendor();
+          return Scaffold(
+              body: Center(
+                  child: CircularProgressIndicator(
+            color: Color.fromARGB(255, 245, 112, 103),
+          )));
         });
   }
 }
