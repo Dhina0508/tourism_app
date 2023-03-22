@@ -61,156 +61,164 @@ class _HospitalListState extends State<HospitalList> {
               Navigator.of(context).pop();
             },
             icon: Icon(Icons.arrow_back_ios)),
-        title: Text("Hospitals"),
+        title: Text(
+          "Hospitals",
+          style: TextStyle(
+            fontSize: 20,
+            fontFamily: "JosefinSans",
+          ),
+        ),
         centerTitle: true,
         elevation: 0,
         backgroundColor: Color.fromARGB(255, 251, 116, 106),
       ),
-      body: Column(
-        children: [
-          hp.length > 1
-              ? ListView.builder(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  scrollDirection: Axis.vertical,
-                  itemExtent: 100,
-                  itemCount: hp.length,
-                  itemBuilder: (context, i) {
-                    return ListTile(
-                      onTap: () async {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => PlaceDetails(
-                                      lat: hp[i]["lat"],
-                                      long: hp[i]["long"],
-                                      address: hp[i]["address"],
-                                      des: hp[i]["des"],
-                                      entry: hp[i]["entry"],
-                                      img: hp[i]["img"],
-                                      name: hp[i]["name"],
-                                      phno: hp[i]["phno"],
-                                      rating: hp[i]["rating"],
-                                      time: hp[i]["time"],
-                                    )));
-                      },
-                      title: Text(
-                        hp[i]["name"],
-                      ),
-                      subtitle: Container(
-                        child: Wrap(
-                          spacing: 2, // space between two icons
-                          children: [
-                            Icon(
-                              Icons.star,
-                              color: Colors.amber,
-                              size: 18,
-                            ), // icon-1
-                            Text(
-                              hp[i]["rating"],
-                              style: TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.bold),
-                            ) // icon-2
-                          ],
-                        ),
-                      ),
-                      leading: SizedBox(
-                        height: 250,
-                        width: 130,
-                        child: ConstrainedBox(
-                          constraints: BoxConstraints(
-                              maxHeight: 250,
-                              maxWidth: 200,
-                              minHeight: 100,
-                              minWidth: 100),
-                          child: Image.network(
-                            hp[i]["img"],
-                            fit: BoxFit.cover,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            hp.length > 1
+                ? ListView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    scrollDirection: Axis.vertical,
+                    itemCount: hp.length,
+                    itemBuilder: (context, i) {
+                      // return ListTile(
+                      //   onTap: () async {
+                      //     Navigator.push(
+                      //         context,
+                      //         MaterialPageRoute(
+                      //             builder: (context) => PlaceDetails(
+                      //                   lat: hp[i]["lat"],
+                      //                   long: hp[i]["long"],
+                      //                   address: hp[i]["address"],
+                      //                   des: hp[i]["des"],
+                      //                   entry: hp[i]["entry"],
+                      //                   img: hp[i]["img"],
+                      //                   name: hp[i]["name"],
+                      //                   phno: hp[i]["phno"],
+                      //                   rating: hp[i]["rating"],
+                      //                   time: hp[i]["time"],
+                      //                 )));
+                      //   },
+                      //   title: Text(
+                      //     hp[i]["name"],
+                      //   ),
+                      //   subtitle: Container(
+                      //     child: Wrap(
+                      //       spacing: 2, // space between two icons
+                      //       children: [
+                      //         Icon(
+                      //           Icons.star,
+                      //           color: Colors.amber,
+                      //           size: 18,
+                      //         ), // icon-1
+                      //         Text(
+                      //           hp[i]["rating"],
+                      //           style: TextStyle(
+                      //               fontSize: 14, fontWeight: FontWeight.bold),
+                      //         ) // icon-2
+                      //       ],
+                      //     ),
+                      //   ),
+                      //   leading: SizedBox(
+                      //     height: 250,
+                      //     width: 130,
+                      //     child: ConstrainedBox(
+                      //       constraints: BoxConstraints(
+                      //           maxHeight: 250,
+                      //           maxWidth: 200,
+                      //           minHeight: 100,
+                      //           minWidth: 100),
+                      //       child: Image.network(
+                      //         hp[i]["img"],
+                      //         fit: BoxFit.cover,
+                      //       ),
+                      //     ),
+                      //   ),
+                      // );
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: GestureDetector(
+                          onTap: () async {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => PlaceDetails(
+                                          lat: hp[i]["lat"],
+                                          long: hp[i]["long"],
+                                          address: hp[i]["address"],
+                                          des: hp[i]["des"],
+                                          entry: hp[i]["entry"],
+                                          img: hp[i]["img"],
+                                          name: hp[i]["name"],
+                                          phno: hp[i]["phno"],
+                                          rating: hp[i]["rating"],
+                                          time: hp[i]["time"],
+                                        )));
+                          },
+                          child: Card(
+                            elevation: 10,
+                            child: Container(
+                              height: 90,
+                              child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Expanded(
+                                        child: Container(
+                                      decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                              image: NetworkImage(
+                                                hp[i]["img"],
+                                              ),
+                                              fit: BoxFit.cover)),
+                                    )),
+                                    Expanded(
+                                        child: Container(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              Text(
+                                                hp[i]["name"],
+                                              ),
+                                              Wrap(spacing: 2, children: [
+                                                Icon(
+                                                  Icons.star,
+                                                  color: Colors.amber,
+                                                  size: 18,
+                                                ),
+                                                Text(hp[i]["rating"])
+                                              ]),
+                                            ]),
+                                      ),
+                                    )),
+                                  ]),
+                            ),
                           ),
                         ),
+                      );
+                    })
+                : Column(
+                    children: [
+                      SizedBox(
+                        height: 250,
                       ),
-                    );
-                    // return Padding(
-                    //   padding: const EdgeInsets.all(8.0),
-                    //   child: GestureDetector(
-                    //     onTap: () async {
-                    //       Navigator.push(
-                    //           context,
-                    //           MaterialPageRoute(
-                    //               builder: (context) => PlaceDetails(
-                    //                     lat: hp[i]["lat"],
-                    //                     long: hp[i]["long"],
-                    //                     address: hp[i]["address"],
-                    //                     des: hp[i]["des"],
-                    //                     entry: hp[i]["entry"],
-                    //                     img: hp[i]["img"],
-                    //                     name: hp[i]["name"],
-                    //                     phno: hp[i]["phno"],
-                    //                     rating: hp[i]["rating"],
-                    //                     time: hp[i]["time"],
-                    //                   )));
-                    //     },
-                    //     child: Card(
-                    //       elevation: 10,
-                    //       child: Container(
-                    //         child: Row(
-                    //             mainAxisAlignment:
-                    //                 MainAxisAlignment.spaceEvenly,
-                    //             children: [
-                    //               Expanded(
-                    //                   child: Container(
-                    //                 decoration: BoxDecoration(
-                    //                     image: DecorationImage(
-                    //                         image: NetworkImage(
-                    //                           hp[i]["img"],
-                    //                         ),
-                    //                         fit: BoxFit.cover)),
-                    //               )),
-                    //               Expanded(
-                    //                   child: Container(
-                    //                 child: Padding(
-                    //                   padding: const EdgeInsets.all(8.0),
-                    //                   child: Column(
-                    //                       crossAxisAlignment:
-                    //                           CrossAxisAlignment.start,
-                    //                       mainAxisAlignment:
-                    //                           MainAxisAlignment.spaceEvenly,
-                    //                       children: [
-                    //                         Text(
-                    //                           hp[i]["name"],
-                    //                         ),
-                    //                         Wrap(spacing: 2, children: [
-                    //                           Icon(
-                    //                             Icons.star,
-                    //                             color: Colors.amber,
-                    //                             size: 18,
-                    //                           ),
-                    //                           Text(hp[i]["rating"])
-                    //                         ]),
-                    //                       ]),
-                    //                 ),
-                    //               )),
-                    //             ]),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // );
-                  })
-              : Column(
-                  children: [
-                    SizedBox(
-                      height: 250,
-                    ),
-                    Center(
-                      child: Text(
-                        "Not yet uploaded",
-                        style:
-                            TextStyle(fontSize: 15, fontFamily: 'Josefinsans'),
+                      Center(
+                        child: Text(
+                          "Not yet uploaded",
+                          style: TextStyle(
+                              fontSize: 15, fontFamily: 'Josefinsans'),
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-        ],
+                    ],
+                  ),
+          ],
+        ),
       ),
     );
   }

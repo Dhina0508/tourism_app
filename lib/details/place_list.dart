@@ -1,8 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:tourism/dash_board_four_pages/hotel.dart';
 import 'package:tourism/details/hospital_list.dart';
+import 'package:tourism/details/hotel_particular_place.dart';
 import 'package:tourism/details/pharmacy_list.dart';
 import 'package:tourism/details/place_details.dart';
+import 'package:tourism/details/rental.dart';
+import 'package:tourism/helper/icons.dart';
 
 class PlaceList extends StatefulWidget {
   var value;
@@ -97,79 +101,152 @@ class _PlaceListState extends State<PlaceList> {
         body: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
                   height: 30,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => HospitalList(
-                                      value: widget.value,
-                                      name: widget.name,
-                                    )));
-                      },
-                      child: Container(
-                        height: 35,
-                        width: 110,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Color.fromARGB(255, 250, 122, 113),
-                            width: 2,
-                          ),
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        child: Center(
-                            child: Text(
-                          "Hospital",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontFamily: "JosefinSans"),
-                        )),
+                Padding(
+                  padding: const EdgeInsets.only(left: 15.0, right: 15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        Hotel_Particular_Place_List(
+                                          value: widget.value,
+                                          name: widget.name,
+                                        )));
+                          },
+                          child: DashBoardIcon(
+                            icon: Icons.hotel,
+                            text: "Hotels",
+                          )),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HospitalList(
+                                        value: widget.value,
+                                        name: widget.name,
+                                      )));
+                          print(widget.name);
+                        },
+                        child: DashBoardIcon(
+                            icon: Icons.add_home_work_outlined,
+                            text: "Hospital"),
                       ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Pharmacy_list(
-                                      value: widget.value,
-                                      name: widget.name,
-                                    )));
-                      },
-                      child: Container(
-                        height: 35,
-                        width: 110,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          border: Border.all(
-                            color: Color.fromARGB(255, 250, 122, 113),
-                            width: 2,
-                          ),
-                        ),
-                        child: Center(
-                            child: Text(
-                          "Pharmacy",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontFamily: "JosefinSans"),
-                        )),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Pharmacy_list(
+                                        value: widget.value,
+                                        name: widget.name,
+                                      )));
+                        },
+                        child: DashBoardIcon(
+                            icon: Icons.local_hospital_sharp, text: "Pharmacy"),
                       ),
-                    ),
-                  ],
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Rental()));
+                        },
+                        child: DashBoardIcon(
+                          text: "Rental",
+                          icon: Icons.directions_bike_outlined,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //   children: [
+                //     GestureDetector(
+                //       onTap: () {
+                //         Navigator.push(
+                //             context,
+                //             MaterialPageRoute(
+                //                 builder: (context) => HospitalList(
+                //                       value: widget.value,
+                //                       name: widget.name,
+                //                     )));
+                //       },
+                //       child: Container(
+                //         height: 35,
+                //         width: 110,
+                //         decoration: BoxDecoration(
+                //           border: Border.all(
+                //             color: Color.fromARGB(255, 250, 122, 113),
+                //             width: 2,
+                //           ),
+                //           borderRadius: BorderRadius.circular(30),
+                //         ),
+                //         child: Center(
+                //             child: Text(
+                //           "Hospital",
+                //           style: TextStyle(
+                //               fontWeight: FontWeight.bold,
+                //               fontFamily: "JosefinSans"),
+                //         )),
+                //       ),
+                //     ),
+                //     GestureDetector(
+                //       onTap: () {
+                //         Navigator.push(
+                //             context,
+                //             MaterialPageRoute(
+                //                 builder: (context) => Pharmacy_list(
+                //                       value: widget.value,
+                //                       name: widget.name,
+                //                     )));
+                //       },
+                //       child: Container(
+                //         height: 35,
+                //         width: 110,
+                //         decoration: BoxDecoration(
+                //           borderRadius: BorderRadius.circular(30),
+                //           border: Border.all(
+                //             color: Color.fromARGB(255, 250, 122, 113),
+                //             width: 2,
+                //           ),
+                //         ),
+                //         child: Center(
+                //             child: Text(
+                //           "Pharmacy",
+                //           style: TextStyle(
+                //               fontWeight: FontWeight.bold,
+                //               fontFamily: "JosefinSans"),
+                //         )),
+                //       ),
+                //     ),
+                //   ],
+                // ),
+
+                Padding(
+                  padding:
+                      const EdgeInsets.only(top: 25.0, left: 15, right: 15),
+                  child: Text(
+                    "Places",
+                    style: TextStyle(fontFamily: "Cinzel", fontSize: 25),
+                  ),
+                ),
+
                 places.length > 1
                     ? ListView.builder(
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
                         scrollDirection: Axis.vertical,
-                        itemExtent: 100,
                         itemCount: places.length,
                         itemBuilder: (context, i) {
                           return Padding(
@@ -195,6 +272,7 @@ class _PlaceListState extends State<PlaceList> {
                               child: Card(
                                 elevation: 10,
                                 child: Container(
+                                  height: 100,
                                   child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
@@ -221,6 +299,10 @@ class _PlaceListState extends State<PlaceList> {
                                                 children: [
                                                   Text(
                                                     places[i]["name"],
+                                                    style: TextStyle(
+                                                        fontFamily:
+                                                            "JosefinSans",
+                                                        fontSize: 17),
                                                   ),
                                                   Wrap(spacing: 2, children: [
                                                     Icon(

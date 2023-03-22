@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -45,10 +43,13 @@ class _RegisterPageState extends State<RegisterPage> {
     });
   }
 
-  bool dropdown = true;
+  // bool dropdown = true;
   bool _isHidden = true;
+  bool _isHidden1 = true;
   var visible = "";
+  var visible1 = "";
   String user_type = "user";
+  var tap = "";
 
   Service service = Service();
   @override
@@ -161,14 +162,14 @@ class _RegisterPageState extends State<RegisterPage> {
                       height: 20,
                     ),
                     TextField(
-                      obscureText: _isHidden,
+                      obscureText: _isHidden1,
                       controller: _confirmpasswordcontroller,
                       decoration: InputDecoration(
-                          suffixIcon: visible == ""
+                          suffixIcon: visible1 == ""
                               ? InkWell(
                                   onTap: () {
-                                    _togglePasswordView();
-                                    visible = "1";
+                                    _togglePasswordView1();
+                                    visible1 = "1";
                                   },
                                   child: Icon(
                                     Icons.visibility_off,
@@ -176,8 +177,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                   ))
                               : InkWell(
                                   onTap: () {
-                                    _togglePasswordView();
-                                    visible = "";
+                                    _togglePasswordView1();
+                                    visible1 = "";
                                   },
                                   child: Icon(
                                     Icons.visibility,
@@ -202,6 +203,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 groupValue: user_type,
                                 onChanged: (value) {
                                   setState(() {
+                                    tap = "";
                                     user_type = value.toString();
                                   });
                                 }),
@@ -220,8 +222,10 @@ class _RegisterPageState extends State<RegisterPage> {
                                 value: "vendor",
                                 groupValue: user_type,
                                 onChanged: (value) {
-                                  _dropdown();
+                                  // _dropdown();
                                   setState(() {
+                                    tap = "1";
+
                                     user_type = value.toString();
                                   });
                                 }),
@@ -239,8 +243,10 @@ class _RegisterPageState extends State<RegisterPage> {
                     SizedBox(
                       height: 5,
                     ),
-                    dropdown == false
-                        ? TextField(
+                    // dropdown == false
+                    tap == ""
+                        ? Container()
+                        : TextField(
                             controller: _hotelnameController,
                             decoration: InputDecoration(
                                 fillColor: Colors.grey.shade100,
@@ -248,8 +254,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 hintText: 'Enter Hotel Name',
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(15))),
-                          )
-                        : Container(),
+                          ),
                     SizedBox(
                       height: 25,
                     ),
@@ -324,9 +329,15 @@ class _RegisterPageState extends State<RegisterPage> {
     });
   }
 
-  void _dropdown() {
+  void _togglePasswordView1() {
     setState(() {
-      dropdown = !dropdown;
+      _isHidden1 = !_isHidden1;
     });
   }
+
+  // void _dropdown() {
+  //   setState(() {
+  //     dropdown = !dropdown;
+  //   });
+  // }
 }

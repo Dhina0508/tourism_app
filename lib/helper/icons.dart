@@ -11,8 +11,8 @@ class DashBoardIcon extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15), color: Colors.grey.shade200),
-      height: 65,
-      width: 60,
+      height: 70,
+      width: 70,
       child: Center(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -24,7 +24,8 @@ class DashBoardIcon extends StatelessWidget {
           ),
           Text(
             text,
-            style: TextStyle(fontSize: 13, color: Colors.black87),
+            style: TextStyle(
+                fontSize: 13, color: Colors.black87, fontFamily: "JosefinSans"),
           ),
         ],
       )),

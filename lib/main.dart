@@ -15,8 +15,9 @@ import 'package:tourism/pages/myprofile.dart';
 import 'package:tourism/pages/search.dart';
 import 'firebase_options.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // final Future<FirebaseApp> _initialization = Firebase.initializeApp();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

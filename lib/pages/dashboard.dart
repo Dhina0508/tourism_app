@@ -353,34 +353,34 @@ class _DashBoardState extends State<DashBoard> {
             SizedBox(
               height: 30,
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 15.0, right: 15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  GestureDetector(
-                      onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => Hotel()));
-                      },
-                      child: DashBoardIcon(
-                        icon: Icons.house_outlined,
-                        text: "Hotels",
-                      )),
-                  DashBoardIcon(
-                      icon: Icons.restaurant_menu_outlined, text: "Food"),
-                  DashBoardIcon(
-                      icon: Icons.directions_bike_outlined, text: "Render"),
-                  DashBoardIcon(
-                    text: "Train",
-                    icon: Icons.train_outlined,
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 25,
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.only(left: 15.0, right: 15),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //     children: [
+            //       GestureDetector(
+            //           onTap: () {
+            //             Navigator.push(context,
+            //                 MaterialPageRoute(builder: (context) => Hotel()));
+            //           },
+            //           child: DashBoardIcon(
+            //             icon: Icons.house_outlined,
+            //             text: "Hotels",
+            //           )),
+            //       DashBoardIcon(
+            //           icon: Icons.restaurant_menu_outlined, text: "Food"),
+            //       DashBoardIcon(
+            //           icon: Icons.directions_bike_outlined, text: "Render"),
+            //       DashBoardIcon(
+            //         text: "Train",
+            //         icon: Icons.train_outlined,
+            //       ),
+            //     ],
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: 25,
+            // ),
             Padding(
               padding: const EdgeInsets.only(left: 15.0),
               child: Text(
