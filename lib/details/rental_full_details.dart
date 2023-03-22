@@ -1,28 +1,30 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:tourism/details/hotel_booking.dart';
+import 'package:tourism/details/rental_booking.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class HotelFullDetails extends StatefulWidget {
+class RentalFullDetails extends StatefulWidget {
   var img;
   var name;
   var place;
   var phno;
-  var cost;
+  var car_cost;
+  var bike_cost;
   var rating;
   var address;
   var details;
-  var hotel_email;
+  var email;
   var lat;
   var long;
   var time;
-  HotelFullDetails({
+  RentalFullDetails({
     this.address,
-    this.hotel_email,
-    this.cost,
+    this.email,
+    this.car_cost,
+    this.bike_cost,
     this.time,
     this.lat,
     this.long,
@@ -34,10 +36,10 @@ class HotelFullDetails extends StatefulWidget {
     this.rating,
   });
   @override
-  State<HotelFullDetails> createState() => _HotelFullDetailsState();
+  State<RentalFullDetails> createState() => _RentalFullDetailsState();
 }
 
-class _HotelFullDetailsState extends State<HotelFullDetails> {
+class _RentalFullDetailsState extends State<RentalFullDetails> {
   static Future<void> openMAp(double lat, double long) async {
     String googlemapUrl =
         "https://www.google.com/maps/search/?api=1&query=$lat,$long";
@@ -262,8 +264,11 @@ class _HotelFullDetailsState extends State<HotelFullDetails> {
                           "Address: " +
                           widget.address +
                           "  " +
-                          "Cost per Day: " +
-                          widget.cost +
+                          "Bike Cost per Day: " +
+                          widget.bike_cost +
+                          "  " +
+                          "Car Cost per Day: " +
+                          widget.car_cost +
                           "  " +
                           "Phone Number:  " +
                           widget.phno +
@@ -334,12 +339,31 @@ class _HotelFullDetailsState extends State<HotelFullDetails> {
               padding: const EdgeInsets.only(left: 10, right: 10),
               child: Row(
                 children: [
-                  Text("Cost: ",
+                  Text("Bike Cost: ",
                       style: TextStyle(
                           fontSize: 16,
                           fontFamily: "JosefinSans",
                           color: Color.fromARGB(255, 250, 134, 126))),
-                  Text("Rs: " + widget.cost,
+                  Text("Rs: " + widget.bike_cost + " Per Day",
+                      style: TextStyle(
+                        fontSize: 15,
+                      )),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 10, right: 10),
+              child: Row(
+                children: [
+                  Text("Car Cost: ",
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontFamily: "JosefinSans",
+                          color: Color.fromARGB(255, 250, 134, 126))),
+                  Text("Rs: " + widget.car_cost + " Per Day",
                       style: TextStyle(
                         fontSize: 15,
                       )),
@@ -402,9 +426,9 @@ class _HotelFullDetailsState extends State<HotelFullDetails> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => HotelBooking(
+                                builder: (context) => RentalBooking(
                                       hotel_name: widget.name,
-                                      hotel_email: widget.hotel_email,
+                                      hotel_email: widget.email,
                                     )));
                       },
                       child: Text(

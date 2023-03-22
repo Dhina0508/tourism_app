@@ -28,7 +28,6 @@ Future<void> main() async {
       theme: ThemeData(
           primarySwatch: Colors.red,
           primaryColor: Colors.red,
-          dividerColor: Colors.red,
           colorScheme: ColorScheme.light(primary: Colors.red)),
       debugShowCheckedModeBanner: false,
       home: email == null ? LoginPage() : Home(),

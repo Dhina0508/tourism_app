@@ -5,7 +5,7 @@ import 'package:tourism/details/hospital_list.dart';
 import 'package:tourism/details/hotel_particular_place.dart';
 import 'package:tourism/details/pharmacy_list.dart';
 import 'package:tourism/details/place_details.dart';
-import 'package:tourism/details/rental.dart';
+import 'package:tourism/details/rental_list.dart';
 import 'package:tourism/helper/icons.dart';
 
 class PlaceList extends StatefulWidget {
@@ -135,7 +135,6 @@ class _PlaceListState extends State<PlaceList> {
                                         value: widget.value,
                                         name: widget.name,
                                       )));
-                          print(widget.name);
                         },
                         child: DashBoardIcon(
                             icon: Icons.add_home_work_outlined,
@@ -159,7 +158,10 @@ class _PlaceListState extends State<PlaceList> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Rental()));
+                                  builder: (context) => RentalList(
+                                        value: widget.value,
+                                        name: widget.name,
+                                      )));
                         },
                         child: DashBoardIcon(
                           text: "Rental",

@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:tourism/details/hotel_full.dart';
 import 'package:tourism/details/place_details.dart';
 
 class Hotel_Particular_Place_List extends StatefulWidget {
@@ -36,6 +37,8 @@ class _Hotel_Particular_Place_ListState
           "place": qn.docs[i]["place"],
           "lat": qn.docs[i]["lat"],
           "long": qn.docs[i]["long"],
+          "place": qn.docs[i]["place"],
+          "email": qn.docs[i]["email"]
         });
       }
     });
@@ -72,7 +75,7 @@ class _Hotel_Particular_Place_ListState
       body: SingleChildScrollView(
         child: Column(
           children: [
-            hotel.length > 1
+            hotel.length >= 1
                 ? ListView.builder(
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
@@ -87,17 +90,18 @@ class _Hotel_Particular_Place_ListState
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => PlaceDetails(
+                                      builder: (context) => HotelFullDetails(
                                             lat: hotel[i]["lat"],
                                             long: hotel[i]["long"],
                                             address: hotel[i]["address"],
-                                            des: hotel[i]["details"],
-                                            entry: hotel[i]["cost"],
+                                            details: hotel[i]["details"],
+                                            cost: hotel[i]["cost"],
                                             img: hotel[i]["img"],
                                             name: hotel[i]["name"],
                                             phno: hotel[i]["phno"],
                                             rating: hotel[i]["rating"],
-                                            time: hotel[i]["time"],
+                                            hotel_email: hotel[i]["email"],
+                                            place: hotel[i]["place"],
                                           )));
                             },
                             child: Card(

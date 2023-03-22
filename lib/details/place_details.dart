@@ -325,7 +325,7 @@ class _PlaceDetailsState extends State<PlaceDetails> {
                   SizedBox(
                     height: 5,
                   ),
-                  Divider(thickness: 1),
+                  Divider(thickness: 0.5, color: Colors.black),
                   SizedBox(
                     height: 10,
                   ),
@@ -349,7 +349,8 @@ class _PlaceDetailsState extends State<PlaceDetails> {
                     height: 10,
                   ),
                   Divider(
-                    thickness: 1,
+                    thickness: 0.5,
+                    color: Colors.black,
                   ),
                   Padding(
                     padding: const EdgeInsets.all(10.0),
@@ -368,7 +369,8 @@ class _PlaceDetailsState extends State<PlaceDetails> {
                     ),
                   ),
                   Divider(
-                    thickness: 1,
+                    thickness: 0.5,
+                    color: Colors.black,
                   ),
                   Padding(
                     padding: const EdgeInsets.all(10.0),
@@ -390,20 +392,10 @@ class _PlaceDetailsState extends State<PlaceDetails> {
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 10, right: 10, top: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("Description: ",
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontFamily: "JosefinSans",
-                            color: Color.fromARGB(255, 250, 134, 126))),
-                    Text("  " + widget.des,
-                        style: TextStyle(
-                          fontSize: 15,
-                        )),
-                  ],
-                ),
+                child: Text("  " + widget.des,
+                    style: TextStyle(
+                      fontSize: 15,
+                    )),
               ),
               Container(
                 child: Image.network(widget.img),

@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:tourism/dash_board_four_pages/Photos_upload_page.dart';
+import 'package:tourism/dash_board_four_pages/all_places.dart';
 import 'package:tourism/dash_board_four_pages/hotel.dart';
 import 'package:tourism/details/hotel_full.dart';
 import 'package:tourism/details/place_list.dart';
@@ -247,18 +248,6 @@ class _DashBoardState extends State<DashBoard> {
             SizedBox(
               height: 20,
             ),
-
-            // Padding(
-            //   padding: const EdgeInsets.only(left: 20.0),
-            //   child: Text(
-            //     "Explore the beautiful world !",
-            //     style: TextStyle(
-            //       fontWeight: FontWeight.bold,
-            //       fontSize: 20,
-            //     ),
-            //   ),
-            // ),
-
             Padding(
               padding: const EdgeInsets.only(left: 20.0, bottom: 15),
               child: Text(
@@ -353,34 +342,6 @@ class _DashBoardState extends State<DashBoard> {
             SizedBox(
               height: 30,
             ),
-            // Padding(
-            //   padding: const EdgeInsets.only(left: 15.0, right: 15),
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //     children: [
-            //       GestureDetector(
-            //           onTap: () {
-            //             Navigator.push(context,
-            //                 MaterialPageRoute(builder: (context) => Hotel()));
-            //           },
-            //           child: DashBoardIcon(
-            //             icon: Icons.house_outlined,
-            //             text: "Hotels",
-            //           )),
-            //       DashBoardIcon(
-            //           icon: Icons.restaurant_menu_outlined, text: "Food"),
-            //       DashBoardIcon(
-            //           icon: Icons.directions_bike_outlined, text: "Render"),
-            //       DashBoardIcon(
-            //         text: "Train",
-            //         icon: Icons.train_outlined,
-            //       ),
-            //     ],
-            //   ),
-            // ),
-            // SizedBox(
-            //   height: 25,
-            // ),
             Padding(
               padding: const EdgeInsets.only(left: 15.0),
               child: Text(
@@ -388,7 +349,6 @@ class _DashBoardState extends State<DashBoard> {
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ),
-
             SizedBox(
               height: 15,
             ),
@@ -424,7 +384,7 @@ class _DashBoardState extends State<DashBoard> {
                         child: Container(
                           height: 100,
                           decoration: BoxDecoration(
-                              color: Color.fromARGB(54, 249, 145, 141),
+                              color: Color.fromARGB(18, 249, 144, 141),
                               borderRadius: BorderRadius.circular(20)),
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -510,17 +470,6 @@ class _DashBoardState extends State<DashBoard> {
                 )
               ],
             ),
-            // SizedBox(
-            //   height: 20,
-            // ),
-            // Padding(
-            //   padding: const EdgeInsets.only(left: 15.0),
-            //   child: Text(
-            //     "THINGS TO DO",
-            //     style: TextStyle(
-            //         fontSize: 20, fontWeight: FontWeight.bold),
-            //   ),
-            // ),
             SizedBox(
               height: 20,
             ),
@@ -545,6 +494,331 @@ class _DashBoardState extends State<DashBoard> {
                     fit: BoxFit.cover,
                   ),
                 ),
+              ),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 15.0),
+              child: Text(
+                "EXPLORE THE BEAUTIFUL WORLD !",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => AllPlaces()));
+                  },
+                  child: Container(
+                    height: 50,
+                    width: 150,
+                    decoration: BoxDecoration(
+                        color: Color.fromARGB(42, 244, 125, 117),
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                            color: Color.fromARGB(255, 237, 112, 103),
+                            width: 0.5)),
+                    child: Center(
+                        child: Text(
+                      "Places",
+                      style: TextStyle(
+                          fontFamily: "JosefinSans",
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    )),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Hotel()));
+                  },
+                  child: Container(
+                    height: 50,
+                    width: 150,
+                    child: Center(
+                        child: Text(
+                      "Hotels",
+                      style: TextStyle(
+                          fontFamily: "JosefinSans",
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    )),
+                    decoration: BoxDecoration(
+                        color: Color.fromARGB(42, 244, 125, 117),
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                            color: Color.fromARGB(255, 237, 112, 103),
+                            width: 0.5)),
+                  ),
+                )
+              ],
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                GestureDetector(
+                  onTap: () {},
+                  child: Container(
+                    height: 50,
+                    width: 150,
+                    decoration: BoxDecoration(
+                        color: Color.fromARGB(42, 244, 125, 117),
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                            color: Color.fromARGB(255, 237, 112, 103),
+                            width: 0.5)),
+                    child: Center(
+                        child: Text(
+                      "Emergency",
+                      style: TextStyle(
+                          fontFamily: "JosefinSans",
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    )),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {},
+                  child: Container(
+                    height: 50,
+                    width: 150,
+                    child: Center(
+                        child: Text(
+                      "Rental",
+                      style: TextStyle(
+                          fontFamily: "JosefinSans",
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    )),
+                    decoration: BoxDecoration(
+                        color: Color.fromARGB(42, 244, 125, 117),
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                            color: Color.fromARGB(255, 237, 112, 103),
+                            width: 0.5)),
+                  ),
+                )
+              ],
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 15.0),
+              child: Text(
+                "THINGS TO DO",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 5),
+                    child: Stack(children: [
+                      Container(
+                          width: 210,
+                          height: 210,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Container(
+                              child: Image.network(
+                                "https://cdn.ceoworld.biz/wp-content/uploads/2019/06/Adventure-Trekking.jpg",
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          )),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 220,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 50.0),
+                              child: Text(
+                                "Trekking",
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.black,
+                                    fontFamily: "Cinzel"),
+                              ),
+                            )
+                          ],
+                        ),
+                      )
+                    ]),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 5),
+                    child: Stack(children: [
+                      Container(
+                          width: 210,
+                          height: 210,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Container(
+                              child: Image.network(
+                                "https://media.timeout.com/images/105658195/image.jpg",
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          )),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 220,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 50.0),
+                              child: Text(
+                                "Camping",
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.black,
+                                    fontFamily: "Cinzel"),
+                              ),
+                            )
+                          ],
+                        ),
+                      )
+                    ]),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Stack(children: [
+                      Container(
+                          width: 210,
+                          height: 210,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Container(
+                              child: Image.network(
+                                "https://parade.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_1200/MTkwNTc2MDI3MTM2MTczOTQ4/askmarilynparachutes-ftr.jpg",
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          )),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 220,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 30.0),
+                              child: Text(
+                                "Parasailing",
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.black,
+                                    fontFamily: "Cinzel"),
+                              ),
+                            )
+                          ],
+                        ),
+                      )
+                    ]),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 5),
+                    child: Stack(children: [
+                      Container(
+                          width: 210,
+                          height: 210,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Container(
+                              child: Image.network(
+                                "https://e0.pxfuel.com/wallpapers/98/833/desktop-wallpaper-nataraja-lord-shiva-god-thumbnail.jpg",
+                                fit: BoxFit.cover,
+                              ),
+                              color: Colors.red,
+                            ),
+                          )),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 220,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 50.0),
+                              child: Text(
+                                "Heritage Tour",
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.black,
+                                    fontFamily: "Cinzel"),
+                              ),
+                            )
+                          ],
+                        ),
+                      )
+                    ]),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 5),
+                    child: Stack(children: [
+                      Container(
+                          width: 210,
+                          height: 210,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Container(
+                              child: Image.network(
+                                "https://cdn.getyourguide.com/img/tour/5c6a6d3e9bc4f.jpeg/146.jpg",
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          )),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 220,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 50.0),
+                              child: Text(
+                                "Scuba Diving",
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.black,
+                                    fontFamily: "Cinzel"),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ]),
+                  ),
+                ],
               ),
             ),
             SizedBox(
