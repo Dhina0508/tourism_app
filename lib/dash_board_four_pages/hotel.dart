@@ -26,7 +26,8 @@ class _HotelState extends State<Hotel> {
           "phno": qn.docs[i]["phno"],
           "lat": qn.docs[i]["lat"],
           "long": qn.docs[i]["long"],
-          "hotel_email": qn.docs[i]["email"]
+          "hotel_email": qn.docs[i]["email"],
+          "time": qn.docs[i]["time"]
         });
       }
     });
@@ -82,6 +83,7 @@ class _HotelState extends State<Hotel> {
                               lat: hotel[i]["lat"],
                               long: hotel[i]["long"],
                               hotel_email: hotel[i]["hotel_email"],
+                              time: hotel[i]["time"],
                             )));
               },
               title: Text(

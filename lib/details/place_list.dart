@@ -325,9 +325,7 @@ class _PlaceListState extends State<PlaceList> {
                         })
                     : Column(
                         children: [
-                          SizedBox(
-                            height: 250,
-                          ),
+                          SizedBox(height: 175),
                           Center(
                             child: Text(
                               "Not yet uploaded",

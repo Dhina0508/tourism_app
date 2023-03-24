@@ -106,10 +106,10 @@ class _RentalBookingState extends State<RentalBooking>
                       options: ParticleOptions(
                     spawnMaxRadius: 20,
                     spawnMinSpeed: 50,
-                    particleCount: 50,
+                    particleCount: 10,
                     spawnMaxSpeed: 80,
-                    minOpacity: 0.7,
-                    maxOpacity: 0.9,
+                    minOpacity: 0.5,
+                    maxOpacity: 0.7,
                     baseColor: Colors.white,
                   )),
                   vsync: this,
@@ -260,31 +260,30 @@ class _RentalBookingState extends State<RentalBooking>
                 height: 20,
               ),
               SizedBox(
-                height: 40,
-                width: 200,
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        backgroundColor: Color.fromARGB(255, 251, 115, 105)),
-                    onPressed: () {
-                      if (no_of_days.text != '' &&
-                          _datecontroller != '' &&
-                          phno.text != '' &&
-                          id_proof.text != '' &&
-                          value.toString() != '') {
-                        sendreq();
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text("Details cannot be empty"),
-                          behavior: SnackBarBehavior.floating,
-                          backgroundColor: Colors.red,
-                        ));
-                      }
-                    },
-                    child: Text('Book Now')),
-              ),
+                  height: 45,
+                  width: 140,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          backgroundColor: Color.fromARGB(255, 251, 115, 105)),
+                      onPressed: () {
+                        if (no_of_days.text != '' &&
+                            _datecontroller != '' &&
+                            phno.text != '' &&
+                            id_proof.text != '' &&
+                            value.toString() != '') {
+                          sendreq();
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text("Details cannot be empty"),
+                            behavior: SnackBarBehavior.floating,
+                            backgroundColor: Colors.red,
+                          ));
+                        }
+                      },
+                      child: Text('Book Now')))
             ],
           ),
         ),

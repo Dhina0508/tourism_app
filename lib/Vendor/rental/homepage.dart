@@ -2,9 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tourism/Vendor/accepted.dart';
-import 'package:tourism/Vendor/rejected.dart';
-import 'package:tourism/Vendor/vendor_dashboard.dart';
+import 'package:tourism/Vendor/hotel/accepted.dart';
+import 'package:tourism/Vendor/hotel/vendor_dashboard.dart';
+import 'package:tourism/Vendor/rental/Rental_rejected.dart';
+import 'package:tourism/Vendor/rental/accept.dart';
+import 'package:tourism/Vendor/rental/new%20request.dart';
 import 'package:tourism/auth/firebase_helper/firebase_service.dart';
 
 class RentalVendorHome extends StatefulWidget {
@@ -26,7 +28,7 @@ class _RentalVendorHomeState extends State<RentalVendorHome> {
             FirebaseAuth.instance.currentUser!.email) {
           req1.add({
             "shop_name": qn1.docs[i]["shop_name"],
-            "shop_email": qn1.docs[i]["shop_email"]
+            "shop_email": qn1.docs[i]["shop_email"],
           });
         }
       }
@@ -74,7 +76,7 @@ class _RentalVendorHomeState extends State<RentalVendorHome> {
                 child: GestureDetector(
                   onTap: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Vendor()));
+                        MaterialPageRoute(builder: (context) => NewRequest()));
                   },
                   child: Container(
                     color: Color.fromARGB(156, 250, 137, 129),
@@ -104,8 +106,10 @@ class _RentalVendorHomeState extends State<RentalVendorHome> {
                 padding: const EdgeInsets.all(20.0),
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => AcceptedReq()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => RentalAcceptedReq()));
                   },
                   child: Container(
                     color: Color.fromARGB(156, 250, 137, 129),
@@ -138,7 +142,7 @@ class _RentalVendorHomeState extends State<RentalVendorHome> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => RejectedList()));
+                            builder: (context) => RentalReject()));
                   },
                   child: Container(
                     color: Color.fromARGB(156, 250, 137, 129),

@@ -4,11 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tourism/Vendor/home.dart';
-import 'package:tourism/Vendor/vendor_dashboard.dart';
+import 'package:tourism/Vendor/hotel/home.dart';
+import 'package:tourism/Vendor/rental/homepage.dart';
 import 'package:tourism/auth/login_page.dart';
-import 'package:tourism/dash_board_four_pages/hotel.dart';
-import 'package:tourism/myprofile/about.dart';
 import 'package:tourism/pages/dashboard.dart';
 import 'package:tourism/pages/fav.dart';
 import 'package:tourism/pages/myprofile.dart';
@@ -46,6 +44,32 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  List req1 = [];
+  getrentaldata() async {
+    QuerySnapshot qn1 = await FirebaseFirestore.instance
+        .collection("Rental_booking_Request")
+        .get();
+    setState(() {
+      for (int i = 0; i < qn1.docs.length; i++) {
+        if (qn1.docs[i]["shop_email"] ==
+            FirebaseAuth.instance.currentUser!.email) {
+          req1.add({
+            "shop_name": qn1.docs[i]["shop_name"],
+            "shop_email": qn1.docs[i]["shop_email"]
+          });
+        }
+      }
+    });
+    return qn1.docs;
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getrentaldata();
+  }
+
   int _currentindex = 0;
   final Screens = [DashBoard(), Fav(), Search(), MyProfile()];
   @override
@@ -104,7 +128,12 @@ class _HomeState extends State<Home> {
                   },
                 ),
               );
-            } else {
+            } else if (data["about"] == "vendor") {
+              for (int i = 0; i < req1.length; i++)
+                if (req1[i]["shop_email"] ==
+                    FirebaseAuth.instance.currentUser!.email) {
+                  return RentalVendorHome();
+                }
               return VendorHome();
             }
           }

@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:tourism/Vendor/accepted_cus_full.dart';
-import 'package:tourism/Vendor/customer_full_detials.dart';
+import 'package:tourism/Vendor/hotel/accepted_cus_full.dart';
+import 'package:tourism/Vendor/hotel/customer_full_detials.dart';
 
 class AcceptedReq extends StatefulWidget {
   AcceptedReq({Key? key}) : super(key: key);

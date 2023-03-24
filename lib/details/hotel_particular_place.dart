@@ -25,21 +25,23 @@ class _Hotel_Particular_Place_ListState
 
     setState(() {
       for (int i = 0; i < qn.docs.length; i++) {
-        hotel.add({
-          "name": qn.docs[i]["name"],
-          "img": qn.docs[i]["img"],
-          "address": qn.docs[i]["address"],
-          "cost": qn.docs[i]["cost"],
-          "details": qn.docs[i]["details"],
-          "time": qn.docs[i]["time"],
-          "phno": qn.docs[i]["phno"],
-          "rating": qn.docs[i]["rating"],
-          "place": qn.docs[i]["place"],
-          "lat": qn.docs[i]["lat"],
-          "long": qn.docs[i]["long"],
-          "place": qn.docs[i]["place"],
-          "email": qn.docs[i]["email"]
-        });
+        if (qn.docs[i]["place"] == widget.name) {
+          hotel.add({
+            "name": qn.docs[i]["name"],
+            "img": qn.docs[i]["img"],
+            "address": qn.docs[i]["address"],
+            "cost": qn.docs[i]["cost"],
+            "details": qn.docs[i]["details"],
+            "time": qn.docs[i]["time"],
+            "phno": qn.docs[i]["phno"],
+            "rating": qn.docs[i]["rating"],
+            "place": qn.docs[i]["place"],
+            "lat": qn.docs[i]["lat"],
+            "long": qn.docs[i]["long"],
+            "place": qn.docs[i]["place"],
+            "email": qn.docs[i]["email"],
+          });
+        }
       }
     });
     return qn.docs;
@@ -72,17 +74,16 @@ class _Hotel_Particular_Place_ListState
         elevation: 0,
         backgroundColor: Color.fromARGB(255, 251, 116, 106),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            hotel.length >= 1
-                ? ListView.builder(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    scrollDirection: Axis.vertical,
-                    itemCount: hotel.length,
-                    itemBuilder: (context, i) {
-                      if (hotel[i]["place"] == widget.name) {
+      body: hotel.length >= 1
+          ? SingleChildScrollView(
+              child: Column(
+                children: [
+                  ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      scrollDirection: Axis.vertical,
+                      itemCount: hotel.length,
+                      itemBuilder: (context, i) {
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: GestureDetector(
@@ -102,6 +103,7 @@ class _Hotel_Particular_Place_ListState
                                             rating: hotel[i]["rating"],
                                             hotel_email: hotel[i]["email"],
                                             place: hotel[i]["place"],
+                                            time: hotel[i]["time"],
                                           )));
                             },
                             child: Card(
@@ -150,25 +152,16 @@ class _Hotel_Particular_Place_ListState
                             ),
                           ),
                         );
-                      }
-                    })
-                : Column(
-                    children: [
-                      SizedBox(
-                        height: 250,
-                      ),
-                      Center(
-                        child: Text(
-                          "Not yet uploaded",
-                          style: TextStyle(
-                              fontSize: 15, fontFamily: 'Josefinsans'),
-                        ),
-                      ),
-                    ],
-                  ),
-          ],
-        ),
-      ),
+                      })
+                ],
+              ),
+            )
+          : Center(
+              child: Text(
+                "Not yet uploaded",
+                style: TextStyle(fontSize: 15, fontFamily: 'Josefinsans'),
+              ),
+            ),
     );
   }
 }

@@ -59,7 +59,8 @@ class _DashBoardState extends State<DashBoard> {
           "phno": qn.docs[j]["phno"],
           "lat": qn.docs[j]["lat"],
           "long": qn.docs[j]["long"],
-          "hotel_email": qn.docs[j]["email"]
+          "hotel_email": qn.docs[j]["email"],
+          "time": qn.docs[j]["time"]
         });
       }
     });
@@ -371,6 +372,7 @@ class _DashBoardState extends State<DashBoard> {
                                         address: hotel[i]["address"],
                                         cost: hotel[i]["cost"],
                                         details: hotel[i]["details"],
+                                        time: hotel[i]["time"],
                                         img: hotel[i]["img"],
                                         name: hotel[i]["name"],
                                         phno: hotel[i]["phno"],
