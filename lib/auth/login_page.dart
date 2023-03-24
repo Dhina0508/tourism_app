@@ -41,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   children: [
                     SizedBox(
-                      height: 75 * 2,
+                      height: 30,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -54,17 +54,18 @@ class _LoginPageState extends State<LoginPage> {
                                       color: Color.fromARGB(255, 246, 94, 94),
                                       width: 2))),
                           child: Text(
-                            'TOURIST GUIDE',
+                            'Xenosights',
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
+                                fontFamily: "Cinzel",
                                 fontSize: 30),
                           ),
                         ),
                       ],
                     ),
                     SizedBox(
-                      height: 75,
+                      height: 100,
                     ),
                     Padding(
                       padding: EdgeInsets.only(right: 20, left: 20),
@@ -162,7 +163,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     SizedBox(
-                      height: 50,
+                      height: 70,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

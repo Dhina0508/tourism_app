@@ -199,6 +199,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         Row(
                           children: [
                             Radio(
+                                activeColor: Colors.red,
                                 value: "user",
                                 groupValue: user_type,
                                 onChanged: (value) {
