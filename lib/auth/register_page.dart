@@ -54,274 +54,278 @@ class _RegisterPageState extends State<RegisterPage> {
   Service service = Service();
   @override
   Widget build(BuildContext context) {
-    return Container(
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage('images/welcome2.jpeg'), fit: BoxFit.cover)),
-        child: Scaffold(
-          appBar: AppBar(
-              elevation: 0,
-              backgroundColor: Colors.transparent,
-              leading: IconButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                icon: Icon(
-                  Icons.arrow_back_ios,
-                  color: Colors.black,
-                ),
-              )),
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+          elevation: 0,
           backgroundColor: Colors.transparent,
-          body: Stack(children: [
-            Container(
-              alignment: Alignment.topCenter,
-              child: Column(
-                children: [
-                  Text(
-                    'Welcome',
-                    style: TextStyle(
-                        color: Color.fromARGB(255, 246, 94, 94),
-                        fontSize: 40,
-                        fontWeight: FontWeight.bold),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: Colors.black,
+            ),
+          )),
+      body: Stack(children: [
+        Image.asset(
+          'images/welcome2.jpeg',
+          width: double.infinity,
+          height: double.infinity,
+          fit: BoxFit.cover,
+        ),
+        Center(
+          child: Container(
+            padding: EdgeInsets.only(top: 30, right: 35, left: 35),
+            constraints: BoxConstraints(maxWidth: 600),
+            child: SingleChildScrollView(
+              child: SafeArea(
+                child: Center(
+                  child: Column(
+                    children: [
+                      Text(
+                        'Welcome',
+                        style: TextStyle(
+                            color: Color.fromARGB(255, 246, 94, 94),
+                            fontSize: 40,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        height: 12,
+                      ),
+                      Text(
+                        'Register Here',
+                        style: TextStyle(
+                            color: Colors.black87,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        height: 100,
+                      ),
+                      TextField(
+                        controller: _NameController,
+                        decoration: InputDecoration(
+                            fillColor: Colors.grey.shade100,
+                            filled: true,
+                            hintText: 'Enter Name',
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15))),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      TextField(
+                        controller: _emailcontroller,
+                        decoration: InputDecoration(
+                            fillColor: Colors.grey.shade100,
+                            filled: true,
+                            hintText: 'Enter Login Id',
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15))),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      TextField(
+                        obscureText: _isHidden,
+                        controller: _passwordcontroller,
+                        decoration: InputDecoration(
+                            fillColor: Colors.grey.shade100,
+                            filled: true,
+                            suffixIcon: visible == ""
+                                ? InkWell(
+                                    onTap: () {
+                                      _togglePasswordView();
+                                      visible = "1";
+                                    },
+                                    child: Icon(
+                                      Icons.visibility_off,
+                                      size: 25,
+                                    ))
+                                : InkWell(
+                                    onTap: () {
+                                      _togglePasswordView();
+                                      visible = "";
+                                    },
+                                    child: Icon(
+                                      Icons.visibility,
+                                      size: 25,
+                                    )),
+                            hintText: 'Enter Password',
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15))),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      TextField(
+                        obscureText: _isHidden1,
+                        controller: _confirmpasswordcontroller,
+                        decoration: InputDecoration(
+                            suffixIcon: visible1 == ""
+                                ? InkWell(
+                                    onTap: () {
+                                      _togglePasswordView1();
+                                      visible1 = "1";
+                                    },
+                                    child: Icon(
+                                      Icons.visibility_off,
+                                      size: 25,
+                                    ))
+                                : InkWell(
+                                    onTap: () {
+                                      _togglePasswordView1();
+                                      visible1 = "";
+                                    },
+                                    child: Icon(
+                                      Icons.visibility,
+                                      size: 25,
+                                    )),
+                            fillColor: Colors.grey.shade100,
+                            filled: true,
+                            hintText: 'Re-Enter Password',
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15))),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Row(
+                            children: [
+                              Radio(
+                                  activeColor: Colors.red,
+                                  value: "user",
+                                  groupValue: user_type,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      tap = "";
+                                      user_type = value.toString();
+                                    });
+                                  }),
+                              Text(
+                                "User",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: "JosefinSans",
+                                    fontSize: 18),
+                              )
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Radio(
+                                  value: "vendor",
+                                  groupValue: user_type,
+                                  onChanged: (value) {
+                                    // _dropdown();
+                                    setState(() {
+                                      tap = "1";
+
+                                      user_type = value.toString();
+                                    });
+                                  }),
+                              Text(
+                                "Vendor",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: "JosefinSans",
+                                    fontSize: 18),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      // dropdown == false
+                      tap == ""
+                          ? Container()
+                          : TextField(
+                              controller: _hotelnameController,
+                              decoration: InputDecoration(
+                                  fillColor: Colors.grey.shade100,
+                                  filled: true,
+                                  hintText: 'Enter Hotel Name',
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(15))),
+                            ),
+                      SizedBox(
+                        height: 25,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text('Sign In',
+                                style: TextStyle(
+                                    color: Color.fromARGB(255, 246, 94, 94),
+                                    fontSize: 26,
+                                    fontWeight: FontWeight.w700)),
+                          ),
+                          CircleAvatar(
+                            radius: 30,
+                            backgroundColor: Color.fromARGB(255, 246, 94, 94),
+                            child: IconButton(
+                                color: Colors.white,
+                                onPressed: () async {
+                                  SharedPreferences pref =
+                                      await SharedPreferences.getInstance();
+                                  if (_passwordcontroller.text ==
+                                      _confirmpasswordcontroller.text) {
+                                    if (_emailcontroller.text.isNotEmpty &&
+                                        _passwordcontroller.text.isNotEmpty) {
+                                      service.createUser(
+                                          _NameController,
+                                          context,
+                                          _emailcontroller.text
+                                              .toString()
+                                              .trim(),
+                                          _passwordcontroller.text);
+                                      pref.setString(
+                                          "email",
+                                          _emailcontroller.text
+                                              .toString()
+                                              .trim());
+                                      senddata();
+                                    } else {
+                                      service.errorBox(context,
+                                          "Fields must not empty ,please provide valid email and password");
+                                    }
+                                  } else {
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(SnackBar(
+                                      content: Text(
+                                          "ERROR : Passwords should be Same"),
+                                      behavior: SnackBarBehavior.floating,
+                                      backgroundColor: Colors.red,
+                                    ));
+                                  }
+                                },
+                                icon: Icon(Icons.arrow_forward)),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 45,
+                      ),
+                    ],
                   ),
-                  SizedBox(
-                    height: 12,
-                  ),
-                  Text(
-                    'Register Here',
-                    style: TextStyle(
-                        color: Colors.black87,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ],
+                ),
               ),
             ),
-            SingleChildScrollView(
-              child: Container(
-                padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.15,
-                    right: 35,
-                    left: 35),
-                child: Column(
-                  children: [
-                    TextField(
-                      controller: _NameController,
-                      decoration: InputDecoration(
-                          fillColor: Colors.grey.shade100,
-                          filled: true,
-                          hintText: 'Enter Name',
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15))),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    TextField(
-                      controller: _emailcontroller,
-                      decoration: InputDecoration(
-                          fillColor: Colors.grey.shade100,
-                          filled: true,
-                          hintText: 'Enter Login Id',
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15))),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    TextField(
-                      obscureText: _isHidden,
-                      controller: _passwordcontroller,
-                      decoration: InputDecoration(
-                          fillColor: Colors.grey.shade100,
-                          filled: true,
-                          suffixIcon: visible == ""
-                              ? InkWell(
-                                  onTap: () {
-                                    _togglePasswordView();
-                                    visible = "1";
-                                  },
-                                  child: Icon(
-                                    Icons.visibility_off,
-                                    size: 25,
-                                  ))
-                              : InkWell(
-                                  onTap: () {
-                                    _togglePasswordView();
-                                    visible = "";
-                                  },
-                                  child: Icon(
-                                    Icons.visibility,
-                                    size: 25,
-                                  )),
-                          hintText: 'Enter Password',
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15))),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    TextField(
-                      obscureText: _isHidden1,
-                      controller: _confirmpasswordcontroller,
-                      decoration: InputDecoration(
-                          suffixIcon: visible1 == ""
-                              ? InkWell(
-                                  onTap: () {
-                                    _togglePasswordView1();
-                                    visible1 = "1";
-                                  },
-                                  child: Icon(
-                                    Icons.visibility_off,
-                                    size: 25,
-                                  ))
-                              : InkWell(
-                                  onTap: () {
-                                    _togglePasswordView1();
-                                    visible1 = "";
-                                  },
-                                  child: Icon(
-                                    Icons.visibility,
-                                    size: 25,
-                                  )),
-                          fillColor: Colors.grey.shade100,
-                          filled: true,
-                          hintText: 'Re-Enter Password',
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15))),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Row(
-                          children: [
-                            Radio(
-                                activeColor: Colors.red,
-                                value: "user",
-                                groupValue: user_type,
-                                onChanged: (value) {
-                                  setState(() {
-                                    tap = "";
-                                    user_type = value.toString();
-                                  });
-                                }),
-                            Text(
-                              "User",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: "JosefinSans",
-                                  fontSize: 18),
-                            )
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Radio(
-                                value: "vendor",
-                                groupValue: user_type,
-                                onChanged: (value) {
-                                  // _dropdown();
-                                  setState(() {
-                                    tap = "1";
-
-                                    user_type = value.toString();
-                                  });
-                                }),
-                            Text(
-                              "Vendor",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: "JosefinSans",
-                                  fontSize: 18),
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    // dropdown == false
-                    tap == ""
-                        ? Container()
-                        : TextField(
-                            controller: _hotelnameController,
-                            decoration: InputDecoration(
-                                fillColor: Colors.grey.shade100,
-                                filled: true,
-                                hintText: 'Enter Hotel Name',
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(15))),
-                          ),
-                    SizedBox(
-                      height: 25,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: Text('Sign In',
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 246, 94, 94),
-                                  fontSize: 26,
-                                  fontWeight: FontWeight.w700)),
-                        ),
-                        CircleAvatar(
-                          radius: 30,
-                          backgroundColor: Color.fromARGB(255, 246, 94, 94),
-                          child: IconButton(
-                              color: Colors.white,
-                              onPressed: () async {
-                                SharedPreferences pref =
-                                    await SharedPreferences.getInstance();
-                                if (_passwordcontroller.text ==
-                                    _confirmpasswordcontroller.text) {
-                                  if (_emailcontroller.text.isNotEmpty &&
-                                      _passwordcontroller.text.isNotEmpty) {
-                                    service.createUser(
-                                        _NameController,
-                                        context,
-                                        _emailcontroller.text.toString().trim(),
-                                        _passwordcontroller.text);
-                                    pref.setString(
-                                        "email",
-                                        _emailcontroller.text
-                                            .toString()
-                                            .trim());
-                                    senddata();
-                                  } else {
-                                    service.errorBox(context,
-                                        "Fields must not empty ,please provide valid email and password");
-                                  }
-                                } else {
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(SnackBar(
-                                    content: Text(
-                                        "ERROR : Passwords should be Same"),
-                                    behavior: SnackBarBehavior.floating,
-                                    backgroundColor: Colors.red,
-                                  ));
-                                }
-                              },
-                              icon: Icon(Icons.arrow_forward)),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: 45,
-                    ),
-                  ],
-                ),
-              ),
-            )
-          ]),
-        ));
+          ),
+        ),
+      ]),
+    );
   }
 
   void _togglePasswordView() {

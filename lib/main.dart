@@ -1,16 +1,21 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tourism/Vendor/hotel/home.dart';
 import 'package:tourism/Vendor/rental/homepage.dart';
 import 'package:tourism/auth/login_page.dart';
+import 'package:tourism/desktop.dart';
 import 'package:tourism/pages/dashboard.dart';
 import 'package:tourism/pages/fav.dart';
 import 'package:tourism/pages/myprofile.dart';
 import 'package:tourism/pages/search.dart';
+import 'package:tourism/responsive.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -28,12 +33,54 @@ Future<void> main() async {
           primaryColor: Colors.red,
           colorScheme: ColorScheme.light(primary: Colors.red)),
       debugShowCheckedModeBanner: false,
-      home: email == null ? LoginPage() : Home(),
+      // home: email == null ? LoginPage() : Home(),
+      home: Responsive(
+          desktopScaffold: email == null ? MyHomePage() : Home(),
+          mobileScaffold: email == null ? MyHomePage() : Home()),
       routes: {
         'Dashboard': (context) => DashBoard(),
         'home': (context) => Home(),
         'login': (context) => LoginPage()
       }));
+}
+
+class MyHomePage extends StatefulWidget {
+  MyHomePage({Key? key}) : super(key: key);
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  void initState() {
+    super.initState();
+    Timer(
+        Duration(seconds: 2),
+        () => Navigator.push(
+            context, MaterialPageRoute(builder: (context) => LoginPage())));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Color.fromARGB(255, 20, 19, 19),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Center(
+              child: Image.asset('images/start.png',
+                  fit: BoxFit.cover,
+                  height: MediaQuery.of(context).size.height - 180),
+            ),
+            SizedBox(
+              height: 40,
+            ),
+            CircularProgressIndicator(
+              color: Colors.red,
+            )
+          ],
+        ));
+  }
 }
 
 class Home extends StatefulWidget {

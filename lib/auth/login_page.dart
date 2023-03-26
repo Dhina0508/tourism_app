@@ -130,8 +130,9 @@ class _LoginPageState extends State<LoginPage> {
                       padding: EdgeInsets.only(top: 60),
                       child: Container(
                         width: 120,
+                        height: 35,
                         child: ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.circular(15),
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Color.fromARGB(255, 246, 94, 94),
