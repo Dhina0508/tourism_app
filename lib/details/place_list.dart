@@ -146,7 +146,6 @@ class _PlaceListState extends State<PlaceList> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => Pharmacy_list(
-                                        value: widget.value,
                                         name: widget.name,
                                       )));
                         },

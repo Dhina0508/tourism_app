@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:tourism/details/hospital_full.dart';
 import 'package:tourism/details/place_details.dart';
 
 class Pharmacy_list extends StatefulWidget {
-  var value;
   var name;
-  Pharmacy_list({this.value, this.name});
+  Pharmacy_list({this.name});
 
   @override
   State<Pharmacy_list> createState() => _Pharmacy_listState();
@@ -15,29 +15,24 @@ class _Pharmacy_listState extends State<Pharmacy_list> {
   List ph = [];
   //Future<List<QueryDocumentSnapshot<Object?>>>
   getpharmacydata() async {
-    var id = widget.value.toString();
     var collection = widget.name;
-    QuerySnapshot qn = await FirebaseFirestore.instance
-        .collection("tourism")
-        .doc(id.trim())
-        .collection(collection)
-        .orderBy("name", descending: false)
-        .get();
+    QuerySnapshot qn =
+        await FirebaseFirestore.instance.collection("pharmacy").get();
 
     setState(() {
       for (int i = 0; i < qn.docs.length; i++) {
-        if (qn.docs[i]["about"] == "ph") {
+        if (qn.docs[i]["about"] == widget.name) {
           ph.add({
             "name": qn.docs[i]["name"],
+            "about": qn.docs[i]["about"],
             "img": qn.docs[i]["img"],
             "address": qn.docs[i]["address"],
-            "des": qn.docs[i]["des"],
-            "entry": qn.docs[i]["entry"],
             "phno": qn.docs[i]["phno"],
             "rating": qn.docs[i]["rating"],
             "time": qn.docs[i]["time"],
             "lat": qn.docs[i]["lat"],
-            "long": qn.docs[i]["long"]
+            "long": qn.docs[i]["long"],
+            "id": qn.docs[i]["id"]
           });
         }
       }
@@ -72,7 +67,7 @@ class _Pharmacy_listState extends State<Pharmacy_list> {
         elevation: 0,
         backgroundColor: Color.fromARGB(255, 251, 116, 106),
       ),
-      body: ph.length > 1
+      body: ph.length >= 1
           ? SingleChildScrollView(
               child: Column(
                 children: [
@@ -143,17 +138,16 @@ class _Pharmacy_listState extends State<Pharmacy_list> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => PlaceDetails(
+                                      builder: (context) => HospitalFullDetails(
                                             lat: ph[i]["lat"],
                                             long: ph[i]["long"],
                                             address: ph[i]["address"],
-                                            des: ph[i]["des"],
-                                            entry: ph[i]["entry"],
                                             img: ph[i]["img"],
                                             name: ph[i]["name"],
                                             phno: ph[i]["phno"],
                                             rating: ph[i]["rating"],
                                             time: ph[i]["time"],
+                                            id: ph[i]["id"],
                                           )));
                             },
                             child: Card(

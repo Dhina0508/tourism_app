@@ -21,7 +21,7 @@ class _HospitalListState extends State<HospitalList> {
 
     setState(() {
       for (int i = 0; i < qn.docs.length; i++) {
-        if (qn.docs[i]["about"] == collection) {
+        if (qn.docs[i]["about"] == widget.name) {
           hp.add({
             "name": qn.docs[i]["name"],
             "about": qn.docs[i]["about"],
