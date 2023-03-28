@@ -2,15 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class ReqStatus extends StatefulWidget {
-  ReqStatus({Key? key}) : super(key: key);
+class RentalRequestStatus extends StatefulWidget {
+  RentalRequestStatus({Key? key}) : super(key: key);
 
   @override
-  State<ReqStatus> createState() => _ReqStatusState();
+  State<RentalRequestStatus> createState() => _RentalRequestStatusState();
 }
 
-class _ReqStatusState extends State<ReqStatus> {
-  @override
+class _RentalRequestStatusState extends State<RentalRequestStatus> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +20,7 @@ class _ReqStatusState extends State<ReqStatus> {
             },
             icon: Icon(Icons.arrow_back_ios_new)),
         title: Text(
-          'Hotel Booking Status',
+          'Rental Booking Status',
           style: TextStyle(fontFamily: "Cinzel"),
         ),
         centerTitle: true,
@@ -29,7 +28,7 @@ class _ReqStatusState extends State<ReqStatus> {
       ),
       body: StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance
-              .collection("Hotel_booking_Request")
+              .collection("Rental_booking_Request")
               .orderBy('c_time', descending: true)
               .snapshots(),
           builder: (context, snapshot) {
@@ -56,7 +55,7 @@ class _ReqStatusState extends State<ReqStatus> {
                                 Row(
                                   children: [
                                     Text(
-                                      "Hotel Name:  ",
+                                      "Shop Name:  ",
                                       style: TextStyle(
                                           color: Color.fromARGB(
                                               255, 244, 128, 120),
@@ -64,7 +63,7 @@ class _ReqStatusState extends State<ReqStatus> {
                                           fontSize: 19),
                                     ),
                                     Text(
-                                      x["hotel_name"],
+                                      x["shop_name"],
                                       style: TextStyle(
                                           fontSize: 17,
                                           fontWeight: FontWeight.bold),
@@ -140,11 +139,10 @@ class _ReqStatusState extends State<ReqStatus> {
                                                     255, 246, 87, 76)),
                                             onPressed: () {
                                               String id = x['id'];
-                                              print(id);
                                               final docUser = FirebaseFirestore
                                                   .instance
                                                   .collection(
-                                                      "Hotel_booking_Request")
+                                                      "Rental_booking_Request")
                                                   .doc(id.toString());
                                               docUser.delete();
                                             },
@@ -163,7 +161,7 @@ class _ReqStatusState extends State<ReqStatus> {
                                         ? Container(
                                             child: Text(
                                               "Thanks for Booking at " +
-                                                  x['hotel_name'],
+                                                  x['shop_name'],
                                               style: TextStyle(
                                                   color: Colors.grey,
                                                   fontFamily: "Pacifico"),
@@ -172,7 +170,7 @@ class _ReqStatusState extends State<ReqStatus> {
                                         : Container(
                                             child: Text(
                                               "Sorry for the Inconvinence by " +
-                                                  x['hotel_name'],
+                                                  x['shop_name'],
                                               style: TextStyle(
                                                   color: Colors.grey,
                                                   fontFamily: "Pacifico"),

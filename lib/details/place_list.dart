@@ -24,6 +24,7 @@ class _PlaceListState extends State<PlaceList> {
   getdata() async {
     var id = widget.value.toString();
     var collection = widget.name;
+
     QuerySnapshot qn = await FirebaseFirestore.instance
         .collection("tourism")
         .doc(id.trim())
@@ -132,7 +133,6 @@ class _PlaceListState extends State<PlaceList> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => HospitalList(
-                                        value: widget.value,
                                         name: widget.name,
                                       )));
                         },
@@ -255,21 +255,26 @@ class _PlaceListState extends State<PlaceList> {
                             padding: const EdgeInsets.all(8.0),
                             child: GestureDetector(
                               onTap: () async {
+                                var id = widget.value.toString();
+                                var collection = widget.name;
+
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => PlaceDetails(
-                                              lat: places[i]["lat"],
-                                              long: places[i]["long"],
-                                              address: places[i]["address"],
-                                              des: places[i]["des"],
-                                              entry: places[i]["entry"],
-                                              img: places[i]["img"],
-                                              name: places[i]["name"],
-                                              phno: places[i]["phno"],
-                                              rating: places[i]["rating"],
-                                              time: places[i]["time"],
-                                            )));
+                                            lat: places[i]["lat"],
+                                            long: places[i]["long"],
+                                            address: places[i]["address"],
+                                            des: places[i]["des"],
+                                            entry: places[i]["entry"],
+                                            img: places[i]["img"],
+                                            name: places[i]["name"],
+                                            phno: places[i]["phno"],
+                                            rating: places[i]["rating"],
+                                            time: places[i]["time"],
+                                            id: id.toString(),
+                                            collection:
+                                                collection.toString())));
                               },
                               child: Card(
                                 elevation: 10,

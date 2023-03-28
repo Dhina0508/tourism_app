@@ -5,23 +5,18 @@ import 'package:share_plus/share_plus.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 
-class PlaceDetails extends StatefulWidget {
+class HospitalFullDetails extends StatefulWidget {
   var img;
   var name;
   var rating;
-  var entry;
-  var des;
   var address;
   var time;
   var lat;
   var long;
   var phno;
   var id;
-  var collection;
-  PlaceDetails(
+  HospitalFullDetails(
       {this.address,
-      this.des,
-      this.entry,
       this.img,
       this.name,
       this.phno,
@@ -29,17 +24,16 @@ class PlaceDetails extends StatefulWidget {
       this.lat,
       this.long,
       this.id,
-      this.collection,
       this.time});
 
   @override
-  State<PlaceDetails> createState() => _PlaceDetailsState();
+  State<HospitalFullDetails> createState() => _HospitalFullDetailsState();
 }
 
 bool tap = true;
 var change = "";
 
-class _PlaceDetailsState extends State<PlaceDetails> {
+class _HospitalFullDetailsState extends State<HospitalFullDetails> {
   static Future<void> openMAp(double lat, double long) async {
     String googlemapUrl =
         "https://www.google.com/maps/search/?api=1&query=$lat,$long";
@@ -82,7 +76,7 @@ class _PlaceDetailsState extends State<PlaceDetails> {
     final _CollectionReference = FirebaseFirestore.instance
         .collection("tourism")
         .doc(widget.id)
-        .collection(widget.collection)
+        .collection(widget.name)
         .doc();
     return _CollectionReference.set({
       "id": _CollectionReference.id,
@@ -108,7 +102,7 @@ class _PlaceDetailsState extends State<PlaceDetails> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 2,
       child: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: AppBar(
@@ -167,6 +161,7 @@ class _PlaceDetailsState extends State<PlaceDetails> {
               widget.img,
               fit: BoxFit.cover,
               height: 300,
+              width: double.infinity,
             ),
             SizedBox(
               height: 10,
@@ -316,9 +311,6 @@ class _PlaceDetailsState extends State<PlaceDetails> {
                   text: "Info",
                 ),
                 Tab(
-                  text: "Description",
-                ),
-                Tab(
                   text: "Reviews",
                 ),
               ],
@@ -389,26 +381,6 @@ class _PlaceDetailsState extends State<PlaceDetails> {
                     padding: const EdgeInsets.all(10.0),
                     child: Row(
                       children: [
-                        Text("Entry: ",
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontFamily: "JosefinSans",
-                                color: Color.fromARGB(255, 250, 134, 126))),
-                        Text("Rs: " + widget.entry,
-                            style: TextStyle(
-                              fontSize: 15,
-                            )),
-                      ],
-                    ),
-                  ),
-                  Divider(
-                    thickness: 0.5,
-                    color: Colors.black,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Row(
-                      children: [
                         Text("Overall Rating: ",
                             style: TextStyle(
                                 fontSize: 16,
@@ -422,13 +394,6 @@ class _PlaceDetailsState extends State<PlaceDetails> {
                     ),
                   ),
                 ],
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 10, right: 10, top: 20),
-                child: Text("  " + widget.des,
-                    style: TextStyle(
-                      fontSize: 15,
-                    )),
               ),
               Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -457,7 +422,6 @@ class _PlaceDetailsState extends State<PlaceDetails> {
                                       sendmessage();
                                       message.clear();
                                       print(widget.id);
-                                      print(widget.collection);
                                     },
                                     icon: Icon(Icons.send)),
                                 border: OutlineInputBorder(

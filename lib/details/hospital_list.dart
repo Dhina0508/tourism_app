@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:tourism/details/hospital_full.dart';
 import 'package:tourism/details/place_details.dart';
 
 class HospitalList extends StatefulWidget {
-  var value;
   var name;
-  HospitalList({this.value, this.name});
+  HospitalList({this.name});
 
   @override
   State<HospitalList> createState() => _HospitalListState();
@@ -15,29 +15,24 @@ class _HospitalListState extends State<HospitalList> {
   List hp = [];
   //Future<List<QueryDocumentSnapshot<Object?>>>
   gethospitaldata() async {
-    var id = widget.value.toString();
     var collection = widget.name;
-    QuerySnapshot qn = await FirebaseFirestore.instance
-        .collection("tourism")
-        .doc(id.trim())
-        .collection(collection)
-        .orderBy("name", descending: false)
-        .get();
+    QuerySnapshot qn =
+        await FirebaseFirestore.instance.collection("hospital").get();
 
     setState(() {
       for (int i = 0; i < qn.docs.length; i++) {
-        if (qn.docs[i]["about"] == "hp") {
+        if (qn.docs[i]["about"] == collection) {
           hp.add({
             "name": qn.docs[i]["name"],
+            "about": qn.docs[i]["about"],
             "img": qn.docs[i]["img"],
             "address": qn.docs[i]["address"],
-            "des": qn.docs[i]["des"],
-            "entry": qn.docs[i]["entry"],
             "phno": qn.docs[i]["phno"],
             "rating": qn.docs[i]["rating"],
             "time": qn.docs[i]["time"],
             "lat": qn.docs[i]["lat"],
-            "long": qn.docs[i]["long"]
+            "long": qn.docs[i]["long"],
+            "id": qn.docs[i]["id"]
           });
         }
       }
@@ -143,17 +138,16 @@ class _HospitalListState extends State<HospitalList> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => PlaceDetails(
+                                      builder: (context) => HospitalFullDetails(
                                             lat: hp[i]["lat"],
                                             long: hp[i]["long"],
                                             address: hp[i]["address"],
-                                            des: hp[i]["des"],
-                                            entry: hp[i]["entry"],
                                             img: hp[i]["img"],
                                             name: hp[i]["name"],
                                             phno: hp[i]["phno"],
                                             rating: hp[i]["rating"],
                                             time: hp[i]["time"],
+                                            id: hp[i]["id"],
                                           )));
                             },
                             child: Card(

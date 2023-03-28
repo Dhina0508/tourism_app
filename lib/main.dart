@@ -10,12 +10,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tourism/Vendor/hotel/home.dart';
 import 'package:tourism/Vendor/rental/homepage.dart';
 import 'package:tourism/auth/login_page.dart';
-import 'package:tourism/desktop.dart';
+import 'package:tourism/web/desktop.dart';
 import 'package:tourism/pages/dashboard.dart';
 import 'package:tourism/pages/fav.dart';
 import 'package:tourism/pages/myprofile.dart';
 import 'package:tourism/pages/search.dart';
-import 'package:tourism/responsive.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -33,10 +32,10 @@ Future<void> main() async {
           primaryColor: Colors.red,
           colorScheme: ColorScheme.light(primary: Colors.red)),
       debugShowCheckedModeBanner: false,
-      // home: email == null ? LoginPage() : Home(),
-      home: Responsive(
-          desktopScaffold: email == null ? MyHomePage() : Home(),
-          mobileScaffold: email == null ? MyHomePage() : Home()),
+      home: email == null ? MyHomePage() : Home(),
+      // home: Responsive(
+      //     desktopScaffold: email == null ? MyHomePage() : Home(),
+      //     mobileScaffold: email == null ? MyHomePage() : Home()),
       routes: {
         'Dashboard': (context) => DashBoard(),
         'home': (context) => Home(),
@@ -55,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     Timer(
-        Duration(seconds: 2),
+        Duration(seconds: 1),
         () => Navigator.push(
             context, MaterialPageRoute(builder: (context) => LoginPage())));
   }

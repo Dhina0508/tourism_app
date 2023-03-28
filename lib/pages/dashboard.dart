@@ -47,7 +47,7 @@ class _DashBoardState extends State<DashBoard> {
     QuerySnapshot qn =
         await FirebaseFirestore.instance.collection("hotel").get();
     setState(() {
-      for (int j = 0; j < qn.docs.length; j++) {
+      for (int j = 0; j < 3; j++) {
         hotel.add({
           "name": qn.docs[j]["name"],
           "img": qn.docs[j]["img"],

@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tourism/details/hotel_req_status.dart';
+import 'package:tourism/details/rental_req_status.dart';
 import 'package:tourism/myprofile/about.dart';
 import 'package:tourism/pages/fav.dart';
 
@@ -190,11 +191,26 @@ class _MyProfileState extends State<MyProfile> {
                           height: 20,
                         ),
                         ListTile(
-                          onTap: () {},
-                          title: Text("Settings"),
-                          leading: Icon(Icons.settings,
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        RentalRequestStatus()));
+                          },
+                          title: Text("Rental Shop Booking status"),
+                          leading: Icon(Icons.hotel,
                               color: Color.fromARGB(255, 246, 120, 111)),
                         ),
+                        // SizedBox(
+                        //   height: 20,
+                        // ),
+                        // ListTile(
+                        //   onTap: () {},
+                        //   title: Text("Settings"),
+                        //   leading: Icon(Icons.settings,
+                        //       color: Color.fromARGB(255, 246, 120, 111)),
+                        // ),
                         SizedBox(
                           height: 20,
                         ),

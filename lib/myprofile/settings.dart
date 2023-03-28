@@ -5,15 +5,6 @@ class Settingss extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: ListTile(
-          onTap: () {},
-          title: Text("About"),
-          leading: Icon(Icons.account_box_outlined,
-              color: Color.fromARGB(255, 246, 120, 111)),
-        ),
-      ),
-    );
+    return Scaffold();
   }
 }
