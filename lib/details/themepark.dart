@@ -1,45 +1,40 @@
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:tourism/details/hotel_full.dart';
+import 'package:tourism/details/hospital_full.dart';
 import 'package:tourism/details/place_details.dart';
+import 'package:tourism/details/themeparkdetail.dart';
 
-class Hotel_Particular_Place_List extends StatefulWidget {
-  var value;
+class ThemeParkList extends StatefulWidget {
   var name;
-  Hotel_Particular_Place_List({this.value, this.name});
+  ThemeParkList({this.name});
 
   @override
-  State<Hotel_Particular_Place_List> createState() =>
-      _Hotel_Particular_Place_ListState();
+  State<ThemeParkList> createState() => _ThemeParkListState();
 }
 
-class _Hotel_Particular_Place_ListState
-    extends State<Hotel_Particular_Place_List> {
-  List hotel = [];
+class _ThemeParkListState extends State<ThemeParkList> {
+  List ph = [];
   //Future<List<QueryDocumentSnapshot<Object?>>>
-  gethoteldata() async {
+  getthemeparkdata() async {
+    var collection = widget.name;
     QuerySnapshot qn =
-        await FirebaseFirestore.instance.collection("hotel").get();
+        await FirebaseFirestore.instance.collection("themepark").get();
 
     setState(() {
       for (int i = 0; i < qn.docs.length; i++) {
-        if (qn.docs[i]["place"] == widget.name) {
-          hotel.add({
+        if (qn.docs[i]["about"] == widget.name) {
+          ph.add({
             "name": qn.docs[i]["name"],
+            "about": qn.docs[i]["about"],
             "img": qn.docs[i]["img"],
             "address": qn.docs[i]["address"],
-            "cost": qn.docs[i]["cost"],
-            "details": qn.docs[i]["details"],
-            "time": qn.docs[i]["time"],
+            "entry": qn.docs[i]["entry"],
             "phno": qn.docs[i]["phno"],
             "rating": qn.docs[i]["rating"],
-            "place": qn.docs[i]["place"],
+            "time": qn.docs[i]["time"],
             "lat": qn.docs[i]["lat"],
             "long": qn.docs[i]["long"],
-            "place": qn.docs[i]["place"],
-            "email": qn.docs[i]["email"],
+            "id": qn.docs[i]["id"]
           });
         }
       }
@@ -51,7 +46,7 @@ class _Hotel_Particular_Place_ListState
   void initState() {
     // TODO: implement initState
     super.initState();
-    gethoteldata();
+    getthemeparkdata();
   }
 
   @override
@@ -64,7 +59,7 @@ class _Hotel_Particular_Place_ListState
             },
             icon: Icon(Icons.arrow_back_ios)),
         title: Text(
-          "Hotels",
+          "Theme Park at " + widget.name,
           style: TextStyle(
             fontSize: 20,
             fontFamily: "Cinzel",
@@ -74,7 +69,7 @@ class _Hotel_Particular_Place_ListState
         elevation: 0,
         backgroundColor: Color.fromARGB(255, 251, 116, 106),
       ),
-      body: hotel.length >= 1
+      body: ph.length >= 1
           ? SingleChildScrollView(
               child: Column(
                 children: [
@@ -82,8 +77,62 @@ class _Hotel_Particular_Place_ListState
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
                       scrollDirection: Axis.vertical,
-                      itemCount: hotel.length,
+                      itemCount: ph.length,
                       itemBuilder: (context, i) {
+                        // return ListTile(
+                        //   onTap: () async {
+                        //     Navigator.push(
+                        //         context,
+                        //         MaterialPageRoute(
+                        //             builder: (context) => PlaceDetails(
+                        //                   lat: ph[i]["lat"],
+                        //                   long: ph[i]["long"],
+                        //                   address: ph[i]["address"],
+                        //                   des: ph[i]["des"],
+                        //                   entry: ph[i]["entry"],
+                        //                   img: ph[i]["img"],
+                        //                   name: ph[i]["name"],
+                        //                   phno: ph[i]["phno"],
+                        //                   rating: ph[i]["rating"],
+                        //                   time: ph[i]["time"],
+                        //                 )));
+                        //   },
+                        //   title: Text(
+                        //     ph[i]["name"],
+                        //   ),
+                        //   subtitle: Container(
+                        //     child: Wrap(
+                        //       spacing: 2, // space between two icons
+                        //       children: [
+                        //         Icon(
+                        //           Icons.star,
+                        //           color: Colors.amber,
+                        //           size: 18,
+                        //         ), // icon-1
+                        //         Text(
+                        //           ph[i]["rating"],
+                        //           style: TextStyle(
+                        //               fontSize: 14, fontWeight: FontWeight.bold),
+                        //         ) // icon-2
+                        //       ],
+                        //     ),
+                        //   ),
+                        //   leading: SizedBox(
+                        //     height: 250,
+                        //     width: 130,
+                        //     child: ConstrainedBox(
+                        //       constraints: BoxConstraints(
+                        //           maxHeight: 250,
+                        //           maxWidth: 200,
+                        //           minHeight: 100,
+                        //           minWidth: 100),
+                        //       child: Image.network(
+                        //         ph[i]["img"],
+                        //         fit: BoxFit.cover,
+                        //       ),
+                        //     ),
+                        //   ),
+                        // );
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: GestureDetector(
@@ -91,19 +140,17 @@ class _Hotel_Particular_Place_ListState
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => HotelFullDetails(
-                                            lat: hotel[i]["lat"],
-                                            long: hotel[i]["long"],
-                                            address: hotel[i]["address"],
-                                            details: hotel[i]["details"],
-                                            cost: hotel[i]["cost"],
-                                            img: hotel[i]["img"],
-                                            name: hotel[i]["name"],
-                                            phno: hotel[i]["phno"],
-                                            rating: hotel[i]["rating"],
-                                            hotel_email: hotel[i]["email"],
-                                            place: hotel[i]["place"],
-                                            time: hotel[i]["time"],
+                                      builder: (context) => ThemeParkFull(
+                                            lat: ph[i]["lat"],
+                                            long: ph[i]["long"],
+                                            address: ph[i]["address"],
+                                            img: ph[i]["img"],
+                                            entry: ph[i]["entry"],
+                                            name: ph[i]["name"],
+                                            phno: ph[i]["phno"],
+                                            rating: ph[i]["rating"],
+                                            time: ph[i]["time"],
+                                            id: ph[i]["id"],
                                           )));
                             },
                             child: Card(
@@ -119,7 +166,7 @@ class _Hotel_Particular_Place_ListState
                                         decoration: BoxDecoration(
                                             image: DecorationImage(
                                                 image: NetworkImage(
-                                                  hotel[i]["img"],
+                                                  ph[i]["img"],
                                                 ),
                                                 fit: BoxFit.cover)),
                                       )),
@@ -134,7 +181,7 @@ class _Hotel_Particular_Place_ListState
                                                   MainAxisAlignment.spaceEvenly,
                                               children: [
                                                 Text(
-                                                  hotel[i]["name"],
+                                                  ph[i]["name"],
                                                 ),
                                                 Wrap(spacing: 2, children: [
                                                   Icon(
@@ -142,7 +189,7 @@ class _Hotel_Particular_Place_ListState
                                                     color: Colors.amber,
                                                     size: 18,
                                                   ),
-                                                  Text(hotel[i]["rating"])
+                                                  Text(ph[i]["rating"])
                                                 ]),
                                               ]),
                                         ),

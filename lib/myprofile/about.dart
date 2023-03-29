@@ -47,7 +47,8 @@ class About extends StatelessWidget {
               style: TextStyle(
                   fontSize: 15,
                   color: Colors.grey.shade800,
-                  letterSpacing: 1.2),
+                  letterSpacing: 1.1,
+                  wordSpacing: 2),
             ),
             SizedBox(
               height: 20,
@@ -57,7 +58,8 @@ class About extends StatelessWidget {
               style: TextStyle(
                   fontSize: 15,
                   color: Colors.grey.shade800,
-                  letterSpacing: 1.2),
+                  letterSpacing: 1.1,
+                  wordSpacing: 2),
             )
           ],
         ),

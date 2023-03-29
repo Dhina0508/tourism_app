@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tourism/details/overall.dart';
 import 'package:tourism/details/place_list.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -89,7 +90,7 @@ class _SearchState extends State<Search> {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => PlaceList(
+                                              builder: (context) => OverAll(
                                                     value: x,
                                                     name: name,
                                                     img: img,

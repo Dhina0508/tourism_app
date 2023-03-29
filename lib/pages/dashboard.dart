@@ -9,6 +9,7 @@ import 'package:tourism/dash_board_four_pages/Photos_upload_page.dart';
 import 'package:tourism/dash_board_four_pages/all_places.dart';
 import 'package:tourism/dash_board_four_pages/hotel.dart';
 import 'package:tourism/details/hotel_full.dart';
+import 'package:tourism/details/overall.dart';
 import 'package:tourism/details/place_list.dart';
 import 'package:tourism/helper/icons.dart';
 import 'package:tourism/map/current_loc.dart';
@@ -272,7 +273,7 @@ class _DashBoardState extends State<DashBoard> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => PlaceList(
+                                    builder: (context) => OverAll(
                                           value: home[i]["x"],
                                           name: home[i]["name"],
                                           img: home[i]["img"],
@@ -304,7 +305,7 @@ class _DashBoardState extends State<DashBoard> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => PlaceList(
+                                          builder: (context) => OverAll(
                                                 value: home[i]["x"],
                                                 name: home[i]["name"],
                                                 img: home[i]["img"],

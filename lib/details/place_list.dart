@@ -11,8 +11,7 @@ import 'package:tourism/helper/icons.dart';
 class PlaceList extends StatefulWidget {
   var value;
   var name;
-  var img;
-  PlaceList({this.value, this.name, this.img});
+  PlaceList({this.value, this.name});
 
   @override
   State<PlaceList> createState() => _PlaceListState();
@@ -66,110 +65,29 @@ class _PlaceListState extends State<PlaceList> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
-        extendBodyBehindAppBar: false,
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(220),
-          child: AppBar(
-            flexibleSpace: ClipRRect(
-              borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(50),
-                  bottomLeft: Radius.circular(50)),
-              child: Container(
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: NetworkImage(
-                          widget.img,
-                        ),
-                        fit: BoxFit.cover)),
-              ),
+        appBar: AppBar(
+          leading: IconButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              icon: Icon(Icons.arrow_back_ios)),
+          title: Text(
+            "Must Visit Places",
+            style: TextStyle(
+              fontSize: 20,
+              fontFamily: "Cinzel",
             ),
-            automaticallyImplyLeading: false,
-            elevation: 0,
-            centerTitle: true,
-            title: Text(
-              widget.name,
-              style: TextStyle(
-                  fontSize: 30, fontFamily: "Cinzel", color: Colors.white),
-            ),
-            backgroundColor: Colors.transparent,
-            leading: IconButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                icon: Icon(Icons.arrow_back_ios_new)),
           ),
+          centerTitle: true,
+          elevation: 0,
+          backgroundColor: Color.fromARGB(255, 251, 116, 106),
         ),
+        extendBodyBehindAppBar: false,
         body: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
-                  height: 30,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 15.0, right: 15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        Hotel_Particular_Place_List(
-                                          value: widget.value,
-                                          name: widget.name,
-                                        )));
-                          },
-                          child: DashBoardIcon(
-                            icon: Icons.hotel,
-                            text: "Hotels",
-                          )),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => HospitalList(
-                                        name: widget.name,
-                                      )));
-                        },
-                        child: DashBoardIcon(
-                            icon: Icons.add_home_work_outlined,
-                            text: "Hospital"),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Pharmacy_list(
-                                        name: widget.name,
-                                      )));
-                        },
-                        child: DashBoardIcon(
-                            icon: Icons.local_hospital_sharp, text: "Pharmacy"),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => RentalList(
-                                        value: widget.value,
-                                        name: widget.name,
-                                      )));
-                        },
-                        child: DashBoardIcon(
-                          text: "Rental",
-                          icon: Icons.directions_bike_outlined,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
                 // Row(
                 //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 //   children: [
@@ -234,16 +152,7 @@ class _PlaceListState extends State<PlaceList> {
                 //   ],
                 // ),
 
-                Padding(
-                  padding:
-                      const EdgeInsets.only(top: 25.0, left: 15, right: 15),
-                  child: Text(
-                    "Places",
-                    style: TextStyle(fontFamily: "Cinzel", fontSize: 25),
-                  ),
-                ),
-
-                places.length > 1
+                places.length >= 1
                     ? ListView.builder(
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),

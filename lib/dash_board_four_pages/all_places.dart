@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:tourism/details/overall.dart';
 import 'package:tourism/details/place_list.dart';
 
 class AllPlaces extends StatefulWidget {
@@ -66,7 +67,7 @@ class _AllPlacesState extends State<AllPlaces> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => PlaceList(
+                            builder: (context) => OverAll(
                                   value: p[i]["x"],
                                   name: p[i]["name"],
                                   img: p[i]["img"],

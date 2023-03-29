@@ -60,7 +60,7 @@ class _HospitalListState extends State<HospitalList> {
           "Hospitals",
           style: TextStyle(
             fontSize: 20,
-            fontFamily: "JosefinSans",
+            fontFamily: "Cinzel",
           ),
         ),
         centerTitle: true,

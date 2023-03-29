@@ -1,41 +1,27 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:tourism/details/hotel_full.dart';
-import 'package:tourism/details/place_details.dart';
-import 'package:tourism/details/rental_full_details.dart';
 
-class RentalList extends StatefulWidget {
-  var value;
+class SpecialList extends StatefulWidget {
   var name;
-  RentalList({this.value, this.name});
+  SpecialList({this.name});
   @override
-  State<RentalList> createState() => _RentalListState();
+  State<SpecialList> createState() => _SpecialListState();
 }
 
-class _RentalListState extends State<RentalList> {
+class _SpecialListState extends State<SpecialList> {
   List rental = [];
   // Future<List<QueryDocumentSnapshot<Object?>>>
   getplacedata() async {
     QuerySnapshot qn =
-        await FirebaseFirestore.instance.collection("rental").get();
+        await FirebaseFirestore.instance.collection("special").get();
     setState(() {
       for (int i = 0; i < qn.docs.length; i++) {
-        if (qn.docs[i]["place"] == widget.name) {
+        if (qn.docs[i]["about"] == widget.name) {
           rental.add({
-            "name": qn.docs[i]["name"],
+            "item": qn.docs[i]["item"],
             "img": qn.docs[i]["img"],
-            "x": qn.docs[i]["id"],
-            "address": qn.docs[i]["address"],
-            "bikeRent": qn.docs[i]["bikeRent"],
-            "carRent": qn.docs[i]["carRent"],
-            "des": qn.docs[i]["des"],
-            "lat": qn.docs[i]["lat"],
-            "long": qn.docs[i]["long"],
-            "phno": qn.docs[i]["phno"],
-            "place": qn.docs[i]["place"],
-            "rating": qn.docs[i]["rating"],
-            "time": qn.docs[i]["time"],
-            "email": qn.docs[i]["email"]
+            "about": qn.docs[i]["about"],
+            "id": qn.docs[i]["id"],
           });
         }
       }
@@ -64,7 +50,7 @@ class _RentalListState extends State<RentalList> {
           backgroundColor: Color.fromARGB(255, 251, 116, 106),
           centerTitle: true,
           title: Text(
-            "Rental Shops",
+            "Special at " + widget.name,
             style: TextStyle(
               fontFamily: "Cinzel",
             ),
@@ -79,32 +65,11 @@ class _RentalListState extends State<RentalList> {
                         scrollDirection: Axis.vertical,
                         itemCount: rental.length,
                         itemBuilder: (context, i) {
-                          if (rental[i]["place"] == widget.name) {
+                          if (rental[i]["about"] == widget.name) {
                             return Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: GestureDetector(
-                                onTap: () async {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              RentalFullDetails(
-                                                address: rental[i]["address"],
-                                                bike_cost: rental[i]
-                                                    ["bikeRent"],
-                                                car_cost: rental[i]["carRent"],
-                                                details: rental[i]["des"],
-                                                email: rental[i]["email"],
-                                                img: rental[i]["img"],
-                                                lat: rental[i]["lat"],
-                                                long: rental[i]["long"],
-                                                name: rental[i]["name"],
-                                                phno: rental[i]["phno"],
-                                                place: rental[i]["place"],
-                                                rating: rental[i]["rating"],
-                                                time: rental[i]["time"],
-                                              )));
-                                },
+                                onTap: () {},
                                 child: Card(
                                   elevation: 10,
                                   child: Container(
@@ -135,20 +100,12 @@ class _RentalListState extends State<RentalList> {
                                                           .spaceEvenly,
                                                   children: [
                                                     Text(
-                                                      rental[i]["name"],
+                                                      rental[i]["item"],
                                                       style: TextStyle(
                                                           fontFamily:
                                                               "JosefinSans",
                                                           fontSize: 17),
                                                     ),
-                                                    Wrap(spacing: 2, children: [
-                                                      Icon(
-                                                        Icons.star,
-                                                        color: Colors.amber,
-                                                        size: 18,
-                                                      ),
-                                                      Text(rental[i]["rating"])
-                                                    ]),
                                                   ]),
                                             ),
                                           )),

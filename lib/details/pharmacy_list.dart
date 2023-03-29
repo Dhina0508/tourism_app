@@ -60,7 +60,7 @@ class _Pharmacy_listState extends State<Pharmacy_list> {
           "Pharmacy",
           style: TextStyle(
             fontSize: 20,
-            fontFamily: "JosefinSans",
+            fontFamily: "Cinzel",
           ),
         ),
         centerTitle: true,

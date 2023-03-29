@@ -206,9 +206,6 @@ class _RentalBookingState extends State<RentalBooking>
                       SizedBox(
                         height: 20,
                       ),
-                      SizedBox(
-                        height: 20,
-                      ),
                       Padding(
                         padding: const EdgeInsets.only(left: 20.0, right: 20),
                         child: TextField(
