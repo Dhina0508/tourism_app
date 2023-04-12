@@ -64,15 +64,42 @@ class _OverAllState extends State<OverAll> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Padding(
-              //   padding: const EdgeInsets.only(top: 15.0, left: 15, right: 15),
-              //   child: Text(
-              //     "Sights",
-              //     style: TextStyle(fontFamily: "Cinzel", fontSize: 25),
-              //   ),
-              // ),
               SizedBox(
-                height: 25,
+                height: 10,
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => SpecialList(
+                                name: widget.name,
+                              )));
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(color: Colors.grey, width: 0.9)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 30.0),
+                        child: Text(
+                          "Special at " + widget.name,
+                          style: TextStyle(
+                              fontFamily: "JosefinSans",
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Icon(Icons.arrow_right),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 20,
               ),
               GestureDetector(
                 onTap: () {
@@ -84,539 +111,423 @@ class _OverAllState extends State<OverAll> {
                                 value: widget.value,
                               )));
                 },
-                child: Stack(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Container(
-                          child: Image.asset(
-                        "images/3.jpg",
-                        fit: BoxFit.cover,
-                        height: 120,
-                        width: double.infinity,
-                      )),
-                    ),
-                    Column(
-                      children: [
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Container(
-                            height: 80,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Colors.white,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(20),
+                        bottomRight: Radius.circular(20)),
+                    child: Card(
+                      elevation: 10,
+                      shadowColor: Colors.white,
+                      child: Stack(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Container(
+                                child: Image.asset(
+                              "images/3.jpg",
+                              fit: BoxFit.cover,
+                              height: 130,
+                              width: 350,
+                            )),
+                          ),
+                          Align(
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: 130,
+                                ),
+                                Container(
+                                  height: 30,
+                                  width: double.infinity,
+                                  color: Colors.white,
+                                  child: Center(
+                                    child: Text(
+                                      "Must Visit Places",
+                                      style: TextStyle(
+                                          fontFamily: "JosefinSans",
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(20.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Hotel_Particular_Place_List(
+                                    value: widget.value,
+                                    name: widget.name,
+                                  )));
+                    },
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(20),
+                          bottomRight: Radius.circular(20)),
+                      child: Card(
+                        color: Colors.white,
+                        elevation: 10,
+                        child: Stack(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Container(
+                                  child: Image.asset(
+                                "images/hotel.jpeg",
+                                fit: BoxFit.cover,
+                                height: 150,
+                                width: 150,
+                              )),
+                            ),
+                            Align(
+                              child: Column(
                                 children: [
-                                  Icon(
-                                    Icons.temple_buddhist_outlined,
-                                    size: 30,
+                                  SizedBox(
+                                    height: 120,
                                   ),
-                                  Text(
-                                    "Visiting Place",
-                                    style: TextStyle(
-                                        fontFamily: "JosefinSans",
-                                        fontSize: 27,
-                                        fontWeight: FontWeight.bold),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                    ),
+                                    height: 30,
+                                    width: 150,
+                                    child: Center(
+                                      child: Text(
+                                        "Hotel",
+                                        style: TextStyle(
+                                            fontFamily: "JosefinSans",
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
                                   ),
-                                  Icon(
-                                    Icons.arrow_forward_ios_outlined,
-                                    size: 30,
-                                  )
                                 ],
                               ),
-                            ),
-                          ),
+                            )
+                          ],
                         ),
-                      ],
-                    )
-                  ],
-                ),
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => RentalList(
+                                    value: widget.value,
+                                    name: widget.name,
+                                  )));
+                    },
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(20),
+                          bottomRight: Radius.circular(20)),
+                      child: Card(
+                        elevation: 10,
+                        color: Colors.white,
+                        child: Stack(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Container(
+                                  child: Image.asset(
+                                "images/c.png",
+                                fit: BoxFit.cover,
+                                height: 150,
+                                width: 150,
+                              )),
+                            ),
+                            Align(
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: 120,
+                                  ),
+                                  Container(
+                                    height: 30,
+                                    width: 150,
+                                    color: Colors.white,
+                                    child: Center(
+                                      child: Text(
+                                        "Rental Shop",
+                                        style: TextStyle(
+                                            fontFamily: "JosefinSans",
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
               SizedBox(
                 height: 25,
               ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Hotel_Particular_Place_List(
-                                value: widget.value,
-                                name: widget.name,
-                              )));
-                },
-                child: Stack(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Container(
-                          child: Image.asset(
-                        "images/hotel.jpeg",
-                        fit: BoxFit.cover,
-                        height: 120,
-                        width: double.infinity,
-                      )),
-                    ),
-                    Column(
-                      children: [
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Container(
-                            height: 80,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Colors.white,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => HospitalList(
+                                    name: widget.name,
+                                  )));
+                    },
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(20),
+                          bottomRight: Radius.circular(20)),
+                      child: Card(
+                        color: Colors.white,
+                        elevation: 10,
+                        child: Stack(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Container(
+                                  child: Image.asset(
+                                "images/ho.jpg",
+                                fit: BoxFit.cover,
+                                height: 150,
+                                width: 150,
+                              )),
                             ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(20.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                            Align(
+                              child: Column(
                                 children: [
-                                  Icon(
-                                    Icons.hotel,
-                                    size: 30,
+                                  SizedBox(
+                                    height: 120,
                                   ),
-                                  Text(
-                                    "Hotel",
-                                    style: TextStyle(
-                                        fontFamily: "JosefinSans",
-                                        fontSize: 27,
-                                        fontWeight: FontWeight.bold),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                    ),
+                                    height: 30,
+                                    width: 150,
+                                    child: Center(
+                                      child: Text(
+                                        "Hospital",
+                                        style: TextStyle(
+                                            fontFamily: "JosefinSans",
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
                                   ),
-                                  Icon(
-                                    Icons.arrow_forward_ios_outlined,
-                                    size: 30,
-                                  )
                                 ],
                               ),
-                            ),
-                          ),
+                            )
+                          ],
                         ),
-                      ],
-                    )
-                  ],
-                ),
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Pharmacy_list(
+                                    name: widget.name,
+                                  )));
+                    },
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(20),
+                          bottomRight: Radius.circular(20)),
+                      child: Card(
+                        elevation: 10,
+                        color: Colors.white,
+                        child: Stack(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Container(
+                                  child: Image.asset(
+                                "images/p.jpg",
+                                fit: BoxFit.cover,
+                                height: 150,
+                                width: 150,
+                              )),
+                            ),
+                            Align(
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: 120,
+                                  ),
+                                  Container(
+                                    height: 30,
+                                    width: 150,
+                                    color: Colors.white,
+                                    child: Center(
+                                      child: Text(
+                                        "Pharmacy",
+                                        style: TextStyle(
+                                            fontFamily: "JosefinSans",
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
               SizedBox(
                 height: 25,
               ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => RentalList(
-                                value: widget.value,
-                                name: widget.name,
-                              )));
-                },
-                child: Stack(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Container(
-                          child: Image.asset(
-                        "images/c.png",
-                        fit: BoxFit.cover,
-                        height: 120,
-                        width: double.infinity,
-                      )),
-                    ),
-                    Column(
-                      children: [
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Container(
-                            height: 80,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Colors.white,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ThemeParkList(
+                                    name: widget.name,
+                                  )));
+                    },
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(20),
+                          bottomRight: Radius.circular(20)),
+                      child: Card(
+                        color: Colors.white,
+                        elevation: 10,
+                        child: Stack(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Container(
+                                  child: Image.asset(
+                                "images/t.jpg",
+                                fit: BoxFit.cover,
+                                height: 150,
+                                width: 150,
+                              )),
                             ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(20.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                            Align(
+                              child: Column(
                                 children: [
-                                  Icon(
-                                    Icons.car_rental_sharp,
-                                    size: 30,
+                                  SizedBox(
+                                    height: 120,
                                   ),
-                                  Text(
-                                    "Rental Shop",
-                                    style: TextStyle(
-                                        fontFamily: "JosefinSans",
-                                        fontSize: 27,
-                                        fontWeight: FontWeight.bold),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                    ),
+                                    height: 30,
+                                    width: 150,
+                                    child: Center(
+                                      child: Text(
+                                        "Theme Park",
+                                        style: TextStyle(
+                                            fontFamily: "JosefinSans",
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
                                   ),
-                                  Icon(
-                                    Icons.arrow_forward_ios_outlined,
-                                    size: 30,
-                                  )
                                 ],
                               ),
-                            ),
-                          ),
+                            )
+                          ],
                         ),
-                      ],
-                    )
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 25,
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => HospitalList(
-                                name: widget.name,
-                              )));
-                },
-                child: Stack(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Container(
-                          child: Image.asset(
-                        "images/h.jpeg",
-                        fit: BoxFit.cover,
-                        height: 120,
-                        width: double.infinity,
-                      )),
+                      ),
                     ),
-                    Column(
-                      children: [
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Container(
-                            height: 80,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Colors.white,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Train()));
+                    },
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(20),
+                          bottomRight: Radius.circular(20)),
+                      child: Card(
+                        elevation: 10,
+                        color: Colors.white,
+                        child: Stack(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Container(
+                                  child: Image.asset(
+                                "images/tr.jpg",
+                                fit: BoxFit.cover,
+                                height: 150,
+                                width: 150,
+                              )),
                             ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(20.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                            Align(
+                              child: Column(
                                 children: [
-                                  Icon(
-                                    Icons.medical_services_outlined,
-                                    size: 30,
+                                  SizedBox(
+                                    height: 120,
                                   ),
-                                  Text(
-                                    "Hospital",
-                                    style: TextStyle(
-                                        fontFamily: "JosefinSans",
-                                        fontSize: 27,
-                                        fontWeight: FontWeight.bold),
+                                  Container(
+                                    height: 30,
+                                    width: 150,
+                                    color: Colors.white,
+                                    child: Center(
+                                      child: Text(
+                                        "Train Timing",
+                                        style: TextStyle(
+                                            fontFamily: "JosefinSans",
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
                                   ),
-                                  Icon(
-                                    Icons.arrow_forward_ios_outlined,
-                                    size: 30,
-                                  )
                                 ],
                               ),
-                            ),
-                          ),
+                            )
+                          ],
                         ),
-                      ],
-                    )
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 25,
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Pharmacy_list(
-                                name: widget.name,
-                              )));
-                },
-                child: Stack(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Container(
-                          child: Image.asset(
-                        "images/p.jpg",
-                        fit: BoxFit.cover,
-                        height: 120,
-                        width: double.infinity,
-                      )),
+                      ),
                     ),
-                    Column(
-                      children: [
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Container(
-                            height: 80,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Colors.white,
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(20.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Icon(
-                                    Icons.local_hospital,
-                                    size: 30,
-                                  ),
-                                  Text(
-                                    "Pharmacy",
-                                    style: TextStyle(
-                                        fontFamily: "JosefinSans",
-                                        fontSize: 27,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Icon(
-                                    Icons.arrow_forward_ios_outlined,
-                                    size: 30,
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
+                  ),
+                ],
               ),
               SizedBox(
-                height: 25,
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ThemeParkList(
-                                name: widget.name,
-                              )));
-                },
-                child: Stack(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Container(
-                          child: Image.asset(
-                        "images/t.jpg",
-                        fit: BoxFit.cover,
-                        height: 120,
-                        width: double.infinity,
-                      )),
-                    ),
-                    Column(
-                      children: [
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Container(
-                            height: 80,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Colors.white,
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(20.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Icon(
-                                    Icons.run_circle_outlined,
-                                    size: 30,
-                                  ),
-                                  Text(
-                                    "Theme Park",
-                                    style: TextStyle(
-                                        fontFamily: "JosefinSans",
-                                        fontSize: 27,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Icon(
-                                    Icons.arrow_forward_ios_outlined,
-                                    size: 30,
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 25,
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => SpecialList(
-                                name: widget.name,
-                              )));
-                },
-                child: Stack(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Container(
-                          child: Image.asset(
-                        "images/img.jpg",
-                        fit: BoxFit.cover,
-                        height: 120,
-                        width: double.infinity,
-                      )),
-                    ),
-                    Column(
-                      children: [
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Container(
-                            height: 80,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Colors.white,
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(20.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Icon(
-                                    Icons.supervised_user_circle_sharp,
-                                    size: 27,
-                                  ),
-                                  Text(
-                                    "Special at " + widget.name,
-                                    style: TextStyle(
-                                        fontFamily: "JosefinSans",
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Icon(
-                                    Icons.arrow_forward_ios_outlined,
-                                    size: 30,
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 25,
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Train()));
-                },
-                child: Stack(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Container(
-                          child: Image.asset(
-                        "images/tr.jpg",
-                        fit: BoxFit.cover,
-                        height: 120,
-                        width: double.infinity,
-                      )),
-                    ),
-                    Column(
-                      children: [
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Container(
-                            height: 80,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Colors.white,
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(20.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Icon(
-                                    Icons.train,
-                                    size: 30,
-                                  ),
-                                  Text(
-                                    "Train Timing",
-                                    style: TextStyle(
-                                        fontFamily: "JosefinSans",
-                                        fontSize: 27,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Icon(
-                                    Icons.arrow_forward_ios_outlined,
-                                    size: 30,
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 25,
-              ),
+                height: 20,
+              )
             ],
           ),
         ),
