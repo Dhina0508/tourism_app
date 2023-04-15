@@ -1,7 +1,225 @@
+// import 'dart:io';
+
+// import 'package:cached_network_image/cached_network_image.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_storage/firebase_storage.dart';
+// import 'package:flutter/material.dart';
+// import 'package:image_picker/image_picker.dart';
+
+// class Photography extends StatefulWidget {
+//   Photography({Key? key}) : super(key: key);
+
+//   @override
+//   State<Photography> createState() => _PhotographyState();
+// }
+
+// class _PhotographyState extends State<Photography> {
+//   bool tap = false;
+//   ImagePicker image = ImagePicker();
+//   File? file;
+
+//   String url = "";
+//   getImage() async {
+//     var img = await image.pickImage(source: ImageSource.gallery);
+//     setState(() {
+//       file = File(img!.path);
+//     });
+//   }
+
+//   geting_Photo() async {
+//     String name = DateTime.now().millisecondsSinceEpoch.toString();
+//     var imageFile =
+//         FirebaseStorage.instance.ref().child("Photography").child(name);
+
+//     UploadTask task = imageFile.putFile(file!);
+//     TaskSnapshot snapshot = await task;
+//     url = await snapshot.ref.getDownloadURL();
+
+//     final _CollectionReference =
+//         FirebaseFirestore.instance.collection("Photography").doc();
+//     return _CollectionReference.set({
+//       "img": url,
+//       "Time": DateTime.now(),
+//       "name": FirebaseAuth.instance.currentUser!.displayName
+//     }).then((value) {
+//       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+//         content: Text("Photos Has Been Posted Successfully"),
+//         behavior: SnackBarBehavior.floating,
+//       ));
+//     }).catchError((onError) {
+//       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+//         content: Text("ERROR ${onError.toString()}"),
+//         behavior: SnackBarBehavior.floating,
+//       ));
+//     });
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     Widget tripPhotos = new StreamBuilder<QuerySnapshot>(
+//         stream:
+//             FirebaseFirestore.instance.collection('Photography').snapshots(),
+//         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+//           if (snapshot.hasError) {
+//             return new Text(
+//                 'Error in receiving trip photos: ${snapshot.error}');
+//           }
+
+//           switch (snapshot.connectionState) {
+//             case ConnectionState.none:
+//               return new Text('Not connected to the Stream or null');
+
+//             case ConnectionState.waiting:
+//               return new Text('Awaiting for interaction');
+
+//             case ConnectionState.active:
+//               print("Stream has started but not finished");
+
+//               var totalPhotosCount = 0;
+//               List<DocumentSnapshot> tripPhotos;
+
+//               if (snapshot.hasData) {
+//                 tripPhotos = snapshot.data!.docs;
+//                 totalPhotosCount = tripPhotos.length;
+
+//                 if (totalPhotosCount > 0) {
+//                   return new GridView.builder(
+//                       itemCount: totalPhotosCount,
+//                       scrollDirection: Axis.vertical,
+//                       shrinkWrap: true,
+//                       // primary: false,
+
+//                       gridDelegate:
+//                           new SliverGridDelegateWithFixedCrossAxisCount(
+//                               crossAxisCount: 3),
+//                       itemBuilder: (BuildContext context, int index) {
+//                         return Center(
+//                           child: Container(
+//                               child: Column(
+//                                   mainAxisSize: MainAxisSize.max,
+//                                   children: <Widget>[
+//                                 ClipRect(
+//                                   child: Image.network(
+//                                     tripPhotos[index]["img"],
+//                                     fit: BoxFit.cover,
+//                                     height: 120,
+//                                   ),
+//                                   // child: Align(
+//                                   //     alignment: Alignment.topCenter,
+//                                   //     heightFactor: 0.7,
+//                                   //     widthFactor: double.infinity,
+//                                   //     child: new CachedNetworkImage(
+//                                   //       placeholder: (context, url) =>
+//                                   //           new CircularProgressIndicator(
+//                                   //               color: Color.fromARGB(
+//                                   //                   255, 243, 121, 112)),
+//                                   //       imageUrl: tripPhotos[index]["img"],
+//                                   //       fit: BoxFit.fitHeight,
+//                                   //     )),
+
+//                                 ),
+//                               ])),
+//                         );
+//                       });
+//                 }
+//               }
+
+//               return new Center(
+//                   child: Column(
+//                 children: <Widget>[
+//                   new Padding(
+//                     padding: const EdgeInsets.only(top: 50.0),
+//                   ),
+//                   new Text("No trip photos found.")
+//                 ],
+//               ));
+
+//             case ConnectionState.done:
+//               return new Text('Streaming is done');
+//           }
+
+//           // return Container(
+//           //   child: new Text("No trip photos found."),
+//           // );
+//         });
+
+//     return Scaffold(
+//       appBar: AppBar(
+//         leading: IconButton(
+//             onPressed: () {
+//               Navigator.of(context).popAndPushNamed("home");
+//             },
+//             icon: Icon(Icons.arrow_back_ios_new, color: Colors.black)),
+//         elevation: 0,
+//         backgroundColor: Colors.transparent,
+//         title: Text(
+//           "Share your View",
+//           style: TextStyle(
+//               fontSize: 18,
+//               fontWeight: FontWeight.bold,
+//               color: Colors.black,
+//               fontFamily: "JosefinSans"),
+//         ),
+//         centerTitle: true,
+//       ),
+//       body: SingleChildScrollView(
+//         child: new Container(
+//           child: new Column(
+//             children: <Widget>[
+//               Column(
+//                 children: [
+//                   InkWell(
+//                     onTap: () {
+//                       getImage();
+//                       ontap();
+//                     },
+//                     child: CircleAvatar(
+//                       backgroundColor: Colors.white,
+//                       backgroundImage: file == null
+//                           ? NetworkImage(
+//                               "https://t3.ftcdn.net/jpg/03/66/66/62/360_F_366666222_DCAdZ5uHSl1ckP1jbHVq7uzO8CFKvmhy.jpg")
+//                           : tap == false
+//                               ? NetworkImage(
+//                                   "https://t3.ftcdn.net/jpg/03/66/66/62/360_F_366666222_DCAdZ5uHSl1ckP1jbHVq7uzO8CFKvmhy.jpg")
+//                               : FileImage(File(file!.path)) as ImageProvider,
+//                       radius: 40,
+//                     ),
+//                   ),
+//                   TextButton(
+//                       onPressed: () {
+//                         geting_Photo();
+//                         setState(() {
+//                           ontap();
+//                         });
+//                       },
+//                       child: Text(
+//                         "Post",
+//                         style: TextStyle(
+//                             color: Color.fromARGB(255, 246, 121, 112),
+//                             fontSize: 15),
+//                       )),
+//                 ],
+//               ),
+//               tripPhotos,
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+
+//   ontap() {
+//     setState(() {
+//       tap = !tap;
+//     });
+//   }
+// }
 import 'dart:io';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -14,11 +232,18 @@ class Photography extends StatefulWidget {
 }
 
 class _PhotographyState extends State<Photography> {
-  bool tap = false;
   ImagePicker image = ImagePicker();
+  bool tap = false;
+
   File? file;
 
   String url = "";
+  ontap() {
+    setState(() {
+      tap = !tap;
+    });
+  }
+
   getImage() async {
     var img = await image.pickImage(source: ImageSource.gallery);
     setState(() {
@@ -40,6 +265,7 @@ class _PhotographyState extends State<Photography> {
     return _CollectionReference.set({
       "img": url,
       "Time": DateTime.now(),
+      "name": FirebaseAuth.instance.currentUser!.displayName
     }).then((value) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text("Photos Has Been Posted Successfully"),
@@ -55,91 +281,6 @@ class _PhotographyState extends State<Photography> {
 
   @override
   Widget build(BuildContext context) {
-    Widget tripPhotos = new StreamBuilder<QuerySnapshot>(
-        stream:
-            FirebaseFirestore.instance.collection('Photography').snapshots(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (snapshot.hasError) {
-            return new Text(
-                'Error in receiving trip photos: ${snapshot.error}');
-          }
-
-          switch (snapshot.connectionState) {
-            case ConnectionState.none:
-              return new Text('Not connected to the Stream or null');
-
-            case ConnectionState.waiting:
-              return new Text('Awaiting for interaction');
-
-            case ConnectionState.active:
-              print("Stream has started but not finished");
-
-              var totalPhotosCount = 0;
-              List<DocumentSnapshot> tripPhotos;
-
-              if (snapshot.hasData) {
-                tripPhotos = snapshot.data!.docs;
-                totalPhotosCount = tripPhotos.length;
-
-                if (totalPhotosCount > 0) {
-                  return new GridView.builder(
-                      itemCount: totalPhotosCount,
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      primary: false,
-                      gridDelegate:
-                          new SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 3),
-                      itemBuilder: (BuildContext context, int index) {
-                        return Center(
-                          child: Container(
-                              child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                ClipRect(
-                                  child: Image.network(
-                                    tripPhotos[index]["img"],
-                                    fit: BoxFit.cover,
-                                    height: 120,
-                                  ),
-                                  // child: Align(
-                                  //     alignment: Alignment.topCenter,
-                                  //     heightFactor: 0.7,
-                                  //     widthFactor: double.infinity,
-                                  //     child: new CachedNetworkImage(
-                                  //       placeholder: (context, url) =>
-                                  //           new CircularProgressIndicator(
-                                  //               color: Color.fromARGB(
-                                  //                   255, 243, 121, 112)),
-                                  //       imageUrl: tripPhotos[index]["img"],
-                                  //       fit: BoxFit.fitHeight,
-                                  //     )),
-                                ),
-                              ])),
-                        );
-                      });
-                }
-              }
-
-              return new Center(
-                  child: Column(
-                children: <Widget>[
-                  new Padding(
-                    padding: const EdgeInsets.only(top: 50.0),
-                  ),
-                  new Text("No trip photos found.")
-                ],
-              ));
-
-            case ConnectionState.done:
-              return new Text('Streaming is done');
-          }
-
-          // return Container(
-          //   child: new Text("No trip photos found."),
-          // );
-        });
-
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -159,26 +300,29 @@ class _PhotographyState extends State<Photography> {
         ),
         centerTitle: true,
       ),
-      body: new Container(
-        child: new Column(
-          children: <Widget>[
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
             Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 InkWell(
                   onTap: () {
                     getImage();
-                    ontap();
+                    setState(() {
+                      ontap();
+                    });
                   },
-                  child: CircleAvatar(
-                    backgroundColor: Colors.white,
-                    backgroundImage: file == null
-                        ? NetworkImage(
-                            "https://t3.ftcdn.net/jpg/03/66/66/62/360_F_366666222_DCAdZ5uHSl1ckP1jbHVq7uzO8CFKvmhy.jpg")
-                        : tap == false
-                            ? NetworkImage(
-                                "https://t3.ftcdn.net/jpg/03/66/66/62/360_F_366666222_DCAdZ5uHSl1ckP1jbHVq7uzO8CFKvmhy.jpg")
-                            : FileImage(File(file!.path)) as ImageProvider,
-                    radius: 40,
+                  child: Center(
+                    child: CircleAvatar(
+                      backgroundColor: Colors.white,
+                      backgroundImage: file == null
+                          ? AssetImage("images/plus.jpg")
+                          : tap == false
+                              ? AssetImage("images/plus.jpg")
+                              : FileImage(File(file!.path)) as ImageProvider,
+                      radius: 40,
+                    ),
                   ),
                 ),
                 TextButton(
@@ -186,10 +330,6 @@ class _PhotographyState extends State<Photography> {
                       geting_Photo();
                       setState(() {
                         ontap();
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Photography()));
                       });
                     },
                     child: Text(
@@ -200,16 +340,50 @@ class _PhotographyState extends State<Photography> {
                     )),
               ],
             ),
-            tripPhotos,
+            StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection('Photography')
+                    .snapshots(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.hasError) {
+                    return new Text(
+                        'Error in receiving trip photos: ${snapshot.error}');
+                  }
+                  var totalPhotosCount = 0;
+                  List<DocumentSnapshot> tripPhotos;
+
+                  if (snapshot.hasData) {
+                    tripPhotos = snapshot.data!.docs;
+                    totalPhotosCount = tripPhotos.length;
+
+                    if (totalPhotosCount > 0) {
+                      return new GridView.builder(
+                          itemCount: totalPhotosCount,
+                          scrollDirection: Axis.vertical,
+                          shrinkWrap: true,
+                          // primary: false,
+
+                          gridDelegate:
+                              new SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 3),
+                          itemBuilder: (BuildContext context, int index) {
+                            return Center(
+                              child: Image.network(
+                                tripPhotos[index]["img"],
+                                fit: BoxFit.cover,
+                                height: 125,
+                                width: 125,
+                              ),
+                            );
+                          });
+                    }
+                  }
+                  return Text("No Trip Photos found");
+                })
           ],
         ),
       ),
     );
-  }
-
-  ontap() {
-    setState(() {
-      tap = !tap;
-    });
   }
 }
