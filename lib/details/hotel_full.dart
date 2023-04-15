@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -129,11 +130,12 @@ class _HotelFullDetailsState extends State<HotelFullDetails> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.network(
-              widget.img,
-              fit: BoxFit.cover,
-              width: double.infinity,
+            CachedNetworkImage(
+              imageUrl: widget.img,
+              errorWidget: (context, url, error) => Icon(Icons.error),
               height: 300,
+              width: double.infinity,
+              fit: BoxFit.cover,
             ),
             SizedBox(
               height: 10,

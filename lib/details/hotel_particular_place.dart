@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:tourism/details/hotel_full.dart';
@@ -116,11 +117,16 @@ class _Hotel_Particular_Place_ListState
                                     children: [
                                       Expanded(
                                           child: Container(
+                                        // child: CachedNetworkImage(
+                                        //   imageUrl: hotel[i]["img"],
+                                        //   errorWidget: (context, url, error) =>
+                                        //       Icon(Icons.error),
+                                        //   fit: BoxFit.cover,
+                                        // ),
                                         decoration: BoxDecoration(
                                             image: DecorationImage(
                                                 image: NetworkImage(
-                                                  hotel[i]["img"],
-                                                ),
+                                                    hotel[i]["img"]),
                                                 fit: BoxFit.cover)),
                                       )),
                                       Expanded(

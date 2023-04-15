@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:blur/blur.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:tourism/details/hospital_list.dart';
 import 'package:tourism/details/hotel_particular_place.dart';
@@ -34,12 +35,11 @@ class _OverAllState extends State<OverAll> {
                 bottomRight: Radius.circular(50),
                 bottomLeft: Radius.circular(50)),
             child: Container(
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: NetworkImage(
-                        widget.img,
-                      ),
-                      fit: BoxFit.cover)),
+              child: CachedNetworkImage(
+                imageUrl: widget.img,
+                errorWidget: (context, url, error) => Icon(Icons.error),
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           automaticallyImplyLeading: false,
@@ -117,46 +117,46 @@ class _OverAllState extends State<OverAll> {
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(20),
                         bottomRight: Radius.circular(20)),
-                    child: Card(
-                      elevation: 10,
-                      shadowColor: Colors.white,
-                      child: Stack(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
+                    child: Stack(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Center(
                             child: Container(
+                                width: 450,
                                 child: Image.asset(
-                              "images/3.jpg",
-                              fit: BoxFit.cover,
-                              height: 130,
-                              width: 350,
-                            )),
-                          ),
-                          Align(
-                            child: Column(
-                              children: [
-                                SizedBox(
+                                  "images/3.jpg",
+                                  fit: BoxFit.cover,
                                   height: 130,
-                                ),
-                                Container(
-                                  height: 30,
-                                  width: double.infinity,
-                                  color: Colors.white,
-                                  child: Center(
-                                    child: Text(
-                                      "Must Visit Places",
-                                      style: TextStyle(
-                                          fontFamily: "JosefinSans",
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold),
-                                    ),
+                                  width: 450,
+                                )),
+                          ),
+                        ),
+                        Align(
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                width: 450,
+                                height: 130,
+                              ),
+                              Container(
+                                height: 30,
+                                width: 450,
+                                color: Colors.white,
+                                child: Center(
+                                  child: Text(
+                                    "Must Visit Place",
+                                    style: TextStyle(
+                                        fontFamily: "JosefinSans",
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
                                   ),
                                 ),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
                     ),
                   ),
                 ),

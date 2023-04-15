@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -80,11 +81,17 @@ class _SpecialListState extends State<SpecialList> {
                                         children: [
                                           Expanded(
                                               child: Container(
+                                            // child: CachedNetworkImage(
+                                            //   imageUrl: rental[i]["img"],
+                                            //   errorWidget:
+                                            //       (context, url, error) =>
+                                            //           Icon(Icons.error),
+                                            //   fit: BoxFit.cover,
+                                            // ),
                                             decoration: BoxDecoration(
                                                 image: DecorationImage(
                                                     image: NetworkImage(
-                                                      rental[i]["img"],
-                                                    ),
+                                                        rental[i]["img"]),
                                                     fit: BoxFit.cover)),
                                           )),
                                           Expanded(

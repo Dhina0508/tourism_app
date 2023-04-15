@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -157,10 +158,12 @@ class _ThemeParkFullState extends State<ThemeParkFull> {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.network(
-              widget.img,
-              fit: BoxFit.cover,
+            CachedNetworkImage(
+              imageUrl: widget.img,
+              errorWidget: (context, url, error) => Icon(Icons.error),
               height: 300,
+              fit: BoxFit.cover,
+              width: double.infinity,
             ),
             SizedBox(
               height: 10,

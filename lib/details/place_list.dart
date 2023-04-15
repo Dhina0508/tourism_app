@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:tourism/dash_board_four_pages/hotel.dart';
@@ -197,8 +198,7 @@ class _PlaceListState extends State<PlaceList> {
                                           decoration: BoxDecoration(
                                               image: DecorationImage(
                                                   image: NetworkImage(
-                                                    places[i]["img"],
-                                                  ),
+                                                      places[i]["img"]),
                                                   fit: BoxFit.cover)),
                                         )),
                                         Expanded(

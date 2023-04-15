@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -158,7 +159,7 @@ class _DashBoardState extends State<DashBoard> {
                                 },
                                 child: Container(
                                     child: Text(
-                                  "Tamilnadu, India",
+                                  "Tamilnadu,India",
                                   style: TextStyle(fontSize: 15),
                                 ))),
                           ],
@@ -284,10 +285,12 @@ class _DashBoardState extends State<DashBoard> {
                             height: 250,
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(10),
-                              child: Image.network(
-                                home[i]["img"],
-                                width: 250,
+                              child: CachedNetworkImage(
+                                imageUrl: home[i]["img"],
+                                errorWidget: (context, url, error) =>
+                                    Icon(Icons.error),
                                 height: 250,
+                                width: 250,
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -394,12 +397,14 @@ class _DashBoardState extends State<DashBoard> {
                               children: [
                                 Expanded(
                                     child: Container(
-                                  decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                          image: NetworkImage(
-                                            hotel[i]["img"],
-                                          ),
-                                          fit: BoxFit.cover)),
+                                  child: CachedNetworkImage(
+                                    imageUrl: hotel[i]["img"],
+
+                                    errorWidget: (context, url, error) =>
+                                        Icon(Icons.error),
+                                    height: 250, width: 250, fit: BoxFit.cover,
+                                    // 100MB
+                                  ),
                                 )),
                                 Expanded(
                                     child: Container(
@@ -644,8 +649,8 @@ class _DashBoardState extends State<DashBoard> {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: Container(
-                              child: Image.network(
-                                "https://cdn.ceoworld.biz/wp-content/uploads/2019/06/Adventure-Trekking.jpg",
+                              child: Image.asset(
+                                "images/a.jpg",
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -681,8 +686,8 @@ class _DashBoardState extends State<DashBoard> {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: Container(
-                              child: Image.network(
-                                "https://media.timeout.com/images/105658195/image.jpg",
+                              child: Image.asset(
+                                "images/b.jpg",
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -718,8 +723,8 @@ class _DashBoardState extends State<DashBoard> {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: Container(
-                              child: Image.network(
-                                "https://parade.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_1200/MTkwNTc2MDI3MTM2MTczOTQ4/askmarilynparachutes-ftr.jpg",
+                              child: Image.asset(
+                                "images/c.jpg",
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -755,11 +760,10 @@ class _DashBoardState extends State<DashBoard> {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: Container(
-                              child: Image.network(
-                                "https://e0.pxfuel.com/wallpapers/98/833/desktop-wallpaper-nataraja-lord-shiva-god-thumbnail.jpg",
+                              child: Image.asset(
+                                "images/d.jpg",
                                 fit: BoxFit.cover,
                               ),
-                              color: Colors.red,
                             ),
                           )),
                       Align(
@@ -793,8 +797,8 @@ class _DashBoardState extends State<DashBoard> {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: Container(
-                              child: Image.network(
-                                "https://cdn.getyourguide.com/img/tour/5c6a6d3e9bc4f.jpeg/146.jpg",
+                              child: Image.asset(
+                                "images/e.jpg",
                                 fit: BoxFit.cover,
                               ),
                             ),

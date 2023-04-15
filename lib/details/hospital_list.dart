@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:tourism/details/hospital_full.dart';
@@ -160,11 +161,16 @@ class _HospitalListState extends State<HospitalList> {
                                     children: [
                                       Expanded(
                                           child: Container(
+                                        // child: CachedNetworkImage(
+                                        //   imageUrl: hp[i]["img"],
+                                        //   errorWidget: (context, url, error) =>
+                                        //       Icon(Icons.error),
+                                        //   fit: BoxFit.cover,
+                                        // ),
                                         decoration: BoxDecoration(
                                             image: DecorationImage(
-                                                image: NetworkImage(
-                                                  hp[i]["img"],
-                                                ),
+                                                image:
+                                                    NetworkImage(hp[i]["img"]),
                                                 fit: BoxFit.cover)),
                                       )),
                                       Expanded(

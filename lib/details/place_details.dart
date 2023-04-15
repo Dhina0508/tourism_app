@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -163,10 +164,12 @@ class _PlaceDetailsState extends State<PlaceDetails> {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.network(
-              widget.img,
-              fit: BoxFit.cover,
+            CachedNetworkImage(
+              imageUrl: widget.img,
+              errorWidget: (context, url, error) => Icon(Icons.error),
               height: 300,
+              width: double.infinity,
+              fit: BoxFit.cover,
             ),
             SizedBox(
               height: 10,
@@ -325,146 +328,153 @@ class _PlaceDetailsState extends State<PlaceDetails> {
             ), // TabBar
             Expanded(
                 child: TabBarView(children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Icon(Icons.location_on,
-                            color: Color.fromARGB(255, 250, 134, 126)),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Expanded(
-                          child: Container(
-                            child: Text(widget.address,
-                                style: TextStyle(
-                                  fontSize: 15,
-                                )),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Icon(Icons.help_outline_outlined),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Divider(thickness: 0.5, color: Colors.black),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Icon(Icons.call,
-                            color: Color.fromARGB(255, 250, 134, 126)),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Text(widget.phno,
-                            style: TextStyle(
-                              fontSize: 15,
-                            )),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Divider(
-                    thickness: 0.5,
-                    color: Colors.black,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Row(
-                      children: [
-                        Text("Entry: ",
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontFamily: "JosefinSans",
-                                color: Color.fromARGB(255, 250, 134, 126))),
-                        Text("Rs: " + widget.entry,
-                            style: TextStyle(
-                              fontSize: 15,
-                            )),
-                      ],
-                    ),
-                  ),
-                  Divider(
-                    thickness: 0.5,
-                    color: Colors.black,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Row(
-                      children: [
-                        Text("Overall Rating: ",
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontFamily: "JosefinSans",
-                                color: Color.fromARGB(255, 250, 134, 126))),
-                        Text(widget.rating,
-                            style: TextStyle(
-                              fontSize: 15,
-                            )),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 10, right: 10, top: 20),
-                child: Text("  " + widget.des,
-                    style: TextStyle(
-                      fontSize: 15,
-                    )),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Container(
-                    child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SingleChildScrollView(
-                      child: Container(height: 200, child: Container()),
+                    SizedBox(
+                      height: 20,
                     ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: SizedBox(
-                        height: 40,
-                        child: TextField(
-                            controller: message,
-                            decoration: InputDecoration(
-                                hintText: "type..",
-                                labelText: "Share your experience",
-                                prefixIcon: Icon(Icons.note_alt_outlined),
-                                suffixIcon: IconButton(
-                                    onPressed: () {
-                                      sendmessage();
-                                      message.clear();
-                                      print(widget.id);
-                                      print(widget.collection);
-                                    },
-                                    icon: Icon(Icons.send)),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10)))),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Icon(Icons.location_on,
+                              color: Color.fromARGB(255, 250, 134, 126)),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Expanded(
+                            child: Container(
+                              child: Text(widget.address,
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                  )),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Icon(Icons.help_outline_outlined),
+                        ],
                       ),
-                    )
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Divider(thickness: 0.5, color: Colors.black),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Icon(Icons.call,
+                              color: Color.fromARGB(255, 250, 134, 126)),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Text(widget.phno,
+                              style: TextStyle(
+                                fontSize: 15,
+                              )),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Divider(
+                      thickness: 0.5,
+                      color: Colors.black,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Row(
+                        children: [
+                          Text("Entry: ",
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: "JosefinSans",
+                                  color: Color.fromARGB(255, 250, 134, 126))),
+                          Text("Rs: " + widget.entry,
+                              style: TextStyle(
+                                fontSize: 15,
+                              )),
+                        ],
+                      ),
+                    ),
+                    Divider(
+                      thickness: 0.5,
+                      color: Colors.black,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Row(
+                        children: [
+                          Text("Overall Rating: ",
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: "JosefinSans",
+                                  color: Color.fromARGB(255, 250, 134, 126))),
+                          Text(widget.rating,
+                              style: TextStyle(
+                                fontSize: 15,
+                              )),
+                        ],
+                      ),
+                    ),
                   ],
-                )),
+                ),
+              ),
+              SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 10, right: 10, top: 20),
+                  child: Text("  " + widget.des,
+                      style: TextStyle(
+                        fontSize: 15,
+                      )),
+                ),
+              ),
+              SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Container(
+                      child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SingleChildScrollView(
+                        child: Container(height: 200, child: Container()),
+                      ),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: SizedBox(
+                          height: 40,
+                          child: TextField(
+                              controller: message,
+                              decoration: InputDecoration(
+                                  hintText: "type..",
+                                  labelText: "Share your experience",
+                                  prefixIcon: Icon(Icons.note_alt_outlined),
+                                  suffixIcon: IconButton(
+                                      onPressed: () {
+                                        sendmessage();
+                                        message.clear();
+                                        print(widget.id);
+                                        print(widget.collection);
+                                      },
+                                      icon: Icon(Icons.send)),
+                                  border: OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(10)))),
+                        ),
+                      )
+                    ],
+                  )),
+                ),
               )
             ]))
             // Padding(
