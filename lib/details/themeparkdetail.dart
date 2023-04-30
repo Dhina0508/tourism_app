@@ -74,20 +74,23 @@ class _ThemeParkFullState extends State<ThemeParkFull> {
   }
 
   TextEditingController message = TextEditingController();
+  sendmessage() async {
+    var id = widget.id.toString();
 
-  sendmessage() {
-    final _CollectionReference =
-        FirebaseFirestore.instance.collection("themepark_review").doc();
-
+    final _CollectionReference = FirebaseFirestore.instance
+        .collection("themepark")
+        .doc(id)
+        .collection("messages")
+        .doc();
     return _CollectionReference.set({
       "id": _CollectionReference.id,
       "name": FirebaseAuth.instance.currentUser!.displayName,
       "text": message.text,
-      "time": DateTime.now(),
+      "time": DateTime.now().toString(),
       "about": "message"
     }).then((value) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        backgroundColor: Colors.green.shade400,
+        backgroundColor: Colors.green,
         content: Text("Review has been posted"),
         behavior: SnackBarBehavior.floating,
         duration: Duration(seconds: 1),
@@ -102,6 +105,13 @@ class _ThemeParkFullState extends State<ThemeParkFull> {
 
   @override
   Widget build(BuildContext context) {
+    var id = widget.id.toString();
+
+    final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
+        .collection("themepark")
+        .doc(id)
+        .collection("messages")
+        .snapshots();
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -419,41 +429,93 @@ class _ThemeParkFullState extends State<ThemeParkFull> {
                   ),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Container(
-                    child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SingleChildScrollView(
-                      child: Container(
-                        height: 200,
-                        child: Container(),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: SizedBox(
-                        height: 40,
-                        child: TextField(
-                            controller: message,
-                            decoration: InputDecoration(
-                                hintText: "type..",
-                                labelText: "Share your experience",
-                                prefixIcon: Icon(Icons.note_alt_outlined),
-                                suffixIcon: IconButton(
-                                    onPressed: () {
-                                      sendmessage();
-                                      message.clear();
-                                      print(widget.id);
-                                    },
-                                    icon: Icon(Icons.send)),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10)))),
-                      ),
-                    )
-                  ],
-                )),
+              Column(
+                children: [
+                  Expanded(
+                    child: StreamBuilder<QuerySnapshot>(
+                        stream: _usersStream,
+                        builder: (BuildContext context,
+                            AsyncSnapshot<QuerySnapshot> snapshot) {
+                          if (snapshot.hasError) {
+                            return Text('Something went wrong');
+                          }
+                          // if (snapshot.data!.docs.isEmpty) {
+                          //   return Center(child: Text("No Review Found"));
+                          // }
+
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Text("Loading");
+                          }
+
+                          return ListView(
+                            children: snapshot.data!.docs
+                                .map((DocumentSnapshot document) {
+                              Map<String, dynamic> data =
+                                  document.data()! as Map<String, dynamic>;
+                              var time = data["time"].substring(0, 10);
+
+                              return Card(
+                                color: Colors.transparent,
+                                elevation: 0,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          color: Color.fromARGB(
+                                              122, 250, 157, 150),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 10,
+                                              right: 10,
+                                              top: 7,
+                                              bottom: 7),
+                                          child: Text(
+                                            data["text"],
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.black),
+                                          ),
+                                        )),
+                                    Padding(
+                                      padding: const EdgeInsets.all(5.0),
+                                      child: Text(
+                                        "-" + data["name"] + " at " + time,
+                                        style: TextStyle(
+                                            color: Colors.grey, fontSize: 12),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              );
+                              //
+                            }).toList(),
+                          );
+                        }),
+                  ),
+                  SizedBox(
+                    height: 40,
+                    child: TextField(
+                        controller: message,
+                        decoration: InputDecoration(
+                            hintText: "type..",
+                            labelText: "Share your experience",
+                            prefixIcon: Icon(Icons.note_alt_outlined),
+                            suffixIcon: IconButton(
+                                onPressed: () {
+                                  sendmessage();
+                                  message.clear();
+                                },
+                                icon: Icon(Icons.send)),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10)))),
+                  )
+                ],
               )
             ]))
             // Padding(

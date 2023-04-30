@@ -159,7 +159,7 @@ class _PlaceDetailsState extends State<PlaceDetails> {
         .snapshots();
 
     return DefaultTabController(
-      length: 3,
+      length: 2,
       child: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: AppBar(
@@ -369,9 +369,6 @@ class _PlaceDetailsState extends State<PlaceDetails> {
                   text: "Info",
                 ),
                 Tab(
-                  text: "Description",
-                ),
-                Tab(
                   text: "Reviews",
                 ),
               ],
@@ -477,16 +474,26 @@ class _PlaceDetailsState extends State<PlaceDetails> {
                         ],
                       ),
                     ),
+                    Divider(
+                      thickness: 0.5,
+                      color: Colors.black,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10.0),
+                      child: Text("Description: ",
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontFamily: "JosefinSans",
+                              color: Color.fromARGB(255, 250, 134, 126))),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Text("    " + widget.des,
+                          style: TextStyle(
+                            fontSize: 15,
+                          )),
+                    ),
                   ],
-                ),
-              ),
-              SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 10, right: 10, top: 20),
-                  child: Text("  " + widget.des,
-                      style: TextStyle(
-                        fontSize: 15,
-                      )),
                 ),
               ),
               Column(
@@ -498,9 +505,6 @@ class _PlaceDetailsState extends State<PlaceDetails> {
                             AsyncSnapshot<QuerySnapshot> snapshot) {
                           if (snapshot.hasError) {
                             return Text('Something went wrong');
-                          }
-                          if (snapshot.hasData == null) {
-                            return Text("No Review found");
                           }
 
                           if (snapshot.connectionState ==
