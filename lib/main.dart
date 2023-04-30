@@ -32,7 +32,8 @@ Future<void> main() async {
           primaryColor: Colors.red,
           colorScheme: ColorScheme.light(primary: Colors.red)),
       debugShowCheckedModeBanner: false,
-      home: email == null ? MyHomePage() : Home(),
+      home: email == null ? LoginPage() : Home(),
+
       // home: Responsive(
       //     desktopScaffold: email == null ? MyHomePage() : Home(),
       //     mobileScaffold: email == null ? MyHomePage() : Home()),
@@ -43,44 +44,44 @@ Future<void> main() async {
       }));
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key}) : super(key: key);
+// class MyHomePage extends StatefulWidget {
+//   MyHomePage({Key? key}) : super(key: key);
 
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
+//   @override
+//   State<MyHomePage> createState() => _MyHomePageState();
+// }
 
-class _MyHomePageState extends State<MyHomePage> {
-  void initState() {
-    super.initState();
-    Timer(
-        Duration(seconds: 1),
-        () => Navigator.push(
-            context, MaterialPageRoute(builder: (context) => LoginPage())));
-  }
+// class _MyHomePageState extends State<MyHomePage> {
+//   void initState() {
+//     super.initState();
+//     Timer(
+//         Duration(seconds: 1),
+//         () => Navigator.push(
+//             context, MaterialPageRoute(builder: (context) => LoginPage())));
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Color.fromARGB(255, 20, 19, 19),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Center(
-              child: Image.asset('images/start.png',
-                  fit: BoxFit.cover,
-                  height: MediaQuery.of(context).size.height - 180),
-            ),
-            SizedBox(
-              height: 40,
-            ),
-            CircularProgressIndicator(
-              color: Colors.red,
-            )
-          ],
-        ));
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//         backgroundColor: Color.fromARGB(255, 20, 19, 19),
+//         body: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: [
+//             Center(
+//               child: Image.asset('images/start.png',
+//                   fit: BoxFit.cover,
+//                   height: MediaQuery.of(context).size.height - 180),
+//             ),
+//             SizedBox(
+//               height: 40,
+//             ),
+//             CircularProgressIndicator(
+//               color: Colors.red,
+//             )
+//           ],
+//         ));
+//   }
+// }
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);

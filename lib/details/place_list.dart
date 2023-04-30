@@ -38,6 +38,7 @@ class _PlaceListState extends State<PlaceList> {
         if (qn.docs[i]["about"] == "") {
           places.add({
             "name": qn.docs[i]["name"],
+            "id": qn.docs[i]["id"],
             "img": qn.docs[i]["img"],
             "address": qn.docs[i]["address"],
             "des": qn.docs[i]["des"],
@@ -172,6 +173,7 @@ class _PlaceListState extends State<PlaceList> {
                                     MaterialPageRoute(
                                         builder: (context) => PlaceDetails(
                                             lat: places[i]["lat"],
+                                            placeid: places[i]["id"],
                                             long: places[i]["long"],
                                             address: places[i]["address"],
                                             des: places[i]["des"],

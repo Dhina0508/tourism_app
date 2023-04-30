@@ -344,8 +344,29 @@ class _DashBoardState extends State<DashBoard> {
                 ],
               ),
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AllPlaces()));
+                      },
+                      child: Text(
+                        "See All >>",
+                        style: TextStyle(
+                            fontSize: 12,
+                            color: Color.fromARGB(255, 246, 113, 103)),
+                      )),
+                )
+              ],
+            ),
             SizedBox(
-              height: 30,
+              height: 10,
             ),
             Padding(
               padding: const EdgeInsets.only(left: 15.0),
@@ -504,122 +525,122 @@ class _DashBoardState extends State<DashBoard> {
                 ),
               ),
             ),
-            SizedBox(
-              height: 30,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 15.0),
-              child: Text(
-                "EXPLORE THE BEAUTIFUL WORLD !",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => AllPlaces()));
-                  },
-                  child: Container(
-                    height: 50,
-                    width: 150,
-                    decoration: BoxDecoration(
-                        color: Color.fromARGB(42, 244, 125, 117),
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                            color: Color.fromARGB(255, 237, 112, 103),
-                            width: 0.5)),
-                    child: Center(
-                        child: Text(
-                      "Places",
-                      style: TextStyle(
-                          fontFamily: "JosefinSans",
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                    )),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Hotel()));
-                  },
-                  child: Container(
-                    height: 50,
-                    width: 150,
-                    child: Center(
-                        child: Text(
-                      "Hotels",
-                      style: TextStyle(
-                          fontFamily: "JosefinSans",
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                    )),
-                    decoration: BoxDecoration(
-                        color: Color.fromARGB(42, 244, 125, 117),
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                            color: Color.fromARGB(255, 237, 112, 103),
-                            width: 0.5)),
-                  ),
-                )
-              ],
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    height: 50,
-                    width: 150,
-                    decoration: BoxDecoration(
-                        color: Color.fromARGB(42, 244, 125, 117),
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                            color: Color.fromARGB(255, 237, 112, 103),
-                            width: 0.5)),
-                    child: Center(
-                        child: Text(
-                      "Emergency",
-                      style: TextStyle(
-                          fontFamily: "JosefinSans",
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                    )),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    height: 50,
-                    width: 150,
-                    child: Center(
-                        child: Text(
-                      "Rental",
-                      style: TextStyle(
-                          fontFamily: "JosefinSans",
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                    )),
-                    decoration: BoxDecoration(
-                        color: Color.fromARGB(42, 244, 125, 117),
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                            color: Color.fromARGB(255, 237, 112, 103),
-                            width: 0.5)),
-                  ),
-                )
-              ],
-            ),
+            // SizedBox(
+            //   height: 30,
+            // ),
+            // Padding(
+            //   padding: const EdgeInsets.only(left: 15.0),
+            //   child: Text(
+            //     "EXPLORE THE BEAUTIFUL WORLD !",
+            //     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: 20,
+            // ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //   children: [
+            //     GestureDetector(
+            //       onTap: () {
+            //         Navigator.push(context,
+            //             MaterialPageRoute(builder: (context) => AllPlaces()));
+            //       },
+            //       child: Container(
+            //         height: 50,
+            //         width: 150,
+            //         decoration: BoxDecoration(
+            //             color: Color.fromARGB(42, 244, 125, 117),
+            //             borderRadius: BorderRadius.circular(10),
+            //             border: Border.all(
+            //                 color: Color.fromARGB(255, 237, 112, 103),
+            //                 width: 0.5)),
+            //         child: Center(
+            //             child: Text(
+            //           "Places",
+            //           style: TextStyle(
+            //               fontFamily: "JosefinSans",
+            //               fontSize: 20,
+            //               fontWeight: FontWeight.bold),
+            //         )),
+            //       ),
+            //     ),
+            //     GestureDetector(
+            //       onTap: () {
+            //         Navigator.push(context,
+            //             MaterialPageRoute(builder: (context) => Hotel()));
+            //       },
+            //       child: Container(
+            //         height: 50,
+            //         width: 150,
+            //         child: Center(
+            //             child: Text(
+            //           "Hotels",
+            //           style: TextStyle(
+            //               fontFamily: "JosefinSans",
+            //               fontSize: 20,
+            //               fontWeight: FontWeight.bold),
+            //         )),
+            //         decoration: BoxDecoration(
+            //             color: Color.fromARGB(42, 244, 125, 117),
+            //             borderRadius: BorderRadius.circular(10),
+            //             border: Border.all(
+            //                 color: Color.fromARGB(255, 237, 112, 103),
+            //                 width: 0.5)),
+            //       ),
+            //     )
+            //   ],
+            // ),
+            // SizedBox(
+            //   height: 20,
+            // ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //   children: [
+            //     GestureDetector(
+            //       onTap: () {},
+            //       child: Container(
+            //         height: 50,
+            //         width: 150,
+            //         decoration: BoxDecoration(
+            //             color: Color.fromARGB(42, 244, 125, 117),
+            //             borderRadius: BorderRadius.circular(10),
+            //             border: Border.all(
+            //                 color: Color.fromARGB(255, 237, 112, 103),
+            //                 width: 0.5)),
+            //         child: Center(
+            //             child: Text(
+            //           "Emergency",
+            //           style: TextStyle(
+            //               fontFamily: "JosefinSans",
+            //               fontSize: 20,
+            //               fontWeight: FontWeight.bold),
+            //         )),
+            //       ),
+            //     ),
+            //     GestureDetector(
+            //       onTap: () {},
+            //       child: Container(
+            //         height: 50,
+            //         width: 150,
+            //         child: Center(
+            //             child: Text(
+            //           "Rental",
+            //           style: TextStyle(
+            //               fontFamily: "JosefinSans",
+            //               fontSize: 20,
+            //               fontWeight: FontWeight.bold),
+            //         )),
+            //         decoration: BoxDecoration(
+            //             color: Color.fromARGB(42, 244, 125, 117),
+            //             borderRadius: BorderRadius.circular(10),
+            //             border: Border.all(
+            //                 color: Color.fromARGB(255, 237, 112, 103),
+            //                 width: 0.5)),
+            //       ),
+            //     )
+            //   ],
+            // ),
             SizedBox(
               height: 30,
             ),

@@ -18,9 +18,11 @@ class PlaceDetails extends StatefulWidget {
   var long;
   var phno;
   var id;
+  var placeid;
   var collection;
   PlaceDetails(
       {this.address,
+      this.placeid,
       this.des,
       this.entry,
       this.img,
@@ -79,21 +81,25 @@ class _PlaceDetailsState extends State<PlaceDetails> {
 
   TextEditingController message = TextEditingController();
 
-  sendmessage() {
+  sendmessage() async {
+    var placeid = widget.placeid.toString();
+
     final _CollectionReference = FirebaseFirestore.instance
         .collection("tourism")
         .doc(widget.id)
         .collection(widget.collection)
+        .doc(placeid.trim())
+        .collection("messages")
         .doc();
     return _CollectionReference.set({
       "id": _CollectionReference.id,
       "name": FirebaseAuth.instance.currentUser!.displayName,
       "text": message.text,
-      "time": DateTime.now(),
+      "time": DateTime.now().toString(),
       "about": "message"
     }).then((value) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        backgroundColor: Colors.green.shade400,
+        backgroundColor: Color.fromARGB(255, 192, 245, 195),
         content: Text("Review has been posted"),
         behavior: SnackBarBehavior.floating,
         duration: Duration(seconds: 1),
@@ -106,8 +112,52 @@ class _PlaceDetailsState extends State<PlaceDetails> {
     });
   }
 
+  // List msg = [];
+
+  // getmsg() async {
+  //   var placeid = widget.placeid.toString();
+
+  //   QuerySnapshot qn = await FirebaseFirestore.instance
+  //       .collection("tourism")
+  //       .doc(widget.id)
+  //       .collection(widget.collection)
+  //       .doc(placeid.trim())
+  //       .collection("messages")
+  //       .get();
+
+  //   setState(() {
+  //     for (int i = 0; i < qn.docs.length; i++) {
+  //       msg.add({
+  //         "name": qn.docs[i]["name"],
+  //         "id": qn.docs[i]["id"],
+  //         "text": qn.docs[i]["text"],
+  //         "time": qn.docs[i]["time"]
+  //       });
+  //     }
+  //   });
+  //   return qn.docs;
+  // }
+
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+
+  //   getmsg();
+  // }
+
   @override
   Widget build(BuildContext context) {
+    var placeid = widget.placeid.toString();
+
+    final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
+        .collection("tourism")
+        .doc(widget.id)
+        .collection(widget.collection)
+        .doc(placeid.trim())
+        .collection("messages")
+        .snapshots();
+
     return DefaultTabController(
       length: 3,
       child: Scaffold(
@@ -439,42 +489,183 @@ class _PlaceDetailsState extends State<PlaceDetails> {
                       )),
                 ),
               ),
-              SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Container(
-                      child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SingleChildScrollView(
-                        child: Container(height: 200, child: Container()),
-                      ),
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: SizedBox(
-                          height: 40,
-                          child: TextField(
-                              controller: message,
-                              decoration: InputDecoration(
-                                  hintText: "type..",
-                                  labelText: "Share your experience",
-                                  prefixIcon: Icon(Icons.note_alt_outlined),
-                                  suffixIcon: IconButton(
-                                      onPressed: () {
-                                        sendmessage();
-                                        message.clear();
-                                        print(widget.id);
-                                        print(widget.collection);
-                                      },
-                                      icon: Icon(Icons.send)),
-                                  border: OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(10)))),
-                        ),
-                      )
-                    ],
-                  )),
-                ),
+              Column(
+                children: [
+                  Expanded(
+                    child: StreamBuilder<QuerySnapshot>(
+                        stream: _usersStream,
+                        builder: (BuildContext context,
+                            AsyncSnapshot<QuerySnapshot> snapshot) {
+                          if (snapshot.hasError) {
+                            return Text('Something went wrong');
+                          }
+                          if (snapshot.hasData == null) {
+                            return Text("No Review found");
+                          }
+
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Text("Loading");
+                          }
+
+                          return ListView(
+                            children: snapshot.data!.docs
+                                .map((DocumentSnapshot document) {
+                              Map<String, dynamic> data =
+                                  document.data()! as Map<String, dynamic>;
+                              var time = data["time"].substring(0, 10);
+
+                              return Card(
+                                color: Colors.transparent,
+                                elevation: 0,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          color: Color.fromARGB(
+                                              122, 250, 157, 150),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 10,
+                                              right: 10,
+                                              top: 7,
+                                              bottom: 7),
+                                          child: Text(
+                                            data["text"],
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.black),
+                                          ),
+                                        )),
+                                    Padding(
+                                      padding: const EdgeInsets.all(5.0),
+                                      child: Text(
+                                        "-" + data["name"] + " at " + time,
+                                        style: TextStyle(
+                                            color: Colors.grey, fontSize: 12),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              );
+                              //
+                            }).toList(),
+                          );
+                          // SingleChildScrollView(
+                          //   child: Padding(
+                          //     padding: const EdgeInsets.all(10.0),
+                          //     child: Column(
+                          //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //       children: [
+                          //         msg.length >= 1
+                          //             ? Container(
+                          //                 height: 260,
+                          //                 child: ListView.builder(
+                          //                     shrinkWrap: true,
+                          //                     // physics: NeverScrollableScrollPhysics(),
+                          //                     scrollDirection: Axis.vertical,
+                          //                     itemCount: msg.length,
+                          //                     itemBuilder: (context, i) {
+                          //                       var time = msg[i]["time"].substring(0, 10);
+                          //                       return SingleChildScrollView(
+                          //                         child: Card(
+                          //                           elevation: 0,
+                          //                           child: Column(
+                          //                             crossAxisAlignment:
+                          //                                 CrossAxisAlignment.start,
+                          //                             mainAxisAlignment:
+                          //                                 MainAxisAlignment.end,
+                          //                             children: [
+                          //                               Container(
+                          //                                   decoration: BoxDecoration(
+                          //                                     borderRadius:
+                          //                                         BorderRadius.circular(30),
+                          //                                     color: Color.fromARGB(
+                          //                                         122, 250, 157, 150),
+                          //                                   ),
+                          //                                   child: Padding(
+                          //                                     padding:
+                          //                                         const EdgeInsets.only(
+                          //                                             left: 10,
+                          //                                             right: 10,
+                          //                                             top: 7,
+                          //                                             bottom: 7),
+                          //                                     child: Text(
+                          //                                       msg[i]["text"],
+                          //                                       style: TextStyle(
+                          //                                           fontSize: 16,
+                          //                                           color: Colors.black),
+                          //                                     ),
+                          //                                   )),
+                          //                               Padding(
+                          //                                 padding:
+                          //                                     const EdgeInsets.all(5.0),
+                          //                                 child: Text("-" +
+                          //                                     msg[i]["name"] +
+                          //                                     " at " +
+                          //                                     time),
+                          //                               )
+                          //                             ],
+                          //                           ),
+                          //                         ),
+                          //                       );
+                          //                     }),
+                          //               )
+                          //             : Text("No Review found"),
+                          //         SizedBox(
+                          //           height: 40,
+                          //           child: TextField(
+                          //               controller: message,
+                          //               decoration: InputDecoration(
+                          //                   hintText: "type..",
+                          //                   labelText: "Share your experience",
+                          //                   prefixIcon: Icon(Icons.note_alt_outlined),
+                          //                   suffixIcon: IconButton(
+                          //                       onPressed: () {
+                          //                         sendmessage();
+                          //                         message.clear();
+                          //                         setState(() {
+                          //                           getmsg();
+                          //                         });
+                          //                         // Navigator.of(context).pop();
+                          //                       },
+                          //                       icon: Icon(Icons.send)),
+                          //                   border: OutlineInputBorder(
+                          //                       borderRadius: BorderRadius.circular(10)))),
+                          //         )
+                          //       ],
+                          //     ),
+                          //   ),
+                          // )
+                        }),
+                  ),
+                  SizedBox(
+                    height: 40,
+                    child: TextField(
+                        controller: message,
+                        decoration: InputDecoration(
+                            hintText: "type..",
+                            labelText: "Share your experience",
+                            prefixIcon: Icon(Icons.note_alt_outlined),
+                            suffixIcon: IconButton(
+                                onPressed: () {
+                                  sendmessage();
+                                  message.clear();
+                                  // setState(() {
+                                  //   getmsg();
+                                  // });
+                                  // Navigator.of(context).pop();
+                                },
+                                icon: Icon(Icons.send)),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10)))),
+                  )
+                ],
               )
             ]))
             // Padding(

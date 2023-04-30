@@ -35,6 +35,35 @@ bool tap = true;
 var change = "";
 
 class _HospitalFullDetailsState extends State<HospitalFullDetails> {
+  sendmessage() async {
+    var id = widget.id.toString();
+
+    final _CollectionReference = FirebaseFirestore.instance
+        .collection("hospital")
+        .doc(id)
+        .collection("messages")
+        .doc();
+    return _CollectionReference.set({
+      "id": _CollectionReference.id,
+      "name": FirebaseAuth.instance.currentUser!.displayName,
+      "text": message.text,
+      "time": DateTime.now().toString(),
+      "about": "message"
+    }).then((value) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        backgroundColor: Colors.green,
+        content: Text("Review has been posted"),
+        behavior: SnackBarBehavior.floating,
+        duration: Duration(seconds: 1),
+      ));
+    }).catchError((onError) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("ERROR ${onError.toString()}"),
+        behavior: SnackBarBehavior.floating,
+      ));
+    });
+  }
+
   static Future<void> openMAp(double lat, double long) async {
     String googlemapUrl =
         "https://www.google.com/maps/search/?api=1&query=$lat,$long";
@@ -73,35 +102,15 @@ class _HospitalFullDetailsState extends State<HospitalFullDetails> {
 
   TextEditingController message = TextEditingController();
 
-  sendmessage() {
-    final _CollectionReference = FirebaseFirestore.instance
-        .collection("tourism")
-        .doc(widget.id)
-        .collection(widget.name)
-        .doc();
-    return _CollectionReference.set({
-      "id": _CollectionReference.id,
-      "name": FirebaseAuth.instance.currentUser!.displayName,
-      "text": message.text,
-      "time": DateTime.now(),
-      "about": "message"
-    }).then((value) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        backgroundColor: Colors.green.shade400,
-        content: Text("Review has been posted"),
-        behavior: SnackBarBehavior.floating,
-        duration: Duration(seconds: 1),
-      ));
-    }).catchError((onError) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("ERROR ${onError.toString()}"),
-        behavior: SnackBarBehavior.floating,
-      ));
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    var id = widget.id.toString();
+
+    final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
+        .collection("hospital")
+        .doc(id)
+        .collection("messages")
+        .snapshots();
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -163,10 +172,10 @@ class _HospitalFullDetailsState extends State<HospitalFullDetails> {
               errorWidget: (context, url, error) => Icon(Icons.error),
               fit: BoxFit.cover,
               width: double.infinity,
-              height: 300,
+              height: 280,
             ),
             SizedBox(
-              height: 10,
+              height: 07,
             ),
             Padding(
               padding: const EdgeInsets.only(left: 10, right: 10),
@@ -205,7 +214,7 @@ class _HospitalFullDetailsState extends State<HospitalFullDetails> {
               ),
             ),
             SizedBox(
-              height: 10,
+              height: 08,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -301,7 +310,7 @@ class _HospitalFullDetailsState extends State<HospitalFullDetails> {
               ],
             ),
             SizedBox(
-              height: 10,
+              height: 08,
             ),
             TabBar(
               unselectedLabelColor: Colors.black,
@@ -319,119 +328,173 @@ class _HospitalFullDetailsState extends State<HospitalFullDetails> {
             ), // TabBar
             Expanded(
                 child: TabBarView(children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Icon(Icons.location_on),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Expanded(
-                          child: Container(
-                            child: Text(widget.address,
-                                style: TextStyle(
-                                  fontSize: 15,
-                                )),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Icon(Icons.help_outline_outlined),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Divider(thickness: 0.5, color: Colors.black),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Icon(Icons.call),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Text(widget.phno,
-                            style: TextStyle(
-                              fontSize: 15,
-                            )),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Divider(
-                    thickness: 0.5,
-                    color: Colors.black,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Row(
-                      children: [
-                        Text("Overall Rating: ",
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontFamily: "JosefinSans",
-                                color: Color.fromARGB(255, 250, 134, 126))),
-                        Text(widget.rating,
-                            style: TextStyle(
-                              fontSize: 15,
-                            )),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Container(
-                    child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SingleChildScrollView(
-                      child: Container(
-                        height: 200,
-                        child: Image.network(widget.img),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Icon(Icons.location_on),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Expanded(
+                            child: Container(
+                              child: Text(widget.address,
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                  )),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Icon(Icons.help_outline_outlined),
+                        ],
                       ),
                     ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: SizedBox(
-                        height: 40,
-                        child: TextField(
-                            controller: message,
-                            decoration: InputDecoration(
-                                hintText: "type..",
-                                labelText: "Share your experience",
-                                prefixIcon: Icon(Icons.note_alt_outlined),
-                                suffixIcon: IconButton(
-                                    onPressed: () {
-                                      sendmessage();
-                                      message.clear();
-                                      print(widget.id);
-                                    },
-                                    icon: Icon(Icons.send)),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10)))),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Divider(thickness: 0.5, color: Colors.black),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Icon(Icons.call),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Text(widget.phno,
+                              style: TextStyle(
+                                fontSize: 15,
+                              )),
+                        ],
                       ),
-                    )
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Divider(
+                      thickness: 0.5,
+                      color: Colors.black,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Row(
+                        children: [
+                          Text("Overall Rating: ",
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: "JosefinSans",
+                                  color: Color.fromARGB(255, 250, 134, 126))),
+                          Text(widget.rating,
+                              style: TextStyle(
+                                fontSize: 15,
+                              )),
+                        ],
+                      ),
+                    ),
                   ],
-                )),
+                ),
+              ),
+              Column(
+                children: [
+                  Expanded(
+                    child: StreamBuilder<QuerySnapshot>(
+                        stream: _usersStream,
+                        builder: (BuildContext context,
+                            AsyncSnapshot<QuerySnapshot> snapshot) {
+                          if (snapshot.hasError) {
+                            return Text('Something went wrong');
+                          }
+                          // if (snapshot.data!.docs.isEmpty) {
+                          //   return Center(child: Text("No Review Found"));
+                          // }
+
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Text("Loading");
+                          }
+
+                          return ListView(
+                            children: snapshot.data!.docs
+                                .map((DocumentSnapshot document) {
+                              Map<String, dynamic> data =
+                                  document.data()! as Map<String, dynamic>;
+                              var time = data["time"].substring(0, 10);
+
+                              return Card(
+                                color: Colors.transparent,
+                                elevation: 0,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          color: Color.fromARGB(
+                                              122, 250, 157, 150),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 10,
+                                              right: 10,
+                                              top: 7,
+                                              bottom: 7),
+                                          child: Text(
+                                            data["text"],
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.black),
+                                          ),
+                                        )),
+                                    Padding(
+                                      padding: const EdgeInsets.all(5.0),
+                                      child: Text(
+                                        "-" + data["name"] + " at " + time,
+                                        style: TextStyle(
+                                            color: Colors.grey, fontSize: 12),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              );
+                              //
+                            }).toList(),
+                          );
+                        }),
+                  ),
+                  SizedBox(
+                    height: 40,
+                    child: TextField(
+                        controller: message,
+                        decoration: InputDecoration(
+                            hintText: "type..",
+                            labelText: "Share your experience",
+                            prefixIcon: Icon(Icons.note_alt_outlined),
+                            suffixIcon: IconButton(
+                                onPressed: () {
+                                  sendmessage();
+                                  message.clear();
+                                },
+                                icon: Icon(Icons.send)),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10)))),
+                  )
+                ],
               )
             ]))
             // Padding(
